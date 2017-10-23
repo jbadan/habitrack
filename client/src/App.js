@@ -8,6 +8,7 @@ import './App.css';
 import Signup from './Signup';
 import Login from './Login';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import LineChart from './LineChart';
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class App extends Component {
           <Login lift={this.liftTokenToState} />
         </div>
         <div>
-
+          <LineChart />
         </div>
       </div>
     );
