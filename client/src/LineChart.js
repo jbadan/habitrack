@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Main from './Main';
+
 
 class LineChart extends Component {
   constructor(props) {
