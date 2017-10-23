@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-
-
 var dateSchema = new mongoose.Schema({
   datesCompleted:String
 })
