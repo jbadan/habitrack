@@ -14,12 +14,16 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      token: {}
+      token: {},
+      user: {}
     }
   }
 
-  liftTokenToState = (token) => {
-    this.setState({token: token})
+  liftTokenToState = (data) => {
+    this.setState({
+      token: data.token,
+      user: data.user
+    })
   }
 
   render() {
@@ -32,7 +36,7 @@ class App extends Component {
           <Login lift={this.liftTokenToState} />
         </div>
         <div>
-          <HabitList />
+          <HabitList user={this.state.user}/>
         </div>
       </div>
     );
