@@ -1,6 +1,20 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
+
+
+var dateSchema = new mongoose.Schema({
+  datesCompleted:String
+})
+
+var habitSchema = new mongoose.Schema({
+  name: String,
+  difficulty: String,
+  goal: Number,
+  dates: [dateSchema]
+
+});
+
 var userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -20,7 +34,8 @@ var userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
     maxlength: 99
-  }
+  },
+  habits: [habitSchema]
 });
 
 // Override 'toJSON' to prevent the password from being returned with the user
