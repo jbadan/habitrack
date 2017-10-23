@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost/mern-local-auth');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
+var habit = require('./routes/habit');
 
 var app = express();
 
@@ -63,6 +64,7 @@ app.use(passport.session());
 app.use('/', index);
 app.use('/users', users);
 app.use('/auth', auth);
+app.use('/habit', habit);
 
 // catch 404 and forward to error handler - commented out
 // app.use(function(req, res, next) {
