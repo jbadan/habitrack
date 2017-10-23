@@ -10,9 +10,11 @@ class Main extends Component {
 
 	render() {
 		return (
-			<HabitList />
-			<LineChart />
-			<RadarChart />
+			<div>
+				<HabitList />
+				<LineChart />
+				<RadarChart />
+			</div>
 		)
 	}
 }

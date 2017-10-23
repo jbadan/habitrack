@@ -21,7 +21,7 @@ class Signup extends Component {
     this.setState({password: e.target.value})
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/auth/signup', {
       name: this.state.name,
@@ -30,7 +30,7 @@ class Signup extends Component {
     }).then(result => {
       console.log(result.data)
       localStorage.setItem('mernToken', result.data.token)
-      this.props.lift(result.data.token)
+      this.props.lift(result.data)
     })
   }
 
