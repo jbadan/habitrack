@@ -16,7 +16,8 @@ class HabitList extends Component {
     })
   }
   addItem = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(this.props.user);
     var updates = this.state.habitArray;
     updates.push({name: this.state.newItem});
     this.setState({

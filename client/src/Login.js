@@ -13,7 +13,8 @@ class Login extends Component {
   handleEmailChange = (e) => {
     this.setState({email: e.target.value})
   }
-  handlePasswordChange(e) {
+  
+  handlePasswordChange = (e) => {
     this.setState({password: e.target.value})
   }
 
