@@ -23,7 +23,8 @@ class HabitList extends Component {
       habitArray: updates
     })
     axios.post('/habit/new',{
-      name: this.state.newItem
+      name: this.state.newItem,
+      user: this.props.user
     }).then(result => {
       //nothing yet
     })
