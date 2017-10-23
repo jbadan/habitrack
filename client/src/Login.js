@@ -13,7 +13,7 @@ class Login extends Component {
   handleEmailChange = (e) => {
     this.setState({email: e.target.value})
   }
-  handlePasswordChange(e) {
+  handlePasswordChange= (e) => {
     this.setState({password: e.target.value})
   }
 
@@ -24,7 +24,7 @@ class Login extends Component {
       password: this.state.password
     }).then(result => {
       localStorage.setItem('mernToken', result.data.token)
-      this.props.lift(result.data.token)
+      this.props.lift(result.data)
     })
   }
 
