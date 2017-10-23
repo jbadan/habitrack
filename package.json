@@ -6,10 +6,12 @@
     "start": "PORT=3001 node ./bin/www"
   },
   "dependencies": {
+    "animation": "^0.1.3",
     "bcrypt": "^1.0.3",
     "body-parser": "~1.18.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
+    "d3": "^4.11.0",
     "debug": "~2.6.9",
     "dotenv": "^4.0.0",
     "express": "~4.15.5",
@@ -20,6 +22,7 @@
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "react-faux-dom": "^4.0.5",
     "react-router-dom": "^4.2.2",
     "serve-favicon": "~2.4.5"
   }

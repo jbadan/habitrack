@@ -23,7 +23,7 @@ class LineChart extends Component {
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
-        <LineSeries data={data} />
+        <LineSeries data={data} curve={'curveCardinal'} />
       </XYPlot>
     );
   }
