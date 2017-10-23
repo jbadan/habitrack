@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-
-
 var dateSchema = new mongoose.Schema({
   datesCompleted:String
 })
@@ -12,7 +10,6 @@ var habitSchema = new mongoose.Schema({
   difficulty: String,
   goal: Number,
   dates: [dateSchema]
-
 });
 
 var userSchema = new mongoose.Schema({
@@ -69,5 +66,7 @@ userSchema.pre('save', function(next) {
 });
 
 var User = mongoose.model('User', userSchema);
+
+
 
 module.exports = User;

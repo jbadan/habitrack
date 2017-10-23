@@ -21,7 +21,7 @@ class Signup extends Component {
     this.setState({password: e.target.value})
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/auth/signup', {
       name: this.state.name,
