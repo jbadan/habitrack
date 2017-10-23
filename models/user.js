@@ -10,7 +10,6 @@ var habitSchema = new mongoose.Schema({
   difficulty: String,
   goal: Number,
   dates: [dateSchema]
-
 });
 
 var userSchema = new mongoose.Schema({
