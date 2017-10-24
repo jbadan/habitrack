@@ -10,7 +10,8 @@ class HabitList extends Component {
       habitArray: [],
       newItem: '',
       selectedOption: '',
-      goal: 0
+      goal: 0,
+      editHabit: ''
     }
   }
 
@@ -19,6 +20,11 @@ class HabitList extends Component {
       user:this.props.user
     }).then(result => {
       console.log(result)
+      let newArray = this.state.habitArray
+      newArray.push(result.habits)
+      this.setState({
+        habitArray: newArray
+      })
     })
   }
 
@@ -27,6 +33,7 @@ class HabitList extends Component {
       newItem: e.target.value
     })
   }
+
   handleOptionChange = (e) =>{
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -35,13 +42,15 @@ class HabitList extends Component {
       [name]: value
     });
   }
+
   addItem = (e) => {
     e.preventDefault()
-    var updates = this.habitArray;
+    let updates = this.habitArray;
     updates.push({name: this.state.newItem, difficulty: this.state.selectedOption, goal: this.state.goal});
     this.setState({
-      itemArray: updates
+      habitArray: updates
     })
+    //post new item to database
     axios.post('/habit/new',{
       user: this.props.user,
       name: this.state.newItem,
@@ -51,9 +60,56 @@ class HabitList extends Component {
       //nothing yet
     })
   }
+  deleteHabit = (e) =>{
+     e.preventDefault();
+     let updates = this.state.habitArray;
+     let index = e.target.getAttribute('data-key');
+     updates.splice(index, 1);
+     this.setState({
+       habitArray:  updates
+     })
+     //remove from database
+     let habitName = this.state.habitArray[index].name
+     axios.post('/habit/delete', {
+       indexNumber: index,
+       name: habitName
+     }).then(result => {
+       //nothing yet
+     })
+   }
+
+   editHabitChange = (e) => {
+     this.setState({
+       editHabit: e.target.value
+     })
+   }
+   editHabitHandler = (e) => {
+     e.preventDefault()
+     let index = e.target.getAttribute('data-key');
+     let newHabitName = this.state.editHabit;
+     this.setState({
+       editHabit: ''
+     })
+     //edit name in database
+     axios.post('/habit/edit',{
+
+     })
+   }
   render() {
     return(
       <div>
+        {this.state.habitArray.map((habit, index) => {
+          return(
+            <div key={index}>
+              <h3> habit.name </h3>
+              <form>
+                 <input type="text" placeholder={habit.name} onChange={(e) => this.editHabitChange(e)} value={this.state.editHabit}/>
+                 <button data-key={index} onClick={(e) => this.editHabitHandler(e)}>Edit</button>
+             </form>
+             <button onClick={this.deleteHabit} data-key={index}>delete</button>
+        </div>
+          )
+        })}
         <form>
            <input type="text" placeholder="Type a new habit here" onChange={(e) => this.newItemChange(e)} value={this.state.newItem}/>
 
