@@ -40,8 +40,10 @@ class LineChart extends Component {
         height = 500 - margin.top - margin.bottom;
 
     // parse the date / time
-    let parseTime = d3.timeParse("%d-%b-%Y");
+    let formatTime = d3.timeFormat("%x");
+    let xTime = d3.timeFormat("%b %-d");
 
+    // Formatting data
     data.forEach(function(d) {
       d.date = Date.parse(d.date);
       d.count = +d.count;
@@ -52,11 +54,22 @@ class LineChart extends Component {
 
     // define the line
     let line = d3.line()
-        .x(function(d) { return x(d.date); })
-        .y(function(d) { return y(d.count, d.y1); })
-        .curve(d3.curveCatmullRom);
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.count, d.y1); })
+      .curve(d3.curveCatmullRom);
 
-    // append the svg obgect to the body of the page
+    // Add tooltip
+    let tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+    // Gridline
+    let gridlines = d3.axisBottom()
+      .tickFormat("")
+      .tickSize(-height)
+      .scale(y);
+
+    // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     const div = new ReactFauxDOM.Element('div')
@@ -69,8 +82,7 @@ class LineChart extends Component {
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-    // Get the data
-
+    // Get the data and load it to the domain
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.count; })]);
 
@@ -87,19 +99,38 @@ class LineChart extends Component {
       .enter().append("circle")
         .attr("r", 4)
         .attr("cx", function(d) { return x(d.date); })
-        .attr("cy", function(d) { return y(d.count); });
-
+        .attr("cy", function(d) { return y(d.count); })
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html(
+              "Date: " + formatTime(d.date) + "<br/>"  +
+              "Count: " + d.count
+            )
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
     // Add the X Axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x)
+          .tickFormat(xTime)
+          .tickSize(-height)
+          .scale(x)
+        );
 
     // Add the Y Axis
     svg.append("g")
         .call(d3.axisLeft(y));
 
-
+    // Return as a react jsx
     return div.toReact()
   }
 }
