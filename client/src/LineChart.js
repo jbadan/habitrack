@@ -85,23 +85,23 @@ class LineChart extends Component {
     y.domain([0, d3.max(data, function(d) { return d.count; })]);
 
     // Add gridlines
-    let xLines = d3.axisBottom(x)
+    let xGridlines = d3.axisBottom(x)
       .tickFormat("")
       .tickSize(height)
-      .scale(scale);
+      .scale(x);
 
-    let yLines = d3.axisRight(y)
+    let yGridlines = d3.axisRight(y)
       .tickFormat("")
       .tickSize(width)
       .scale(y);
 
     svg.append("g")
       .attr("class", "grid")
-      .call(xLines);
+      .call(xGridlines);
 
     svg.append("g")
       .attr("class", "grid")
-      .call(yLines);
+      .call(yGridlines);
 
     // Add the valueline path.
     svg.append("g")
