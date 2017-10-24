@@ -101,7 +101,7 @@ class HabitList extends Component {
         {this.state.habitArray.map((habit, index) => {
           return(
             <div key={index}>
-              <h3> habit.name </h3>
+              <h3> {habit.name} </h3>
               <form>
                  <input type="text" placeholder={habit.name} onChange={(e) => this.editHabitChange(e)} value={this.state.editHabit}/>
                  <button data-key={index} onClick={(e) => this.editHabitHandler(e)}>Edit</button>
