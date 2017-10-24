@@ -6,10 +6,6 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
-import Signup from './Signup';
-import Login from './Login';
-import AuthenticatedRoute from './AuthenticatedRoute';
-import LineChart from './LineChart';
 import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
@@ -51,7 +47,7 @@ class App extends Component {
     return (
 
       <Router>
-    
+
           {switchStatement}
 
     </Router>
