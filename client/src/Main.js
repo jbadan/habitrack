@@ -10,11 +10,12 @@ class Main extends Component {
 		super(props);
 	}
 
+
 	render() {
 		return (
 			<div>
-					<Signup lift={this.props.liftTokenToState} />
-					<Login lift={this.props.liftTokenToState} />
+					<Signup lift={this.props.lift} />
+					<Login lift={this.props.lift} />
 			</div>
 		)
 	}
