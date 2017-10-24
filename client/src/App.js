@@ -14,6 +14,7 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class App extends Component {
 
           <Switch>
            <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
-           {this.state.user === {} ? <Route path="/display" render={() => <HabitList user={this.state.user}/>}/> : <Route path="/display" render={Restricted} />}
+           {this.state.user !== {} ? <Route path="/display" render={() => <HabitList user={this.state.user}/>}/> : <Route path="/display" render={Restricted} />}
            <Route path="/habit" render={() => <Habit />}/>
           </Switch>
           <LineChart />
