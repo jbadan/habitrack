@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   liftTokenToState = (data) => {
-    console.log(data)
     this.setState({
       token: data.token,
       user: data.user
