@@ -5,13 +5,14 @@ import Main from './Main';
 class LineChart extends Component {
   constructor(props) {
     super(props);
-    this.state {
+    this.state=  {
 
     }
   }
   render() {
     return(
-
+      <div>
+      </div>
     )
   }
 }
