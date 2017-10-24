@@ -10,6 +10,7 @@
     "react-dom": "^16.0.0",
     "react-faux-dom": "^4.0.5",
     "react-scripts": "1.0.14",
+    "react-tap-event-plugin": "^3.0.2",
     "react-vis": "^1.7.9"
   },
   "scripts": {

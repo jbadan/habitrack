@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Redirect
+} from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      redirect: false
     }
   }
 
@@ -26,10 +31,17 @@ class Login extends Component {
     }).then(result => {
       localStorage.setItem('mernToken', result.data.token)
       this.props.lift(result.data)
+      this.setState({
+        redirect: true
+      })
     })
   }
 
   render() {
+    const{redirect} = this.state;
+    if(redirect){
+      return <Redirect to ='/display'/>
+    }
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
