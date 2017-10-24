@@ -48,7 +48,7 @@ class HabitList extends Component {
       [name]: value
     });
   }
-  
+
 //100% WORKING
   addItem = (e) => {
     e.preventDefault()
@@ -120,8 +120,8 @@ class HabitList extends Component {
       today = mm + '/' + dd + '/' + yyyy;
      axios.post('/habit/date', {
        user: this.props.user,
-       name: habitName,
-       date: today
+       date: today,
+       name: habitName
      })
    }
 

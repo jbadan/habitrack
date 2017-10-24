@@ -49,26 +49,29 @@ router.post('/delete', function(req, res, next){
 
 //adds current date to database when you click on an item
 router.post('/date', function(req, res, next){
-  console.log(req.body)
+  console.log("------------------------------------------------")
+  console.log(req.body.date)
   let habitName = req.body.name;
   let user = req.body.user;
   let today = req.body.date;
-  var newDate = new Date({
-    date: today
-  })
-  User.findById(req.body.user.id, function(err, user){
-    var habits = user.habits;
-    for(i in habits){
-      if(habits[i]._id === req.body.user.id){
-        habits[i].dates.push(newDate);
-        User.save(function(err){
-          if(err) console.log(err);
-          else res.send("sucessfully added date")
-        });
-      }
+
+  User.findOne({"_id" : req.body.user.id}, function(err, userVar){
+    if(userVar){
+        for (var i = 0; i < userVar.habits.length; i++) {
+            if(userVar.habits[i].name = habitName){
+                for (var j = 0; j < userVar.habits[i].dates[j].length; j++) {
+                    if (userVar.habits[i].dates[j].date = '') {
+                        userVar.habits[i].dates[j].date = today;
+                        userVar.save();
+                    };
+                };
+            }
+        };
     }
-    });
-  })
+});
+
+
+})
 
 router.post('/edit', function(req, res, next){
   //edit habit name in database

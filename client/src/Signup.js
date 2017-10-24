@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class Signup extends Component {
   constructor(props) {
@@ -36,14 +37,38 @@ class Signup extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        Name: <input type='text' value={this.state.name} onChange={this.handleNameChange} /><br />
-        Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
-        Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />
-        <RaisedButton label="Sign Up" type='submit' />
-      </form>
+      <div className="SignupBox">
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+               hintText="Name"
+               floatingLabelText="What is your first name?"
+               value={this.state.name}
+               onChange={this.handleNameChange}
+          /><br />
+          <TextField
+               hintText="Email"
+               floatingLabelText="What is your email?"
+               value={this.state.email}
+               onChange={this.handleEmailChange}
+          /><br />
+          <TextField
+               hintText="Password"
+               floatingLabelText="Choose a password"
+               type="password"
+               value={this.state.password}
+               onChange={this.handlePasswordChange}
+          /><br />
+          <RaisedButton label="Sign Up" type='submit' />
+        </form>
+      </div>
     );
   }
 }
 
 export default Signup;
+
+
+
+//Name: <input type='text' value={this.state.name} onChange={this.handleNameChange} /><br />
+//Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
+//Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />
