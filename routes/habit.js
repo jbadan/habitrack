@@ -54,23 +54,24 @@ router.post('/date', function(req, res, next){
   let habitName = req.body.name;
   let user = req.body.user;
   let today = req.body.date;
+  let newDate = {
+    date: today
+  }
 
-  User.findOne({"_id" : req.body.user.id}, function(err, userVar){
+//WORKING
+  User.findOne({"_id" : req.body.user.id}).
+  populate("habits").
+  exec(function(err, userVar){
+    console.log(userVar)
     if(userVar){
         for (var i = 0; i < userVar.habits.length; i++) {
             if(userVar.habits[i].name = habitName){
-                for (var j = 0; j < userVar.habits[i].dates[j].length; j++) {
-                    if (userVar.habits[i].dates[j].date = '') {
-                        userVar.habits[i].dates[j].date = today;
-                        userVar.save();
-                    };
-                };
-            }
-        };
+               userVar.habits[i].dates.push(newDate);
+               userVar.save();
+             };
+          };
     }
-});
-
-
+  });
 })
 
 router.post('/edit', function(req, res, next){
