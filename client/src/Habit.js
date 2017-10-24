@@ -3,14 +3,12 @@ import HabitList from './HabitList';
 
 class Habit extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-
-    }
+    super(props)
   }
   render() {
     return(
       <div>
+
       </div>
     )
   }
