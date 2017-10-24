@@ -1,0 +1,12 @@
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.y1 {
+  fill: white;
+  stroke: orange;
+  stroke-width: 1.5px;
+}
+

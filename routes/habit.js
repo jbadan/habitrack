@@ -3,10 +3,19 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
 
+
+router.get('/', function(req,res,next){
+  User.find({ "_id": req.body.user.id}, function(err,users){
+    if(err) return res.send(err);
+    res.send(user.habits)
+  })
+})
+
 router.post('/new', function(req,res,next){
-  console.log(req.body.name)
   var habit = {
-    name: req.body.name
+    name: req.body.name,
+    difficulty: req.body.difficulty,
+    goal: req.body.goal
   }
   User.findOneAndUpdate(
     { "_id": req.body.user.id},
@@ -16,9 +25,8 @@ router.post('/new', function(req,res,next){
         }
     },
     function(err,user) {
-      console.log(user)
-    }
-);
+
+    });
 });
 
 
