@@ -51,7 +51,8 @@ class App extends Component {
            <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
            {this.state.user === {} ? <Route path="/display" render={() => <HabitList user={this.state.user}/>}/> : <Route path="/display" render={Restricted} />}
            <Route path="/habit" render={() => <Habit />}/>
-         </Switch>
+          </Switch>
+          <LineChart />
       </div>
     </Router>
     );
