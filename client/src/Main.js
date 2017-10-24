@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import HabitList from './HabitList';
-import LineChart from './LineChart';
-import RadarChart from './RadarChart';
 import Signup from './Signup';
 import Login from './Login';
 
