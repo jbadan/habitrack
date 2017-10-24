@@ -6,6 +6,8 @@ import * as d3 from "d3";
 class LineChart extends Component {
 
   render() {
+    // let data = this.props.data,
+    //   width = this
     let data = [
       {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
       {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
@@ -35,9 +37,9 @@ class LineChart extends Component {
       {date:'27-Mar-2017',count:Math.floor(Math.random() * 11)}
     ]
     // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    let width = 900,
+        height = 550,
+        padding = 75;
 
     // parse the date / time
     let formatTime = d3.timeFormat("%x");
@@ -49,18 +51,17 @@ class LineChart extends Component {
       d.count = +d.count;
     });
 
-    let scale = d3.scaleLinear()
-      .domain( [0, 100] )
-      .range( [0, width] );
     // set the ranges
-    let x = d3.scaleTime().range([0, width]);
-    let y = d3.scaleLinear().range([height, 0]);
+    let x = d3.scaleTime()
+      .range([padding, width - padding]);
+    let y = d3.scaleLinear()
+      .range([height - padding, padding]);
 
     // define the line
     let line = d3.line()
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.count, d.y1); })
-      .curve(d3.curveCatmullRom);
+      .curve(d3.curveBasis);
 
     // Add tooltip
     let tooltip = d3.select("body").append("div")
@@ -74,33 +75,33 @@ class LineChart extends Component {
 
     //Pass it to d3.select and proceed as normal
     let svg = d3.select(div).append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
+        .attr("width", width + padding)
+        .attr("height", height + padding)
 
     // Get the data and load it to the domain
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.count; })]);
 
     // Add gridlines
-    let xGridlines = d3.axisBottom(x)
+    let xGridlines = d3.axisBottom()
       .tickFormat("")
-      .tickSize(height)
+      .tickSize(height - padding * 2)
       .scale(x);
 
-    let yGridlines = d3.axisRight(y)
+    let yGridlines = d3.axisRight()
+
       .tickFormat("")
-      .tickSize(width)
+      .tickSize(width - padding * 2)
       .scale(y);
 
     svg.append("g")
       .attr("class", "grid")
+      .attr("transform", `translate(0,${(padding)})`)
       .call(xGridlines);
 
     svg.append("g")
       .attr("class", "grid")
+      .attr("transform", `translate(${padding},0)`)
       .call(yGridlines);
 
     // Add the valueline path.
@@ -121,10 +122,26 @@ class LineChart extends Component {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
-            tooltip.html(
-              "Date: " + formatTime(d.date) + "<br/>"  +
-              "Count: " + d.count
-            )
+            tooltip.html(`
+              <table>
+                <tr>
+                  <th>
+                    <b>Date:</b>
+                  </th>
+                  <td>
+                    ${formatTime(d.date)}
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <b>Achieved:</b>
+                  </th>
+                  <td>
+                    ${d.count}
+                  </td>
+                </tr>
+              </table>
+            `)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -136,12 +153,35 @@ class LineChart extends Component {
 
     // Add the X Axis
     svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).ticks(10).tickFormat(xTime));
+    .attr("class", "xaxis axis")  // two classes, one for css formatting, one for selection below
+      .attr("transform", `translate(0,${(height - padding)})`)
+      .call(d3.axisBottom(x).ticks(10).tickFormat(xTime));
 
     // Add the Y Axis
     svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(${padding},0)`)
         .call(d3.axisLeft(y));
+
+    // now rotate text on x axis
+    // solution based on idea here: https://groups.google.com/forum/?fromgroups#!topic/d3-js/heOBPQF3sAY
+    // first move the text left so no longer centered on the tick
+    // then rotate up to get 45 degrees.
+    svg.selectAll(".xaxis text")  // select all the text elements for the xaxis
+      .attr("transform", function(d) {
+         return "translate(" + this.height*-2 + "," + this.height + ")rotate(-45)";
+     });
+
+    // now add titles to the axes
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate("+ (padding/2) +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+        .text("Habits Completed");
+
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate("+ (width/2) +","+(height-(padding/3))+")")  // centre below axis
+        .text("Date");
 
     // Return as a react jsx
     return div.toReact()
