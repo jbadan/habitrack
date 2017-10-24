@@ -6,15 +6,13 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
-import Signup from './Signup';
-import Login from './Login';
-import AuthenticatedRoute from './AuthenticatedRoute';
-import LineChart from './LineChart';
 import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+
 
 class App extends Component {
   constructor(props) {
@@ -50,10 +48,9 @@ class App extends Component {
         </Switch>
     }
     return (
-
-      <Router>
+        <Router>
           {switchStatement}
-      </Router>
+        </Router>
     );
   }
 }
