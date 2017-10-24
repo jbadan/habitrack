@@ -4,18 +4,22 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 
 router.post('/new', function(req,res,next){
-  //this is where we add the new habit to the database
-  // req.body.user = the user
-  // req.body.name = new habit
-  var updateData = {
-    habits: req.body.name
+  console.log(req.body.name)
+  var habit = {
+    name: req.body.name
   }
-  User.update({"_id":req.body.user._id},  updateData, function (err, user) {
-    if (err) return handleError(err);
-    res.send(user);
-  });
-
-} )
+  User.findOneAndUpdate(
+    { "_id": req.body.user.id},
+    {
+        $push: {
+            habits: habit
+        }
+    },
+    function(err,user) {
+      console.log(user)
+    }
+);
+});
 
 
 module.exports = router;
