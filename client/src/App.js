@@ -47,7 +47,8 @@ class App extends Component {
         </Switch>
     }
     return (
-      <Router>
+
+        <Router>
           {switchStatement}
         </Router>
     );
