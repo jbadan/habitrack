@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './App.css';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import {
   BrowserRouter as Router,
   Redirect
@@ -44,10 +46,21 @@ class Login extends Component {
       return <Redirect to ='/display'/>
     }
     return (
-      <div>
+      <div className="LoginBox">
         <form onSubmit={this.handleSubmit}>
-          Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
-          Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />
+          <TextField
+               hintText="Email"
+               floatingLabelText="Enter your email"
+               value={this.state.email}
+               onChange={this.handleEmailChange}
+          /><br />
+          <TextField
+               hintText="Password"
+               floatingLabelText="Enter your password"
+               type="password"
+               value={this.state.password}
+               onChange={this.handlePasswordChange}
+          /><br />
           <RaisedButton label="Log in" type='submit' />
         </form>
       </div>
@@ -56,3 +69,8 @@ class Login extends Component {
 }
 
 export default Login;
+
+
+
+// Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
+//Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />
