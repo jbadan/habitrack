@@ -20,7 +20,7 @@ class HabitList extends Component {
       redirect: false
     }
   }
-
+  //WORKING
   componentDidMount(){
     axios.post('/habit', {
       user:this.state.user
@@ -49,7 +49,7 @@ class HabitList extends Component {
     });
   }
 
-//100% WORKING
+//WORKING
   addItem = (e) => {
     e.preventDefault()
     var updates = this.state.habitArray;
@@ -68,25 +68,24 @@ class HabitList extends Component {
     })
   }
 
-  //not working on db end- works on front end
+  //WORKING
   deleteHabit = (e) =>{
      e.preventDefault();
      let updates = this.state.habitArray;
      let index = e.target.getAttribute('data-key');
+     let habitName = e.target.getAttribute('data-name');
      updates.splice(index, 1);
      this.setState({
        habitArray:  updates
-     }, () => {
-       let habitName = this.state.habitArray[index].name
-       axios.post('/habit/delete', {
-         user: this.props.user,
-         indexNumber: index,
-         name: habitName
-       }).then(result => {
-         //nothing yet
-       })
-    })
-   }
+     })
+     axios.post('/habit/delete', {
+       user: this.props.user,
+       indexNumber: index,
+       name: habitName
+     }).then(result => {
+       //nothing yet
+     })
+    }
 
    editHabitChange = (e) => {
      this.setState({
@@ -149,7 +148,7 @@ class HabitList extends Component {
                  <input type="text" placeholder={habit.name} onChange={(e) => this.editHabitChange(e)} value={this.state.editHabit}/>
                  <button data-key={index} onClick={(e) => this.editHabitHandler(e)}>Edit</button>
              </form>
-             <button onClick={this.deleteHabit} data-key={index}>delete</button>
+             <button onClick={this.deleteHabit} data-name={habit.name} data-key={index}>delete</button>
         </div>
           )
         })}

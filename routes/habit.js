@@ -32,22 +32,21 @@ router.post('/new', function(req,res,next){
 });
 
 
-//NOT WORKING YET :)
+//WORKING
 router.post('/delete', function(req, res, next){
   let habitName = req.body.name;
   let index = req.body.indexNumber;
-  User.findOneAndUpdate(
-    { "user.habits._id": req.body.user.id},
-    {
-      $pull: {habits:{name: habitName }}
-    },
-    {new:true},
-    function(err, user){
-      console.log(err, user)
-    })
+  User.findOne({"_id" : req.body.user.id}).
+  populate("habits").
+  exec(function(err, userVar){
+    console.log(userVar)
+    userVar.habits[index].remove()
+    userVar.save();
+  })
 })
 
 //adds current date to database when you click on an item
+//WORKING
 router.post('/date', function(req, res, next){
   console.log("------------------------------------------------")
   console.log(req.body.date)
@@ -57,8 +56,6 @@ router.post('/date', function(req, res, next){
   let newDate = {
     date: today
   }
-
-//WORKING
   User.findOne({"_id" : req.body.user.id}).
   populate("habits").
   exec(function(err, userVar){
