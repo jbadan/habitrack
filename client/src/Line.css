@@ -49,8 +49,3 @@ circle {
 .grid line {
   stroke: #ddd;
 }
-
-.axis text {
-  font-family: sans-serif;
-  font-size: 11px;
-}
