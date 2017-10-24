@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
   Link
 } from 'react-router-dom';
 import './App.css';
@@ -10,6 +11,8 @@ import Login from './Login';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import LineChart from './LineChart';
 import HabitList from './HabitList';
+import Main from './Main';
+import Habit from './Habit';
 
 class App extends Component {
   constructor(props) {
@@ -30,18 +33,23 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
-        <div className="SignupBox">
-          <Signup lift={this.liftTokenToState} />
-        </div>
-        <div className="LoginBox">
-          <Login lift={this.liftTokenToState} />
-        </div>
-        <div>
-          <HabitList user={this.state.user}/>
-          <LineChart />
-        </div>
+      <Router>
+      <div>
+          <nav>
+            <div>
+              <div>
+                <img src="#"/>
+                <Link to="/" href="#">Home</Link>
+              </div>
+            </div>
+          </nav>
+          <Switch>
+           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+           <Route path="/display" render={() => <HabitList user={this.state.user}/>}/>
+           <Route path="/habit" render={() => <Habit />}/>
+         </Switch>
       </div>
+    </Router>
     );
   }
 }
