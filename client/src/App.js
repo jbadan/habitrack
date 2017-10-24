@@ -15,6 +15,8 @@ import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
 
+
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -49,12 +51,11 @@ class App extends Component {
         </Switch>
     }
     return (
+        <Router>
 
-      <Router>
-    
-          {switchStatement}
+            {switchStatement}
 
-    </Router>
+        </Router>
     );
   }
 }

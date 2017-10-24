@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import RaisedButton from 'material-ui/RaisedButton';
 import {
   BrowserRouter as Router,
   Redirect
@@ -47,7 +48,7 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
           Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />
-          <input type='submit' value='Log in' />
+          <RaisedButton label="Log in" type='submit' />
         </form>
       </div>
     );
