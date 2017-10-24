@@ -8,6 +8,7 @@ import './App.css';
 import Signup from './Signup';
 import Login from './Login';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import LineChart from './LineChart';
 import HabitList from './HabitList';
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div className="App">
         <div className="SignupBox">
@@ -37,6 +39,7 @@ class App extends Component {
         </div>
         <div>
           <HabitList user={this.state.user}/>
+          <LineChart />
         </div>
       </div>
     );
