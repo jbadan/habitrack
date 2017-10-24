@@ -35,9 +35,8 @@ class LineChart extends Component {
       {date:'27-Mar-2017',count:Math.floor(Math.random() * 11)}
     ]
     // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 700 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+    let width = this.props.width - 50,
+        height = width * 0.50;
 
     // parse the date / time
     let formatTime = d3.timeFormat("%x");
@@ -74,11 +73,10 @@ class LineChart extends Component {
 
     //Pass it to d3.select and proceed as normal
     let svg = d3.select(div).append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
+        .attr("width", width)
+        .attr("height", height);
+
+    let chartWrapper = svg.append("g")
 
     // Get the data and load it to the domain
     x.domain(d3.extent(data, function(d) { return d.date; }));
@@ -149,6 +147,28 @@ class LineChart extends Component {
                 .duration(500)
                 .style("opacity", 0);
         });
+
+    let locator = chartWrapper.append('circle')
+      .style('display', 'none')
+      .attr('r', 10)
+      .attr('fill', '#f00');
+
+    chartWrapper.on('touchmove', onTouchMove);
+
+    var touchScale = d3.scaleLinear()
+      .domain([0,width])
+      .range([0,data.length-1]).clamp(true);
+
+    function onTouchMove() {
+      var xPos = d3.touches(this)[0][0];
+      var d = data[~~touchScale(xPos)];
+
+      locator.attr({
+        cx : x(new Date(d.date)),
+        cy : y(d.count)
+      })
+      .style('display', 'block');
+    }
 
     // Add the X Axis
     svg.append("g")

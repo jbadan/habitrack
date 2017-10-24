@@ -49,3 +49,7 @@ circle {
 .grid line {
   stroke: #ddd;
 }
+
+svg {
+  padding: 25px;
+}
