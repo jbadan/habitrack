@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Main from './Main';
 import axios from 'axios';
+import LineChart from './LineChart';
 
 class HabitList extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class HabitList extends Component {
       goal: 0
     }
   }
-  
+
   componentDidMount(){
     axios.get('/habit', {
       user:this.props.user
@@ -105,6 +106,8 @@ class HabitList extends Component {
        </label>
            <button onClick={(e) => this.addItem(e)}>Add it!</button>
         </form>
+
+        <LineChart />
       </div>
     )
   }
