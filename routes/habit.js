@@ -30,17 +30,19 @@ router.post('/new', function(req,res,next){
 });
 
 router.post('/habit/delete', function(req, res, next){
-  let habitName = req.body.name
+  let habitName = req.body.name;
   User.findOneAndUpdate(
     {'habits.name': habitName},
     {
       $pull: {habits:{name: habitName }}
-    }
+    },
     {new:true},
     function(err, user){
       console.log(err,user)
     })
 })
+
+
 
 router.post('/habit/edit', function(req, res, next){
   //edit habit name in database
