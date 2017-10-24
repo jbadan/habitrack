@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import HabitList from './HabitList';
 import LineChart from './LineChart';
 import RadarChart from './RadarChart';
+import Signup from './Signup';
+import Login from './Login';
 
 class Main extends Component {
 	constructor(props) {
@@ -11,9 +13,8 @@ class Main extends Component {
 	render() {
 		return (
 			<div>
-				<HabitList />
-				<LineChart />
-				<RadarChart />
+					<Signup lift={this.props.liftTokenToState} />
+					<Login lift={this.props.liftTokenToState} />
 			</div>
 		)
 	}
