@@ -9,19 +9,22 @@ import Signup from './Signup';
 import Login from './Login';
 import AuthenticatedRoute from './AuthenticatedRoute';
 import LineChart from './LineChart';
-import { RadarChart, Treemap } from 'react-vis';
-import BarChart from './BarChart';
+import HabitList from './HabitList';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      token: {}
+      token: {},
+      user: {}
     }
   }
 
-  liftTokenToState = (token) => {
-    this.setState({token: token})
+  liftTokenToState = (data) => {
+    this.setState({
+      token: data.token,
+      user: data.user
+    })
   }
 
   render() {
@@ -35,7 +38,7 @@ class App extends Component {
           <Login lift={this.liftTokenToState} />
         </div>
         <div>
-          <BarChart />
+          <HabitList user={this.state.user}/>
           <LineChart />
         </div>
       </div>
