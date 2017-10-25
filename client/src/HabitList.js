@@ -129,7 +129,7 @@ class HabitList extends Component {
    //WORKING
    handleRedirect = (e) => {
      e.preventDefault()
-     let habitName = e.target.getAttribute('data-key');
+     let habitName = 'Study';
      console.log(habitName);
      axios.post('/habit/details', {
       user: this.props.user,
@@ -180,6 +180,7 @@ class HabitList extends Component {
           return(
             <Card key={index}>
               <CardTitle onClick={(e) => this.handleRedirect(e)} data-key={habit.name} title={habit.name}/>
+              { /* <a label={habit.name} onClick={(e) => this.handleRedirect(e)} data-key={habit.name}>{habit.name}</a> */}
               <a label="Complete" onClick={(e) => this.handleDate(e)} data-attr={habit.name}>Complete</a>
              <a label="X"  onClick={this.deleteHabit} data-name={habit.name} data-key={index}>X</a>
         </Card>
