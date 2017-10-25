@@ -62,7 +62,7 @@ router.post('/date', function(req, res, next){
     console.log(userVar)
     if(userVar){
         for (var i = 0; i < userVar.habits.length; i++) {
-            if(userVar.habits[i].name = habitName){
+            if(userVar.habits[i].name === habitName){
                userVar.habits[i].dates.push(newDate);
                userVar.save();
              };
