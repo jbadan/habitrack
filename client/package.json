@@ -14,7 +14,8 @@
     "react-measure": "^2.0.2",
     "react-scripts": "1.0.14",
     "react-tap-event-plugin": "^3.0.2",
-    "react-vis": "^1.7.9"
+    "react-vis": "^1.7.9",
+    "recharts": "^1.0.0-beta.0"
   },
   "scripts": {
     "start": "react-scripts start",
