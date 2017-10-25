@@ -10,6 +10,7 @@ class RadarChart extends Component {
     }
   }
   render() {
+    
     return(
       <div>
       </div>

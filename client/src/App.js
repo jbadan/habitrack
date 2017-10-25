@@ -10,6 +10,8 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
+import ResponsiveLineCh 'react-flexbox-grid';
+
 
 class App extends Component {
   constructor(props) {
@@ -29,11 +31,6 @@ class App extends Component {
 
   render() {
 
-    // Formatting data
-    // theData.forEach(function(d) {
-    //   d.date = Date.parse(d.date);
-    //   d.count = +d.count;
-    // });
     let switchStatement = '';
     if(Object.keys(this.state.user).length === 0){
        switchStatement =
@@ -51,9 +48,11 @@ class App extends Component {
         </Switch>
     }
     return (
-      <Router>
-        {switchStatement}
-      </Router>
+      <div>
+        <Router>
+          {switchStatement}
+        </Router>
+      </div>
     );
   }
 }
