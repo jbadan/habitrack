@@ -6,47 +6,15 @@ import * as d3 from "d3";
 class LineChart extends Component {
 
   render() {
-    let data = [
-      {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'15-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'9-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'5-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'31-Mar-2017',count:Math.floor(Math.random() * 11)},
-      {date:'30-Mar-2017',count:Math.floor(Math.random() * 11)},
-      {date:'29-Mar-2017',count:Math.floor(Math.random() * 11)},
-      {date:'28-Mar-2017',count:Math.floor(Math.random() * 11)},
-      {date:'27-Mar-2017',count:Math.floor(Math.random() * 11)}
-    ]
+    let data = this.props.data;
+    console.log(data);
     // set the dimensions and margins of the graph
     let width = this.props.width - 50,
-        height = width * 0.50;
+        height = width * 0.25;
 
     // parse the date / time
     let formatTime = d3.timeFormat("%x");
     let xTime = d3.timeFormat("%b %-d");
-
-    // Formatting data
-    data.forEach(function(d) {
-      d.date = Date.parse(d.date);
-      d.count = +d.count;
-    });
 
     let scale = d3.scaleLinear()
       .domain( [0, 100] )
@@ -147,28 +115,6 @@ class LineChart extends Component {
                 .duration(500)
                 .style("opacity", 0);
         });
-
-    let locator = chartWrapper.append('circle')
-      .style('display', 'none')
-      .attr('r', 10)
-      .attr('fill', '#f00');
-
-    chartWrapper.on('touchmove', onTouchMove);
-
-    var touchScale = d3.scaleLinear()
-      .domain([0,width])
-      .range([0,data.length-1]).clamp(true);
-
-    function onTouchMove() {
-      var xPos = d3.touches(this)[0][0];
-      var d = data[~~touchScale(xPos)];
-
-      locator.attr({
-        cx : x(new Date(d.date)),
-        cy : y(d.count)
-      })
-      .style('display', 'block');
-    }
 
     // Add the X Axis
     svg.append("g")
