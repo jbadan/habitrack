@@ -14,6 +14,16 @@ router.post('/', function(req,res,next){
   });
 })
 
+router.post('/details', function(req,res,next){
+  let habitName = req.body.name
+  User.findOne({ "_id": req.body.user.id}).
+  populate('habits').
+  exec(function (err, user) {
+    if (err) return handleError(err);
+    res.send(user.habits);
+  });
+})
+
 //adds new habit to user db
 //WORKING
 router.post('/new', function(req,res,next){

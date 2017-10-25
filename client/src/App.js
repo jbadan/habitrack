@@ -10,6 +10,9 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
+import ResponsiveLineChart from './ResponsiveLineChart';
+import { Row, Col } from 'react-flexbox-grid';
+
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +31,7 @@ class App extends Component {
   }
 
   render() {
+
     let switchStatement = '';
     if(Object.keys(this.state.user).length === 0){
        switchStatement =
@@ -41,13 +45,15 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={() => <HabitList user={this.state.user}/>}/>
-          <Route path="/habit" render={() => <Habit />} />
+          <Route path="/habit" render={() => <Habit user={this.state.user}/>} />
         </Switch>
     }
     return (
-      <Router>
-        {switchStatement}
-      </Router>
+      <div>
+        <Router>
+          {switchStatement}
+        </Router>
+      </div>
     );
   }
 }
