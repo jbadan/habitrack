@@ -12,10 +12,8 @@ import Habit from './Habit';
 import Restricted from './Restricted';
 import Signup from './Signup';
 import Login from './Login';
-//MATERIAL UI THEME
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+//Material ui
 import AppBar from 'material-ui/AppBar';
 
 class App extends Component {
@@ -60,8 +58,8 @@ class App extends Component {
     }
     return (
       <div>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-          <Router>
+        <Router>
+          <div>
             <AppBar
               title="HabiTracker"
             >
@@ -69,8 +67,8 @@ class App extends Component {
               <Login lift={this.liftTokenToState} user={this.state.user} />
             </AppBar>
             {switchStatement}
-          </Router>
-        </MuiThemeProvider>
+          </div>
+        </Router>
       </div>
     );
   }
