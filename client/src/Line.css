@@ -21,7 +21,7 @@
   stroke-width: 1.5px;
 }
 
-circle {
+.circle {
   fill: steelblue;
 }
 
@@ -50,6 +50,6 @@ circle {
   stroke: #ddd;
 }
 
-svg {
+.line-chart {
   padding: 25px;
 }

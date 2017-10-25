@@ -42,7 +42,8 @@ class LineChart extends Component {
     //Pass it to d3.select and proceed as normal
     let svg = d3.select(div).append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("class", 'line-chart');
 
     let chartWrapper = svg.append("g")
 
@@ -80,6 +81,7 @@ class LineChart extends Component {
     svg.selectAll("dot")
         .data(data)
       .enter().append("circle")
+        .attr("class", "circle")
         .attr("r", 4)
         .attr("cx", function(d) { return x(d.date); })
         .attr("cy", function(d) { return y(d.count); })

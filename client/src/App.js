@@ -10,9 +10,6 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
-import ResponsiveLineChart from './ResponsiveLineChart';
-import { Row, Col } from 'react-flexbox-grid';
-import ResponsiveRadarChart from './RadarChart';
 
 class App extends Component {
   constructor(props) {
@@ -53,7 +50,6 @@ class App extends Component {
         <Router>
           {switchStatement}
         </Router>
-        <ResponsiveRadarChart />
       </div>
     );
   }
