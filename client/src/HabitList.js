@@ -16,12 +16,33 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Row, Col } from 'react-flexbox-grid';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import Checkbox from 'material-ui/Checkbox';
+import IconMenu from 'material-ui/IconMenu';
+import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const styles = {
   radioButton: {
 
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
   }
 };
+const iconButtonElement = (
+  <IconButton
+    touch={true}
+    tooltip="more"
+    tooltipPosition="bottom-left"
+  >
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
 
 
 class HabitList extends Component {
@@ -89,16 +110,14 @@ class HabitList extends Component {
   deleteHabit = (e) =>{
      e.preventDefault();
      let updates = this.state.habitArray;
-     let index = e.target.getAttribute('data-key');
-     let habitName = e.target.getAttribute('data-name');
+     let index = e.target.getAttribute('value');
      updates.splice(index, 1);
      this.setState({
        habitArray:  updates
      })
      axios.post('/habit/delete', {
        user: this.props.user,
-       indexNumber: index,
-       name: habitName
+       indexNumber: index
      }).then(result => {
        //nothing yet
      })
@@ -108,8 +127,7 @@ class HabitList extends Component {
    //WORKING
    handleDate = (e) => {
      e.preventDefault()
-     let habitName = e.target.getAttribute('data-attr');
-     console.log(habitName);
+     let habitName = e.target.getAttribute('value');
      //get today's date
      var today = new Date();
      var dd = today.getDate();
@@ -129,15 +147,9 @@ class HabitList extends Component {
    //WORKING
    handleRedirect = (e) => {
      e.preventDefault()
-     let habitName = e.target.getAttribute('data-key');
-     console.log(habitName);
-     axios.post('/habit/details', {
-      user: this.props.user,
-      name: habitName
-     })
-     this.setState({
-       redirect: true
-     })
+       this.setState({
+         redirect: true
+       })
    }
 
    handleChange = (event, index, value) => this.setState({value});
@@ -165,26 +177,36 @@ class HabitList extends Component {
       {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
       {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
     ];
-    // Formatting data
-    theData.forEach(function(d) {
-      d.date = Date.parse(d.date);
-      d.count = +d.count;
-    });
+
     const{redirect} = this.state;
     if(redirect){
       return <Redirect to ='/habit'/>
     }
     return(
       <div>
+      <Card>
+        <Subheader>My Habits</Subheader>
+        <List>
         {this.state.habitArray.map((habit, index) => {
           return(
-            <Card key={index}>
-              <CardTitle onClick={(e) => this.handleRedirect(e)} data-key={habit.name} title={habit.name}/>
-              <a label="Complete" onClick={(e) => this.handleDate(e)} data-attr={habit.name}>Complete</a>
-             <a label="X"  onClick={this.deleteHabit} data-name={habit.name} data-key={index}>X</a>
-        </Card>
+            <ListItem
+              leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
+              primaryText={habit.name}
+              secondaryText="Description of task can go here"
+              rightIconButton={
+                  <IconMenu iconButtonElement={iconButtonElement}>
+                    <MenuItem onClick={(e) => this.handleRedirect(e)} value={habit.name}>More Information</MenuItem>
+                    <MenuItem onClick={this.deleteHabit} value={index}>Delete</MenuItem>
+                  </IconMenu>
+              }
+            />
           )
         })}
+        <Divider />
+        </List>
+        </Card>
+        <br/>
+        <br/>
         <Card>
         <form>
             <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
