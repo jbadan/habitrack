@@ -12,6 +12,14 @@ var habitSchema = new mongoose.Schema({
   dates: [dateSchema]
 });
 
+var totalSchema = new mongoose.Schema({
+  date: String,
+  count: {
+    type: Number,
+    default: 0
+  }
+})
+
 var userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -32,7 +40,8 @@ var userSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 99
   },
-  habits: [habitSchema]
+  habits: [habitSchema],
+  total: [totalSchema]
 });
 
 // Override 'toJSON' to prevent the password from being returned with the user
