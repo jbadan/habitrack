@@ -16,7 +16,8 @@ class App extends Component {
     super(props)
     this.state = {
       token: {},
-      user: {}
+      user: {},
+      habit: {}
     }
   }
 
@@ -24,6 +25,12 @@ class App extends Component {
     this.setState({
       token: data.token,
       user: data.user
+    })
+  }
+
+  liftHabitToState = (result) => {
+    this.setState({
+      habit: result
     })
   }
 
@@ -41,8 +48,8 @@ class App extends Component {
        switchStatement =
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
-          <Route path="/display" render={() => <HabitList user={this.state.user}/>}/>
-          <Route path="/habit" render={() => <Habit user={this.state.user}/>} />
+          <Route path="/display" render={() => <HabitList user={this.state.user} liftHabit={this.liftHabitToState}/>}/>
+          <Route path="/habit" render={() => <Habit user={this.state.user} habit={this.state.habit}/>} />
         </Switch>
     }
     return (
