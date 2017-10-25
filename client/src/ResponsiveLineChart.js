@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Measure from 'react-measure';
 import classNames from 'classnames';
 import LineChart from './LineChart';
-import Grid from 'material-ui/Grid';
+import './Responsive.css';
+import { Row, Col } from 'react-flexbox-grid'
 
 class ResponsiveLineChart extends Component {
   state = {
@@ -17,6 +18,7 @@ class ResponsiveLineChart extends Component {
     const className = classNames(
       (width < 600) && 'small-width-modifier'
     )
+    console.log(this.props.data);
 
     return (
       <Measure
@@ -28,11 +30,7 @@ class ResponsiveLineChart extends Component {
       {({ measureRef }) =>
         <div ref={measureRef} className={className}>
           <p>Width: {this.state.dimensions.width}</p>
-          <Grid container spacing={24}>
-            <Grid item xs={12} sm={8}>
-              <LineChart width={this.state.dimensions.width} />
-            </Grid>
-          </Grid>
+          <LineChart width={this.state.dimensions.width} data={this.props.data}/>
         </div>
       }
       </Measure>
