@@ -68,6 +68,17 @@ router.post('/date', function(req, res, next){
           };
     }
   });
+  User.findOne({"_id" : req.body.user.id}).
+  populate("total").
+  exec(function(err, userVar){
+    if(userVar){
+      let totalDate = {
+        date: today,
+        count: user.total.count + 1
+      }
+      userVar.total.push(totalDate)
+    }
+  })
 })
 
 router.post('/edit', function(req, res, next){
