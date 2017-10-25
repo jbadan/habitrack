@@ -30,10 +30,10 @@ class App extends Component {
   render() {
 
     // Formatting data
-    theData.forEach(function(d) {
-      d.date = Date.parse(d.date);
-      d.count = +d.count;
-    });
+    // theData.forEach(function(d) {
+    //   d.date = Date.parse(d.date);
+    //   d.count = +d.count;
+    // });
     let switchStatement = '';
     if(Object.keys(this.state.user).length === 0){
        switchStatement =
@@ -47,7 +47,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={() => <HabitList user={this.state.user}/>}/>
-          <Route path="/habit" render={() => <Habit />} />
+          <Route path="/habit" render={() => <Habit user={this.state.user}/>} />
         </Switch>
     }
     return (
