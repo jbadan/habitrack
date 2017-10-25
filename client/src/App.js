@@ -10,6 +10,8 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
+import ResponsiveLineCh 'react-flexbox-grid';
+
 
 class App extends Component {
   constructor(props) {
@@ -51,9 +53,11 @@ class App extends Component {
         </Switch>
     }
     return (
-      <Router>
-        {switchStatement}
-      </Router>
+      <div>
+        <Router>
+          {switchStatement}
+        </Router>
+      </div>
     );
   }
 }

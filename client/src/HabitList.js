@@ -158,7 +158,11 @@ class HabitList extends Component {
       {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
       {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
     ];
-
+    // Formatting data
+    theData.forEach(function(d) {
+      d.date = Date.parse(d.date);
+      d.count = +d.count;
+    });
     const{redirect} = this.state;
     if(redirect){
       return <Redirect to ='/habit'/>
