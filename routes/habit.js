@@ -15,12 +15,18 @@ router.post('/', function(req,res,next){
 })
 
 router.post('/details', function(req,res,next){
-  let habitName = req.body.name
+  let habitName = req.body.name;
+  console.log("inside the /details route"+ req.body);
+  console.log("this is the habit name"+habitName);
   User.findOne({ "_id": req.body.user.id}).
   populate('habits').
   exec(function (err, user) {
     if (err) return handleError(err);
-    res.send(user.habits);
+    for (var i = 0; i < user.habits.length; i++) {
+        if(user.habits[i].name === habitName){
+           res.send(user.habits[i]);
+        };
+    };
   });
 })
 
@@ -47,7 +53,6 @@ router.post('/new', function(req,res,next){
 //deletes habit from user db
 //WORKING
 router.post('/delete', function(req, res, next){
-  let habitName = req.body.name;
   let index = req.body.indexNumber;
   User.findOne({"_id" : req.body.user.id}).
   populate("habits").
@@ -58,7 +63,6 @@ router.post('/delete', function(req, res, next){
 })
 
 //adds current date to database when you click on an item
-//WORKING
 router.post('/date', function(req, res, next){
   let habitName = req.body.name;
   let user = req.body.user;
@@ -67,28 +71,35 @@ router.post('/date', function(req, res, next){
     date: today
   }
   User.findOne({"_id" : req.body.user.id}).
-  populate("habits").
+  populate('habits total').
   exec(function(err, userVar){
     if(userVar){
         for (var i = 0; i < userVar.habits.length; i++) {
             if(userVar.habits[i].name === habitName){
                userVar.habits[i].dates.push(newDate);
                userVar.save();
-             };
+             }
           };
+      let newCount = '';
+      if(userVar.total.length === 0){
+        newCount = 1;
+        let totalDate = {
+          date: today,
+          count: newCount
+        }
+        userVar.total.push(totalDate)
+      }else{
+        for(var i=0; i< userVar.total.length; i++){
+          if(userVar.total[i].date === today){
+            newCount = userVar.total[i].count;
+            newCount++;
+            userVar.total[i].count = newCount
+          }
+        }
+      }
+      userVar.save();
     }
   });
-  User.findOne({"_id" : req.body.user.id}).
-  populate("total").
-  exec(function(err, userVar){
-    if(userVar){
-      let totalDate = {
-        date: today,
-        count: user.total.count + 1
-      }
-      userVar.total.push(totalDate)
-    }
-  })
 })
 
 router.post('/edit', function(req, res, next){
