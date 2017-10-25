@@ -10,6 +10,11 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
+//MATERIAL UI THEME
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +33,6 @@ class App extends Component {
   }
 
   render() {
-
     let switchStatement = '';
     if(Object.keys(this.state.user).length === 0){
        switchStatement =
@@ -36,7 +40,7 @@ class App extends Component {
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={Restricted} />
           <Route path="/habit" render={Restricted} />
-      </Switch>
+        </Switch>
     }else{
        switchStatement =
         <Switch>
@@ -48,7 +52,9 @@ class App extends Component {
     return (
       <div>
         <Router>
-          {switchStatement}
+          <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+            {switchStatement}
+          </MuiThemeProvider>
         </Router>
       </div>
     );
