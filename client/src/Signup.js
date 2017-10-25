@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
+import { Col, Row } from 'react-flexbox-grid';
 
 class Signup extends Component {
   constructor(props) {
@@ -59,46 +60,51 @@ class Signup extends Component {
         label="Cancel"
         primary={true}
         onClick={this.handleClose}
+        style={{margin: '.25em'}}
       />,
-      <FlatButton
+      <RaisedButton
         label="Submit"
         primary={true}
-        keyboardFocused={true}
-        onClick={this.handleClose}
+        keyboardFocused={false}
+        onClick={this.handleSubmit}
+        style={{margin: '.25em'}}
       />,
     ];
     return (
-      <div className="SignupBox">
+      <div>
         <RaisedButton label="Signup" onClick={this.handleOpen} />
         <Dialog
-          title="Dialog With Actions"
+          title="Signup"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <form onSubmit={this.handleSubmit}>
-            <TextField
-                 hintText="Name"
-                 floatingLabelText="What is your first name?"
-                 value={this.state.name}
-                 onChange={this.handleNameChange}
-            /><br />
-            <TextField
-                 hintText="Email"
-                 floatingLabelText="What is your email?"
-                 value={this.state.email}
-                 onChange={this.handleEmailChange}
-            /><br />
-            <TextField
-                 hintText="Password"
-                 floatingLabelText="Choose a password"
-                 type="password"
-                 value={this.state.password}
-                 onChange={this.handlePasswordChange}
-            /><br />
-            <RaisedButton label="Sign Up" type='submit' />
-          </form>
+        <Row>
+          <TextField
+               hintText="Name"
+               floatingLabelText="What is your first name?"
+               value={this.state.name}
+               onChange={this.handleNameChange}
+          />
+        </Row>
+        <Row>
+          <TextField
+               hintText="Email"
+               floatingLabelText="What is your email?"
+               value={this.state.email}
+               onChange={this.handleEmailChange}
+          />
+        </Row>
+        <Row>
+          <TextField
+               hintText="Password"
+               floatingLabelText="Choose a password"
+               type="password"
+               value={this.state.password}
+               onChange={this.handlePasswordChange}
+          />
+        </Row>
         </Dialog>
       </div>
     );

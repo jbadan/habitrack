@@ -13,12 +13,6 @@ class Main extends Component {
 	render() {
 		return (
 			<div>
-					<AppBar
-						title="HabiTracker"
-					>
-						<Signup lift={this.props.lift} />
-						<Login lift={this.props.lift} user={this.props.user} />
-					</AppBar>
 				<div>
 					<h3>Get Started with HabiTracker</h3>
 				</div>

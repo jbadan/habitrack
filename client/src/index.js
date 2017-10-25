@@ -4,18 +4,9 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-//MATERIAL UI THEME
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
-
 const Index = () => (
-  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-    <App />
-  </MuiThemeProvider>
+  <App />
 );
-
 
 ReactDOM.render(<Index />, document.getElementById('root'));
 registerServiceWorker();
