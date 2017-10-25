@@ -15,12 +15,16 @@ router.post('/', function(req,res,next){
 })
 
 router.post('/details', function(req,res,next){
-  let habitName = req.body.name
+  let habitName = req.body.name;
   User.findOne({ "_id": req.body.user.id}).
   populate('habits').
   exec(function (err, user) {
     if (err) return handleError(err);
-    res.send(user.habits);
+    for (var i = 0; i < user.habits.length; i++) {
+        if(user.habits[i].name === habitName){
+           res.send(user.habits[i]);
+        };
+    };
   });
 })
 

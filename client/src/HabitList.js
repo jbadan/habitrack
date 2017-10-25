@@ -129,7 +129,8 @@ class HabitList extends Component {
    //WORKING
    handleRedirect = (e) => {
      e.preventDefault()
-     let habitName = e.target.getAttribute('title');
+     let habitName = e.target.getAttribute('data-key');
+     console.log(habitName);
      axios.post('/habit/details', {
       user: this.props.user,
       name: habitName
