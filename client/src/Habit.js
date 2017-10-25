@@ -8,37 +8,17 @@ class Habit extends Component {
 
     this.state = {
     	user: this.props.user,
-    	habitArray: []
+    	habit: this.props.habit
     }
-  }
-
-  componentDidMount(){
-    axios.post('/habit/details', {
-      user:this.state.user
-    }).then(result => {
-      let newArray = this.state.habitArray
-      newArray.push(result.data)
-      console.log(result.data)
-      let flattened = newArray.reduce((a, b) => a.concat(b), [])
-      this.setState({
-        habitArray: flattened
-      })
-    })
   }
 
   render() {
     return(
       <div>
       	<h1>My name is: {this.state.user.name}</h1>
-      	{this.state.habitArray.map((habit, index) => {
-          return(
-          	<div>
-            <h2>{habit.name}</h2>
-            <p>{habit.difficulty}</p>
-            <hr />
-            </div>
-          )
-        })}
+      	<h2>{this.props.habit.name}</h2>
+      	<p>Difficulty: {this.props.habit.difficulty}</p>
+      	<p>My goal is {this.props.habit.goal} days per week!</p>
       </div>
     )
   }

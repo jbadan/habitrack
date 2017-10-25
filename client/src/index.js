@@ -8,6 +8,5 @@ const Index = () => (
   <App />
 );
 
-
 ReactDOM.render(<Index />, document.getElementById('root'));
 registerServiceWorker();
