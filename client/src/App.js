@@ -61,13 +61,13 @@ class App extends Component {
     return (
       <div>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-          <AppBar
-            title="HabiTracker"
-          >
-            <Signup lift={this.liftTokenToState} />
-            <Login lift={this.liftTokenToState} user={this.state.user} />
-          </AppBar>
           <Router>
+            <AppBar
+              title="HabiTracker"
+            >
+              <Signup lift={this.liftTokenToState} />
+              <Login lift={this.liftTokenToState} user={this.state.user} />
+            </AppBar>
             {switchStatement}
           </Router>
         </MuiThemeProvider>
