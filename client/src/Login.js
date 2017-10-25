@@ -68,12 +68,13 @@ class Login extends Component {
       <FlatButton
         label="Cancel"
         primary={true}
+        style={{margin: '.25em'}}
         onClick={this.handleClose}
-      >{this.state.loading ? <CircularProgress size={20} thickness={2} /> : ''}
-      </FlatButton>,
-      <FlatButton
+      />,
+      <RaisedButton
         label="Login"
         primary={true}
+        style={{margin: '.25em'}}
         onClick={this.handleSubmit}
       />,
     ];
@@ -87,7 +88,7 @@ class Login extends Component {
       <div className="LoginBox">
         <RaisedButton label="Login" onClick={this.handleOpen} />
         <Dialog
-          title="Dialog With Actions"
+          title="Login"
           actions={actions}
           modal={false}
           open={this.state.open}
@@ -95,7 +96,6 @@ class Login extends Component {
         >
           <Col sm={4}></Col>
           <Col sm={4}>
-            <form onSubmit={this.handleSubmit}>
               <Row>
                   <TextField
                        hintText="Email"
@@ -113,7 +113,6 @@ class Login extends Component {
                        onChange={this.handlePasswordChange}
                   />
               </Row>
-            </form>
           </Col>
           <Col sm={4}></Col>
         </Dialog>

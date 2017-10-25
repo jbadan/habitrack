@@ -10,11 +10,13 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
+import Signup from './Signup';
+import Login from './Login';
 //MATERIAL UI THEME
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import AppBar from 'material-ui/AppBar';
 
 class App extends Component {
   constructor(props) {
@@ -51,11 +53,17 @@ class App extends Component {
     }
     return (
       <div>
-        <Router>
-          <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+          <AppBar
+            title="HabiTracker"
+          >
+            <Signup lift={this.liftTokenToState} />
+            <Login lift={this.liftTokenToState} user={this.state.user} />
+          </AppBar>
+          <Router>
             {switchStatement}
-          </MuiThemeProvider>
-        </Router>
+          </Router>
+        </MuiThemeProvider>
       </div>
     );
   }
