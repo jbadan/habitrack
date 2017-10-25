@@ -135,6 +135,9 @@ class HabitList extends Component {
          this.setState({
            redirect: true
          })
+       axios.post('/habit/details', {
+        name: habitName
+       })
      }
    })
  }
