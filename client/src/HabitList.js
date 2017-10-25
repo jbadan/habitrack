@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Main from './Main';
 import axios from 'axios';
-import LineChart from './LineChart';
+import ResponsiveLineChart from './ResponsiveLineChart';
 import {
   BrowserRouter as Router,
   Redirect
@@ -15,6 +15,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import { Row, Col } from 'react-flexbox-grid';
 
 const styles = {
   radioButton: {
@@ -134,6 +135,30 @@ class HabitList extends Component {
 
    handleChange = (event, index, value) => this.setState({value});
   render() {
+    let theData = [
+      {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'15-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'9-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'5-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
+      {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
+    ];
+
     const{redirect} = this.state;
     if(redirect){
       return <Redirect to ='/habit'/>
@@ -183,8 +208,13 @@ class HabitList extends Component {
            <FlatButton onClick={(e) => this.addItem(e)} label="Add new habit"/>
         </form>
         </Card>
-
-        <LineChart />
+        <Row>
+          <Col xs={0} sm={2} md={2} lg={2} />
+          <Col xs={12} sm={8} md={8} lg={8} >
+            <ResponsiveLineChart data={theData} />
+          </Col>
+          <Col xs={0} sm={2} md={2} lg={2} />
+        </Row>
       </div>
     )
   }
