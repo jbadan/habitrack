@@ -131,14 +131,16 @@ class HabitList extends Component {
        //this means more info has been selected - redirect to habit info page
      }else if(typeof this.state.selectedItem === "string"){
        let habitName = this.state.selectedItem;
-       console.log(habitName)
        axios.post('/habit/details', {
         user: this.props.user,
         name: habitName
+       }).then(result => {
+        console.log(result.data)
+        this.props.liftHabit(result.data);
        })
-         this.setState({
-           redirect: true
-         })
+       this.setState({
+         redirect: true
+       })
      }
    })
  }
