@@ -58,7 +58,6 @@ class App extends Component {
     }
     return (
       <div>
-
         <Router>
           <div>
             <AppBar
@@ -67,11 +66,9 @@ class App extends Component {
               <Signup lift={this.liftTokenToState} />
               <Login lift={this.liftTokenToState} user={this.state.user} />
             </AppBar>
-
-              {switchStatement}
-              </div>
-          </Router>
-
+            {switchStatement}
+          </div>
+        </Router>
       </div>
     );
   }
