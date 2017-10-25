@@ -55,7 +55,8 @@ class HabitList extends Component {
       user: this.props.user,
       redirect: false,
       difficulty: 'easy',
-      value: 0
+      value: 0,
+      selectedItem: true
     }
   }
   //WORKING
@@ -106,23 +107,37 @@ class HabitList extends Component {
     })
   }
 
-  //WORKING
-  deleteHabit = (e) =>{
-     e.preventDefault();
-     let updates = this.state.habitArray;
-     let index = e.target.getAttribute('value');
-     updates.splice(index, 1);
-     this.setState({
-       habitArray:  updates
-     })
-     axios.post('/habit/delete', {
-       user: this.props.user,
-       indexNumber: index
-     }).then(result => {
-       //nothing yet
-     })
-    }
-
+//menu with more and delete
+  menuClicked = (event, value) => {
+    this.setState({
+       selectedItem: value
+   }, () => {
+     console.log(this.state.selectedItem)
+     //if selectedItem is number(ie index then delete has been selected)
+     if(Number.isInteger(this.state.selectedItem)){
+       let updates = this.state.habitArray;
+       let index = this.state.selectedItem;
+       console.log(index)
+       updates.splice(index, 1);
+       this.setState({
+         habitArray:  updates
+       })
+       axios.post('/habit/delete', {
+         user: this.props.user,
+         indexNumber: index
+       }).then(result => {
+         //nothing yet
+       })
+       //this means more info has been selected - redirect to habit info page
+     }else if(typeof this.state.selectedItem === "string"){
+       let habitName = this.state.selectedItem;
+       console.log(habitName)
+         this.setState({
+           redirect: true
+         })
+     }
+   })
+ }
    //adds today's date to database
    //WORKING
    handleDate = (e) => {
@@ -141,15 +156,6 @@ class HabitList extends Component {
        date: today,
        name: habitName
      })
-   }
-
-   //handles redirect to {Habit} component
-   //WORKING
-   handleRedirect = (e) => {
-     e.preventDefault()
-       this.setState({
-         redirect: true
-       })
    }
 
    handleChange = (event, index, value) => this.setState({value});
@@ -194,9 +200,9 @@ class HabitList extends Component {
               primaryText={habit.name}
               secondaryText="Description of task can go here"
               rightIconButton={
-                  <IconMenu iconButtonElement={iconButtonElement}>
-                    <MenuItem onClick={(e) => this.handleRedirect(e)} value={habit.name}>More Information</MenuItem>
-                    <MenuItem onClick={this.deleteHabit} value={index}>Delete</MenuItem>
+                  <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
+                    <MenuItem value={habit.name}>More Information</MenuItem>
+                    <MenuItem value={index}>Delete</MenuItem>
                   </IconMenu>
               }
             />
