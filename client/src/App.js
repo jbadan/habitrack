@@ -10,9 +10,6 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
-import ResponsiveLineChart from './ResponsiveLineChart';
-import { Col, Row } from 'react-flexbox-grid';
-
 
 class App extends Component {
   constructor(props) {
@@ -31,29 +28,7 @@ class App extends Component {
   }
 
   render() {
-    let theData = [
-      {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'15-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'9-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'5-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
-    ]
+
     // Formatting data
     theData.forEach(function(d) {
       d.date = Date.parse(d.date);
@@ -76,18 +51,9 @@ class App extends Component {
         </Switch>
     }
     return (
-      <div>
-        <Router>
-          {switchStatement}
-        </Router>
-        <Row>
-          <Col xs={0} sm={2} md={2} lg={2} />
-          <Col xs={12} sm={8} md={8} lg={8} >
-            <ResponsiveLineChart data={theData} />
-          </Col>
-          <Col xs={0} sm={2} md={2} lg={2} />
-        </Row>
-      </div>
+      <Router>
+        {switchStatement}
+      </Router>
     );
   }
 }
