@@ -16,6 +16,8 @@ router.post('/', function(req,res,next){
 
 router.post('/details', function(req,res,next){
   let habitName = req.body.name;
+  console.log("inside the /details route"+ req.body);
+  console.log("this is the habit name"+habitName);
   User.findOne({ "_id": req.body.user.id}).
   populate('habits').
   exec(function (err, user) {

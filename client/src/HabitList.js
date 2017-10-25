@@ -132,6 +132,10 @@ class HabitList extends Component {
      }else if(typeof this.state.selectedItem === "string"){
        let habitName = this.state.selectedItem;
        console.log(habitName)
+       axios.post('/habit/details', {
+        user: this.props.user,
+        name: habitName
+       })
          this.setState({
            redirect: true
          })
@@ -157,6 +161,7 @@ class HabitList extends Component {
        name: habitName
      })
    }
+
 
    handleChange = (event, index, value) => this.setState({value});
   render() {
