@@ -58,7 +58,6 @@ router.post('/delete', function(req, res, next){
 })
 
 //adds current date to database when you click on an item
-//WORKING
 router.post('/date', function(req, res, next){
   let habitName = req.body.name;
   let user = req.body.user;
@@ -67,29 +66,42 @@ router.post('/date', function(req, res, next){
     date: today
   }
   User.findOne({"_id" : req.body.user.id}).
-  populate("habits").
+  populate('habits total').
   exec(function(err, userVar){
     if(userVar){
         for (var i = 0; i < userVar.habits.length; i++) {
+          console.log(userVar.habits[i].name);
+          console.log(habitName);
             if(userVar.habits[i].name === habitName){
                userVar.habits[i].dates.push(newDate);
+               console.log(userVar.habits[i].dates.length);
                userVar.save();
-             };
+             }
+             console.log("habit date saved")
+
           };
-    }
-  });
-  User.findOne({"_id" : req.body.user.id}).
-  populate("total").
-  exec(function(err, userVar){
-    if(userVar){
+      let newCount = '';
+      if(userVar.total.length === 0){
+        newCount = 0;
+      }else{
+        for(var i=0; i< userVar.total.length; i++){
+          if(userVar.total[i].date === today){
+            newCount = userVar.total[i].count;
+          }
+        }
+      }
+      newCount++
       let totalDate = {
         date: today,
-        count: user.total.count + 1
+        count: newCount
       }
       userVar.total.push(totalDate)
+      console.log("total date saved")
+      userVar.save();
     }
+  });
+
   })
-})
 
 router.post('/edit', function(req, res, next){
   //edit habit name in database
