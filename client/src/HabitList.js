@@ -128,9 +128,14 @@ class HabitList extends Component {
    //WORKING
    handleRedirect = (e) => {
      e.preventDefault()
-       this.setState({
-         redirect: true
-       })
+     let habitName = e.target.getAttribute('title');
+     axios.post('/habit/details', {
+      user: this.props.user,
+      name: habitName
+     })
+     this.setState({
+       redirect: true
+     })
    }
 
    handleChange = (event, index, value) => this.setState({value});
@@ -158,7 +163,11 @@ class HabitList extends Component {
       {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
       {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
     ];
-
+    // Formatting data
+    theData.forEach(function(d) {
+      d.date = Date.parse(d.date);
+      d.count = +d.count;
+    });
     const{redirect} = this.state;
     if(redirect){
       return <Redirect to ='/habit'/>
