@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Main from './Main';
 import axios from 'axios';
 import ResponsiveLineChart from './ResponsiveLineChart';
+import RadarChart from './RadarChart';
 import {
   BrowserRouter as Router,
   Redirect
@@ -24,6 +25,7 @@ import IconMenu from 'material-ui/IconMenu';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Dialog from 'material-ui/Dialog';
 
 const styles = {
   radioButton: {
@@ -32,6 +34,13 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+  },
+  minHeight: {
+    minHeight: "500px",
+    marginTop: "50px",
+  },
+  center:{
+    textAlign: "center",
   }
 };
 const iconButtonElement = (
@@ -56,7 +65,8 @@ class HabitList extends Component {
       redirect: false,
       difficulty: 'easy',
       value: 0,
-      selectedItem: true
+      selectedItem: true,
+      open: false
     }
   }
   //WORKING
@@ -94,7 +104,8 @@ class HabitList extends Component {
     var updates = this.state.habitArray;
     updates.push({name: this.state.newItem, difficulty: this.state.difficulty, goal: this.state.value});
     this.setState({
-      habitArray: updates
+      habitArray: updates,
+      open: false
     })
     //post new item to database
     axios.post('/habit/new',{
@@ -166,6 +177,13 @@ class HabitList extends Component {
 
 
    handleChange = (event, index, value) => this.setState({value});
+   handleOpen = () => {
+    this.setState({open: true});
+  };
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   render() {
     let theData = [
       {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
@@ -195,72 +213,110 @@ class HabitList extends Component {
     if(redirect){
       return <Redirect to ='/habit'/>
     }
+    //add new item modal button controls
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={(e) => this.addItem(e)}
+      />,
+    ];
     return(
       <div>
-      <Card>
-        <Subheader>My Habits</Subheader>
-        <List>
-        {this.state.habitArray.map((habit, index) => {
-          return(
-            <ListItem
-              leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
-              primaryText={habit.name}
-              secondaryText="Description of task can go here"
-              rightIconButton={
-                  <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
-                    <MenuItem value={habit.name}>More Information</MenuItem>
-                    <MenuItem value={index}>Delete</MenuItem>
-                  </IconMenu>
-              }
-            />
-          )
-        })}
-        <Divider />
-        </List>
-        </Card>
-        <br/>
-        <br/>
-        <Card>
-        <form>
-            <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
-
-           <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="easy">
-                <RadioButton
-                      value="easy"
-                      label="Easy"
-                    />
-                    <RadioButton
-                      value="medium"
-                      label="Medium"
-                    />
-                    <RadioButton
-                      value="hard"
-                      label="Hard"
-                    />
-          </RadioButtonGroup>
-
-         <SelectField
-             floatingLabelText="Frequency"
-             name="goal"
-             value={this.state.value}
-             onChange={this.handleChange}
-          >
-             <MenuItem value={7} primaryText="Everyday" />
-             <MenuItem value={5} primaryText="Weekdays" />
-             <MenuItem value={2} primaryText="Weekends" />
-             <MenuItem value={1} primaryText="Weekly" />
-        </SelectField> <br/>
-
-           <FlatButton onClick={(e) => this.addItem(e)} label="Add new habit"/>
-        </form>
-        </Card>
         <Row>
-          <Col xs={0} sm={2} md={2} lg={2} />
-          <Col xs={12} sm={8} md={8} lg={8} >
-            <ResponsiveLineChart data={theData} />
+          <Col xs={1} />
+          <Col xs={10} >
+            <Card>
+              <ResponsiveLineChart data={theData} />
+            </Card>
           </Col>
-          <Col xs={0} sm={2} md={2} lg={2} />
+          <Col xs={1}/>
         </Row>
+        <Row>
+        <Col xs={12}>
+          <Row>
+            <Col xs={1} />
+            <Col xs={5}>
+              <Card style={styles.minHeight}>
+                <Subheader style={styles.center}>My Habits</Subheader>
+              <List>
+              {this.state.habitArray.map((habit, index) => {
+                return(
+                  <Row>
+                    <Col xs={10}>
+                      <ListItem
+                        leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
+                        primaryText={habit.name}
+                        rightIconButton={
+                            <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
+                              <MenuItem value={habit.name}>More Information</MenuItem>
+                              <MenuItem value={index}>Delete</MenuItem>
+                            </IconMenu>
+                        }
+                      />
+                    </Col>
+                  </Row>
+                )
+              })}
+              </List>
+              <RaisedButton style={styles.center} label="Add new habit" onClick={this.handleOpen} />
+              <Dialog
+                open={this.state.open}
+                onRequestClose = {this.handleClose}
+                actions={actions}
+                >
+                    <form>
+                        <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
+
+                       <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="easy">
+                            <RadioButton
+                                  value="easy"
+                                  label="Easy"
+                                />
+                                <RadioButton
+                                  value="medium"
+                                  label="Medium"
+                                />
+                                <RadioButton
+                                  value="hard"
+                                  label="Hard"
+                                />
+                      </RadioButtonGroup>
+
+                     <SelectField
+                         floatingLabelText="Frequency"
+                         name="goal"
+                         value={this.state.value}
+                         onChange={this.handleChange}
+                      >
+                         <MenuItem value={7} primaryText="Everyday" />
+                         <MenuItem value={5} primaryText="Weekdays" />
+                         <MenuItem value={2} primaryText="Weekends" />
+                         <MenuItem value={1} primaryText="Weekly" />
+                    </SelectField> <br/>
+                    </form>
+                </Dialog>
+              </Card>
+            </Col>
+
+
+            <Col xs={5}>
+              <Card style={styles.minHeight}>
+                <RadarChart />
+              </Card>
+            </Col>
+            </Row>
+          </Col>
+          <Col xs={1}/>
+        </Row>
+
+
       </div>
     )
   }
