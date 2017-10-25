@@ -7,17 +7,33 @@ import {
   Redirect
 } from 'react-router-dom';
 
+//material-ui
+import {Card, CardTitle} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+
+const styles = {
+  radioButton: {
+
+  }
+};
+
+
 class HabitList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       habitArray: [],
       newItem: '',
-      selectedOption: '',
-      goal: 0,
       editHabit: '',
       user: this.props.user,
-      redirect: false
+      redirect: false,
+      difficulty: 'easy',
+      value: 0
     }
   }
   //WORKING
@@ -42,7 +58,7 @@ class HabitList extends Component {
 
   handleOptionChange = (e) =>{
     const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value;
     const name = target.name;
     this.setState({
       [name]: value
@@ -53,7 +69,7 @@ class HabitList extends Component {
   addItem = (e) => {
     e.preventDefault()
     var updates = this.state.habitArray;
-    updates.push({name: this.state.newItem, difficulty: this.state.selectedOption, goal: this.state.goal});
+    updates.push({name: this.state.newItem, difficulty: this.state.difficulty, goal: this.state.value});
     this.setState({
       habitArray: updates
     })
@@ -61,8 +77,8 @@ class HabitList extends Component {
     axios.post('/habit/new',{
       user: this.props.user,
       name: this.state.newItem,
-      difficulty: this.state.selectedOption,
-      goal: this.state.goal
+      difficulty: this.state.difficulty,
+      goal: this.state.value
     }).then(result => {
       //nothing yet
     })
@@ -87,23 +103,6 @@ class HabitList extends Component {
      })
     }
 
-   editHabitChange = (e) => {
-     this.setState({
-       editHabit: e.target.value
-     })
-   }
-   editHabitHandler = (e) => {
-     e.preventDefault()
-     let index = e.target.getAttribute('data-key');
-     let newHabitName = this.state.editHabit;
-     this.setState({
-       editHabit: ''
-     })
-     //edit name in database
-     axios.post('/habit/edit',{
-
-     })
-   }
    //adds today's date to database
    //WORKING
    handleDate = (e) => {
@@ -132,6 +131,8 @@ class HabitList extends Component {
          redirect: true
        })
    }
+
+   handleChange = (event, index, value) => this.setState({value});
   render() {
     const{redirect} = this.state;
     if(redirect){
@@ -141,69 +142,47 @@ class HabitList extends Component {
       <div>
         {this.state.habitArray.map((habit, index) => {
           return(
-            <div key={index}>
-              <button onClick={(e) => this.handleRedirect(e)} data-key={habit.name}>{habit.name}</button>
-              <button onClick={(e) => this.handleDate(e)} data-key={habit.name}>I did it</button>
-              <form>
-                 <input type="text" placeholder={habit.name} onChange={(e) => this.editHabitChange(e)} value={this.state.editHabit}/>
-                 <button data-key={index} onClick={(e) => this.editHabitHandler(e)}>Edit</button>
-             </form>
-             <button onClick={this.deleteHabit} data-name={habit.name} data-key={index}>delete</button>
-        </div>
+            <Card key={index}>
+              <CardTitle onClick={(e) => this.handleRedirect(e)} data-key={habit.name} title={habit.name}/>
+              <RaisedButton label="Complete" onClick={(e) => this.handleDate(e)} data-key={habit.name}/>
+             <RaisedButton label="X"  onClick={this.deleteHabit} data-name={habit.name} data-key={index}/>
+        </Card>
           )
         })}
+        <Card>
         <form>
-           <input type="text" placeholder="Type a new habit here" onChange={(e) => this.newItemChange(e)} value={this.state.newItem}/>
+            <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
 
-          <div>What level of difficuty is this task:</div>
-         <div className="radio">
-           <label>
-             <input
-               type="radio"
-               name="selectedOption"
-               value="easy"
-               checked={this.state.selectedOption === 'easy'}
-               onChange={this.handleOptionChange}
-               />
-               Easy
-           </label>
-         </div>
-         <div className="radio">
-           <label>
-             <input
-               type="radio"
-               name="selectedOption"
-               value="medium"
-               checked={this.state.selectedOption === 'medium'}
-               onChange={this.handleOptionChange}
-             />
-             Medium
-           </label>
-         </div>
-         <div className="radio">
-           <label>
-             <input type="radio"
-               name="selectedOption"
-               value="hard"
-               checked={this.state.selectedOption === 'hard'}
-               onChange={this.handleOptionChange}
-             />
-             Hard
-           </label>
-         </div>
+           <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="easy">
+                <RadioButton
+                      value="easy"
+                      label="Easy"
+                    />
+                    <RadioButton
+                      value="medium"
+                      label="Medium"
+                    />
+                    <RadioButton
+                      value="hard"
+                      label="Hard"
+                    />
+          </RadioButtonGroup>
 
-         <label>
-              Goal x per week:
-         <input
-           name="goal"
-           type="number"
-           min="1"
-           max="7"
-           value={this.state.goal}
-           onChange={this.handleOptionChange} />
-       </label>
-           <button onClick={(e) => this.addItem(e)}>Add it!</button>
+         <SelectField
+             floatingLabelText="Frequency"
+             name="goal"
+             value={this.state.value}
+             onChange={this.handleChange}
+          >
+             <MenuItem value={7} primaryText="Everyday" />
+             <MenuItem value={5} primaryText="Weekdays" />
+             <MenuItem value={2} primaryText="Weekends" />
+             <MenuItem value={1} primaryText="Weekly" />
+        </SelectField> <br/>
+
+           <FlatButton onClick={(e) => this.addItem(e)} label="Add new habit"/>
         </form>
+        </Card>
 
         <LineChart />
       </div>

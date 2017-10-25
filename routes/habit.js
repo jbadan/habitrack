@@ -3,7 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
 
-
+//gets all habits for signed in user
+//WORKING
 router.post('/', function(req,res,next){
   User.findOne({ "_id": req.body.user.id}).
   populate('habits').
@@ -13,6 +14,8 @@ router.post('/', function(req,res,next){
   });
 })
 
+//adds new habit to user db
+//WORKING
 router.post('/new', function(req,res,next){
   var habit = {
     name: req.body.name,
@@ -31,7 +34,7 @@ router.post('/new', function(req,res,next){
     });
 });
 
-
+//deletes habit from user db
 //WORKING
 router.post('/delete', function(req, res, next){
   let habitName = req.body.name;
@@ -39,7 +42,6 @@ router.post('/delete', function(req, res, next){
   User.findOne({"_id" : req.body.user.id}).
   populate("habits").
   exec(function(err, userVar){
-    console.log(userVar)
     userVar.habits[index].remove()
     userVar.save();
   })
@@ -48,8 +50,6 @@ router.post('/delete', function(req, res, next){
 //adds current date to database when you click on an item
 //WORKING
 router.post('/date', function(req, res, next){
-  console.log("------------------------------------------------")
-  console.log(req.body.date)
   let habitName = req.body.name;
   let user = req.body.user;
   let today = req.body.date;
@@ -59,7 +59,6 @@ router.post('/date', function(req, res, next){
   User.findOne({"_id" : req.body.user.id}).
   populate("habits").
   exec(function(err, userVar){
-    console.log(userVar)
     if(userVar){
         for (var i = 0; i < userVar.habits.length; i++) {
             if(userVar.habits[i].name === habitName){
