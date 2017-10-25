@@ -128,9 +128,14 @@ class HabitList extends Component {
    //WORKING
    handleRedirect = (e) => {
      e.preventDefault()
-       this.setState({
-         redirect: true
-       })
+     let habitName = e.target.getAttribute('title');
+     axios.post('/habit/details', {
+      user: this.props.user,
+      name: habitName
+     })
+     this.setState({
+       redirect: true
+     })
    }
 
    handleChange = (event, index, value) => this.setState({value});

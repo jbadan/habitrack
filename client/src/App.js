@@ -10,7 +10,8 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
-import ResponsiveLineCh 'react-flexbox-grid';
+import ResponsiveLineChart from './ResponsiveLineChart';
+import { Row, Col } from 'react-flexbox-grid';
 
 
 class App extends Component {
@@ -44,7 +45,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={() => <HabitList user={this.state.user}/>}/>
-          <Route path="/habit" render={() => <Habit />} />
+          <Route path="/habit" render={() => <Habit user={this.state.user}/>} />
         </Switch>
     }
     return (
