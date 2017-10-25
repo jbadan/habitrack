@@ -108,7 +108,8 @@ class HabitList extends Component {
    //WORKING
    handleDate = (e) => {
      e.preventDefault()
-     let habitName = e.target.getAttribute('data-key');
+     let habitName = e.target.getAttribute('data-attr');
+     console.log(habitName);
      //get today's date
      var today = new Date();
      var dd = today.getDate();
@@ -169,8 +170,8 @@ class HabitList extends Component {
           return(
             <Card key={index}>
               <CardTitle onClick={(e) => this.handleRedirect(e)} data-key={habit.name} title={habit.name}/>
-              <RaisedButton label="Complete" onClick={(e) => this.handleDate(e)} data-key={habit.name}/>
-             <RaisedButton label="X"  onClick={this.deleteHabit} data-name={habit.name} data-key={index}/>
+              <a label="Complete" onClick={(e) => this.handleDate(e)} data-attr={habit.name}>Complete</a>
+             <a label="X"  onClick={this.deleteHabit} data-name={habit.name} data-key={index}>X</a>
         </Card>
           )
         })}
