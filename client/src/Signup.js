@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
 
 class Signup extends Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class Signup extends Component {
     this.state = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      open: false,
     }
   }
 
@@ -35,39 +38,74 @@ class Signup extends Component {
     })
   }
 
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   render() {
+    /**
+    * Dialog with action buttons. The actions are passed in as an array of React objects,
+    * in this example [FlatButtons](/#/components/flat-button).
+    *
+    * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
+    */
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleClose}
+      />,
+    ];
     return (
       <div className="SignupBox">
-        <form onSubmit={this.handleSubmit}>
-          <TextField
-               hintText="Name"
-               floatingLabelText="What is your first name?"
-               value={this.state.name}
-               onChange={this.handleNameChange}
-          /><br />
-          <TextField
-               hintText="Email"
-               floatingLabelText="What is your email?"
-               value={this.state.email}
-               onChange={this.handleEmailChange}
-          /><br />
-          <TextField
-               hintText="Password"
-               floatingLabelText="Choose a password"
-               type="password"
-               value={this.state.password}
-               onChange={this.handlePasswordChange}
-          /><br />
-          <RaisedButton label="Sign Up" type='submit' />
-        </form>
+        <RaisedButton label="Signup" onClick={this.handleOpen} />
+        <Dialog
+          title="Dialog With Actions"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+                 hintText="Name"
+                 floatingLabelText="What is your first name?"
+                 value={this.state.name}
+                 onChange={this.handleNameChange}
+            /><br />
+            <TextField
+                 hintText="Email"
+                 floatingLabelText="What is your email?"
+                 value={this.state.email}
+                 onChange={this.handleEmailChange}
+            /><br />
+            <TextField
+                 hintText="Password"
+                 floatingLabelText="Choose a password"
+                 type="password"
+                 value={this.state.password}
+                 onChange={this.handlePasswordChange}
+            /><br />
+            <RaisedButton label="Sign Up" type='submit' />
+          </form>
+        </Dialog>
       </div>
     );
   }
 }
 
 export default Signup;
-
-
 
 //Name: <input type='text' value={this.state.name} onChange={this.handleNameChange} /><br />
 //Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />

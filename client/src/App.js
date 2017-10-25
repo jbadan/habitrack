@@ -10,9 +10,6 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
-import ResponsiveLineChart from './ResponsiveLineChart';
-import { Row, Col } from 'react-flexbox-grid';
-
 
 class App extends Component {
   constructor(props) {
