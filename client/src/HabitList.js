@@ -142,10 +142,16 @@ class HabitList extends Component {
        //this means more info has been selected - redirect to habit info page
      }else if(typeof this.state.selectedItem === "string"){
        let habitName = this.state.selectedItem;
-       console.log(habitName)
-         this.setState({
-           redirect: true
-         })
+       axios.post('/habit/details', {
+        user: this.props.user,
+        name: habitName
+       }).then(result => {
+        console.log(result.data)
+        this.props.liftHabit(result.data);
+       })
+       this.setState({
+         redirect: true
+       })
      }
    })
  }
@@ -168,6 +174,7 @@ class HabitList extends Component {
        name: habitName
      })
    }
+
 
    handleChange = (event, index, value) => this.setState({value});
    handleOpen = () => {

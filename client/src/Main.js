@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Signup from './Signup';
 import Login from './Login';
-import AppBar from 'material-ui/AppBar';
-
-
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import { MuiThemeProvider, AppBar, IconButton } from 'material-ui';
 
 
 class Main extends Component {
@@ -13,17 +12,17 @@ class Main extends Component {
 
 	render() {
 		return (
-				<div>
+			<div>
 					<AppBar
 						title="HabiTracker"
-						iconClassNameRight="muidocs-icon-navigation-expand-more"
-					/>
-					<div>
-						<h3>Get Started with HabiTracker</h3>
-					</div>
-					<Signup lift={this.props.lift} />
-					<Login lift={this.props.lift} user={this.props.user} />
+					>
+						<Signup lift={this.props.lift} />
+						<Login lift={this.props.lift} user={this.props.user} />
+					</AppBar>
+				<div>
+					<h3>Get Started with HabiTracker</h3>
 				</div>
+			</div>
 		)
 	}
 }
