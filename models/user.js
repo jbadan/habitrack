@@ -79,6 +79,10 @@ userSchema.methods.authenticated = function(password, callback) {
 
 // Mongoose's version of a beforeCreate hook
 userSchema.pre('save', function(next) {
+  var user = this;
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+  
   var hash = bcrypt.hashSync(this.password, 10);
   // store the hash as the user's password
   this.password = hash;
