@@ -47,6 +47,10 @@ var userSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  weeklyGoal:{
+    type: Number,
+    default: 0
+  },
   habits: [habitSchema],
   total: [totalSchema]
 });

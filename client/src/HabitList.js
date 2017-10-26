@@ -4,6 +4,7 @@ import axios from 'axios';
 import ResponsiveLineChart from './ResponsiveLineChart';
 import RadarChart from './RadarChart';
 import NotEnoughData from './NotEnoughData';
+import CircleProgressBar from './CircleProgressBar';
 import {
   BrowserRouter as Router,
   Redirect
@@ -29,12 +30,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dialog from 'material-ui/Dialog';
 
 const styles = {
-  radioButton: {
-
-  },
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  bg: {
     backgroundColor: "lightBlack",
   },
   minHeight: {
@@ -77,6 +73,7 @@ class HabitList extends Component {
       user: this.props.user,
       redirect: false,
       difficulty: 'easy',
+      //frequency value
       value: 0,
       selectedItem: true,
       //open controls dialog box for adding new habit
@@ -85,7 +82,8 @@ class HabitList extends Component {
       datesAdded: [],
       //this is for the line graph
       dateAndCount: [],
-      points: 0
+      points: 0,
+      weeklyGoal: ''
     }
   }
   //populates habitArray, datesAdded, dateAndCount from database on load
@@ -93,6 +91,7 @@ class HabitList extends Component {
     axios.post('/habit', {
       user:this.state.user
     }).then(result => {
+      let newweeklyGoal = result.data.weeklyGoal
       //fetches all habits from user
       let newArray = this.state.habitArray
       newArray.push(result.data.habits)
@@ -115,13 +114,15 @@ class HabitList extends Component {
         }
         if(dateOnly.length === 0){
           this.setState({
-            habitArray: flattened
+            habitArray: flattened,
+            weeklyGoal: newweeklyGoal
           })
         }else{
           this.setState({
             habitArray: flattened,
             datesAdded: dateOnly,
-            dateAndCount: dateAndCountNew
+            dateAndCount: dateAndCountNew,
+            weeklyGoal: newweeklyGoal
           })
         }
       }
@@ -158,10 +159,6 @@ class HabitList extends Component {
     e.preventDefault()
     var updates = this.state.habitArray;
     updates.push({name: this.state.newItem, difficulty: this.state.difficulty, goal: this.state.value});
-    this.setState({
-      habitArray: updates,
-      open: false
-    })
     //post new item to database
     axios.post('/habit/new',{
       user: this.props.user,
@@ -169,7 +166,11 @@ class HabitList extends Component {
       difficulty: this.state.difficulty,
       goal: this.state.value
     }).then(result => {
-      //nothing yet
+      this.setState({
+        habitArray: updates,
+        open: false,
+        weeklyGoal: result.data.weeklyGoal
+      })
     })
   }
 
@@ -233,10 +234,12 @@ class HabitList extends Component {
        console.log(result.data)
        let newPointTotal = result.data.points
        let count = result.data.total
+       let newWeekGoal = result.data.weeklyGoal
        this.setState({
          datesAdded: dateArray,
           dateAndCount: count,
-          points: newPointTotal
+          points: newPointTotal,
+          weeklyGoal: newWeekGoal
        })
      })
    }
@@ -289,7 +292,7 @@ class HabitList extends Component {
         renderRadar = <RadarChart datesArr={this.state.datesAdded} />
       }
 
-      //getting today's date for welcome header
+      //getting today's date for welcome header(Wednesday, October 27, 2017 format)
       let todayDate = new Date();
       let dd = todayDate.getDate();
       let yyyy = todayDate.getFullYear();
@@ -298,7 +301,7 @@ class HabitList extends Component {
       var day = now.getDayName();
       var month = now.getMonthName();
 
-      //today's to do List
+      //today's to do List population logic
       let todayArr = []
       let weeklyArr = []
       let everydayArr = []
@@ -326,17 +329,17 @@ class HabitList extends Component {
 
 
     return(
-      <div>
-      <Row>
-      <Col xs={12}>
-        <Row center="xs">
-          <Col xs={12}>
-            <h1> Hello, {this.state.user.name}! </h1>
-            <h6>Today is {day}, {month} {dd}, {yyyy} </h6>
-          </Col>
+      <div style={styles.bg}>
+        <Row>
+        <Col xs={12}>
+          <Row center="xs">
+            <Col xs={12}>
+              <h1> Hello, {this.state.user.name}! </h1>
+              <h6>Today is {day}, {month} {dd}, {yyyy} </h6>
+            </Col>
+          </Row>
+        </Col>
         </Row>
-      </Col>
-      </Row>
 
         {lineChart}
 
@@ -363,8 +366,9 @@ class HabitList extends Component {
               </Card>
               </Col>
               <Col xs={3}>
-                <Card>
+                <Card {styles.minHeight}>
                   <h3>You have {this.state.points} points </h3>
+                  <h3> Your weekly goal is {this.state.weeklyGoal} points </h3>
                 </Card>
               </Col>
             </Row>
@@ -405,7 +409,7 @@ class HabitList extends Component {
                     <form>
                         <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
 
-                       <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="easy">
+                       <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="Easy">
                             <RadioButton
                                   value="easy"
                                   label="Easy"
@@ -423,13 +427,14 @@ class HabitList extends Component {
                      <SelectField
                          floatingLabelText="Frequency"
                          name="goal"
+                         default="Everyday"
                          value={this.state.value}
                          onChange={this.handleChange}
                       >
                          <MenuItem value={7} primaryText="Everyday" />
                          <MenuItem value={5} primaryText="Weekdays" />
                          <MenuItem value={2} primaryText="Weekends" />
-                         <MenuItem value={1} primaryText="Weekly" />
+                         <MenuItem value={1} primaryText="weekly" />
                     </SelectField> <br/>
                     </form>
                 </Dialog>
