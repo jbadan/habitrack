@@ -24,11 +24,16 @@ class Main extends Component {
 			  display: 'inline-block',
 				color: '#FFFFFF',
 				padding: 20,
+				fontfamily: 'Lato'
 			};
 
 		return (
 			<div id="mainPage">
-			
+
+				<div className="spacer"></div>
+
+				<div id="welcome"><h1>Enter your habits. See your Progress.</h1></div>
+
 				<div className="spacer"></div>
 
 				<Row>
@@ -52,6 +57,7 @@ class Main extends Component {
 									</Paper>
 								</Col>
 							</Row>
+							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={5}>
 									<img src={dash} width={600} height={350}/>
@@ -81,6 +87,7 @@ class Main extends Component {
 									<img src={line} width={600} height={300}/>
 								</Col>
 							</Row>
+							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={5}>
 									<Paper style={style} zDepth={4}>
@@ -113,6 +120,7 @@ class Main extends Component {
 									<img src={list} width={300} height={300}/>
 								</Col>
 							</Row>
+							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={3}>
 									<Paper style={style} zDepth={4}>
@@ -121,6 +129,7 @@ class Main extends Component {
 									</Paper>
 								</Col>
 							</Row>
+							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={3}>
 									<img src={radar} wiradardth={300} height={300}/>
