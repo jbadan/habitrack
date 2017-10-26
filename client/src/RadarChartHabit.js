@@ -11,9 +11,9 @@ class RadarChartHabit extends Component {
   }
   render() {
 
-    let datesArr = this.props.datesArr
+    let datesArr = this.props.habit.dates;
 
-    console.log(this.props.datesArr);
+    console.log(this.props.habit.dates);
 
     const dayArr = datesArr.map((day) => {
       var eachDay = day.date

@@ -1,8 +1,9 @@
 body {
-  background-color: #9E9E9E;
+  background-color: #212121;
   color: #FFFFFF;
   font-family: 'Roboto', sans-serif;
   letter-spacing: normal;
+  font-size: 16px;
 }
 
 .devPhotos {
@@ -10,8 +11,10 @@ body {
 }
 
 .about-section {
-  background-color: #212121;
+  background-color: #424242;
   color: white;
+  font-family: 'Lato', serif;
+  font-size: 1em;
 }
 
 h2 {
@@ -20,16 +23,23 @@ h2 {
 }
 
 .spacer {
-  height: 50px;
+  height: 20px;
   width: 100%;
   margin: 10px auto;
   text-align: center;
-  background-color: #9E9E9E;
+  background-color: #212121;
   line-height: 50px;
 }
 
 #mainPage {
-  color: #212121;
+  color: white;
+  font-family: 'Lato', serif;
+}
+
+#welcome {
+  font-family: 'Roboto', sans-serif;
+  font-weight:100;
+  text-align: center;
 }
 
 .nav-buttons * {
