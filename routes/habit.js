@@ -98,6 +98,7 @@ router.post('/date', function(req, res, next){
         }
       }
       userVar.save();
+      res.send(userVar.total)
     }
   });
 })

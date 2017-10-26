@@ -210,11 +210,15 @@ class HabitList extends Component {
        user: this.props.user,
        date: today,
        name: habitName
+     }).then(result => {
+       console.log(result.data)
+       let count = result.data
+       this.setState({
+         datesAdded: dateArray,
+          dateAndCount: count
+       })
      })
      //adds newly completed tasks to datesAdded for radar chart
-     this.setState({
-       datesAdded: dateArray
-     })
    }
 
 
@@ -227,55 +231,40 @@ class HabitList extends Component {
   };
 
   render() {
-    let theData = [
-      {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'15-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'9-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'5-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
-    ];
+    //control for line chart data
+      let theData = this.state.dateAndCount
+      let lineChart = ''
+      if(theData.length === 0){
+        lineChart = <NotEnoughData />
+      }else{
+        lineChart = <ResponsiveLineChart data={theData} />
+      }
     //redirecting to more detail page after click
-    const{redirect} = this.state;
-    if(redirect){
-      return <Redirect to ='/habit'/>
-    }
+      const{redirect} = this.state;
+      if(redirect){
+        return <Redirect to ='/habit'/>
+      }
     //add new item modal button controls
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onClick={(e) => this.addItem(e)}
-      />,
-    ];
+      const actions = [
+        <FlatButton
+          label="Cancel"
+          primary={true}
+          onClick={this.handleClose}
+        />,
+        <FlatButton
+          label="Submit"
+          primary={true}
+          keyboardFocused={true}
+          onClick={(e) => this.addItem(e)}
+        />,
+      ];
     //if statement to control if there is enough data to render a radar chart
-    let renderRadar = ''
-    if(this.state.datesAdded.length === 0){
-      renderRadar = <NotEnoughData />
-    }else{
-      renderRadar = <RadarChart datesArr={this.state.datesAdded} />
-    }
+      let renderRadar = ''
+      if(this.state.datesAdded.length === 0){
+        renderRadar = <NotEnoughData />
+      }else{
+        renderRadar = <RadarChart datesArr={this.state.datesAdded} />
+      }
 
     return(
       <div>
@@ -283,7 +272,7 @@ class HabitList extends Component {
           <Col xs={1} />
           <Col xs={10} >
             <Card>
-
+              {lineChart}
             </Card>
           </Col>
           <Col xs={1}/>
