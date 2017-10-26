@@ -1,20 +1,33 @@
 body {
-  background-color: #616161;
+  background-color: #9E9E9E;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: normal;
+}
+
+.devPhotos {
+  border-radius: 50%;
 }
 
 .about-section {
-  height: 20%;
   background-color: #212121;
-}
-
-.dev-profile {
-  height: 100%;
-  width: 24%;
-  display: inline-block;
   color: white;
-  padding: 5px;
 }
 
-img {
-  border-radius: 50%;
+h2 {
+  vertical-align: middle;
+  top: 40%;
+}
+
+.spacer {
+  height: 50px;
+  width: 100%;
+  margin: 10px auto;
+  text-align: center;
+  background-color: #9E9E9E;
+  line-height: 50px;
+}
+
+#mainPage {
+  color: #212121;
 }
