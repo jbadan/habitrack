@@ -3,6 +3,8 @@ import Main from './Main';
 import axios from 'axios';
 import ResponsiveLineChart from './ResponsiveLineChart';
 import RadarChart from './RadarChart';
+import NotEnoughData from './NotEnoughData';
+import CircleProgressBar from './CircleProgressBar';
 import {
   BrowserRouter as Router,
   Redirect
@@ -28,12 +30,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dialog from 'material-ui/Dialog';
 
 const styles = {
-  radioButton: {
-
-  },
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  bg: {
+    backgroundColor: "lightBlack",
   },
   minHeight: {
     minHeight: "500px",
@@ -53,6 +51,18 @@ const iconButtonElement = (
   </IconButton>
 );
 
+//date prototype functions to get date for welcome message
+(function() {
+   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    Date.prototype.getMonthName = function() {
+      return months[ this.getMonth() ];
+    };
+    Date.prototype.getDayName = function() {
+      return days[ this.getDay() ];
+    };
+})();
+
 
 class HabitList extends Component {
   constructor(props) {
@@ -60,35 +70,73 @@ class HabitList extends Component {
     this.state = {
       habitArray: [],
       newItem: '',
-      editHabit: '',
       user: this.props.user,
       redirect: false,
       difficulty: 'easy',
+      //frequency value
       value: 0,
       selectedItem: true,
-      open: false
+      //open controls dialog box for adding new habit
+      open: false,
+      //dates added is array of objects- new dates added after task completion
+      datesAdded: [],
+      //this is for the line graph
+      dateAndCount: [],
+      points: 0,
+      weeklyGoal: ''
     }
   }
-  //WORKING
+  //populates habitArray, datesAdded, dateAndCount from database on load
   componentDidMount(){
     axios.post('/habit', {
       user:this.state.user
     }).then(result => {
+      let newweeklyGoal = result.data.weeklyGoal
+      //fetches all habits from user
       let newArray = this.state.habitArray
-      newArray.push(result.data)
+      newArray.push(result.data.habits)
       let flattened = newArray.reduce((a, b) => a.concat(b), [])
-      this.setState({
-        habitArray: flattened
-      })
-    })
+      //fetches all dates and total times users completed a habit
+      let dateAndCountNew = this.state.dateAndCount
+      //this is controlling for empty data so we don't end up with a null object pushed to array
+      if(result.data.total.length === 0){
+        //do nothing
+      }else{
+        dateAndCountNew.push(result.data.total)
+      }
+      //removing counts from data for use in radar chart
+      let dateOnly = []
+      if(dateAndCountNew.length === 0){
+        //do nothing
+      }else{
+        for(let i=0; i<dateAndCountNew.length; i++){
+          dateOnly.push({"date": dateAndCountNew[i].date})
+        }
+        if(dateOnly.length === 0){
+          this.setState({
+            habitArray: flattened,
+            weeklyGoal: newweeklyGoal
+          })
+        }else{
+          this.setState({
+            habitArray: flattened,
+            datesAdded: dateOnly,
+            dateAndCount: dateAndCountNew,
+            weeklyGoal: newweeklyGoal
+          })
+        }
+      }
+  })
   }
 
+  //change handler for new habit name
   newItemChange = (e) => {
     this.setState({
       newItem: e.target.value
     })
   }
 
+  //change handler for radio buttons (difficulty)
   handleOptionChange = (e) =>{
     const target = e.target;
     const value = target.value;
@@ -98,15 +146,19 @@ class HabitList extends Component {
     });
   }
 
-//WORKING
+  //handlers for opening/closing add more dialog button
+   handleOpen = () => {
+      this.setState({open: true});
+   };
+   handleClose = () => {
+     this.setState({open: false});
+   };
+
+//add new habit to database and list
   addItem = (e) => {
     e.preventDefault()
     var updates = this.state.habitArray;
     updates.push({name: this.state.newItem, difficulty: this.state.difficulty, goal: this.state.value});
-    this.setState({
-      habitArray: updates,
-      open: false
-    })
     //post new item to database
     axios.post('/habit/new',{
       user: this.props.user,
@@ -114,21 +166,23 @@ class HabitList extends Component {
       difficulty: this.state.difficulty,
       goal: this.state.value
     }).then(result => {
-      //nothing yet
+      this.setState({
+        habitArray: updates,
+        open: false,
+        weeklyGoal: result.data.weeklyGoal
+      })
     })
   }
 
-//menu with more and delete
+//sub menu with more and delete
   menuClicked = (event, value) => {
     this.setState({
        selectedItem: value
    }, () => {
-     console.log(this.state.selectedItem)
      //if selectedItem is number(ie index then delete has been selected)
      if(Number.isInteger(this.state.selectedItem)){
        let updates = this.state.habitArray;
        let index = this.state.selectedItem;
-       console.log(index)
        updates.splice(index, 1);
        this.setState({
          habitArray:  updates
@@ -146,8 +200,7 @@ class HabitList extends Component {
         user: this.props.user,
         name: habitName
        }).then(result => {
-        console.log(result.data)
-        this.props.liftHabit(result.data);
+         this.props.liftHabit(result.data);
        })
        this.setState({
          redirect: true
@@ -155,8 +208,7 @@ class HabitList extends Component {
      }
    })
  }
-   //adds today's date to database
-   //WORKING
+   //adds today's date and points to database
    handleDate = (e) => {
      e.preventDefault()
      let habitName = e.target.getAttribute('value');
@@ -168,75 +220,159 @@ class HabitList extends Component {
       if(dd<10) {dd = '0'+dd}
       if(mm<10) {mm = '0'+mm}
       today = mm + '/' + dd + '/' + yyyy;
+      //making array of objects for radar chart weekday data
+        let newDateForArray = {
+          date: today
+        }
+        let dateArray = this.state.datesAdded
+        dateArray.push(newDateForArray)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
        name: habitName
+     }).then(result => {
+       console.log(result.data)
+       let newPointTotal = result.data.points
+       let count = result.data.total
+       let newWeekGoal = result.data.weeklyGoal
+       this.setState({
+         datesAdded: dateArray,
+          dateAndCount: count,
+          points: newPointTotal,
+          weeklyGoal: newWeekGoal
+       })
      })
    }
-
-
+   //change handler for goal setting
    handleChange = (event, index, value) => this.setState({value});
-   handleOpen = () => {
-    this.setState({open: true});
-  };
-  handleClose = () => {
-    this.setState({open: false});
-  };
 
   render() {
-    let theData = [
-      {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'15-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'9-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'5-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
-      {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
-    ];
+    //control for line chart data
+      let theData = this.state.dateAndCount
+      let lineChart = ''
+      if(theData.length === 0){
+        lineChart = <NotEnoughData />
+      }else{
+        lineChart =
+            <Row>
+              <Col xs={1} />
+              <Col xs={10} >
+                <Card>
+                  <ResponsiveLineChart data={theData} />
+                </Card>
+              </Col>
+              <Col xs={1}/>
+            </Row>
 
-    const{redirect} = this.state;
-    if(redirect){
-      return <Redirect to ='/habit'/>
-    }
+      }
+    //redirecting to more detail page after click
+      const{redirect} = this.state;
+      if(redirect){
+        return <Redirect to ='/habit'/>
+      }
     //add new item modal button controls
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onClick={(e) => this.addItem(e)}
-      />,
-    ];
+      const actions = [
+        <FlatButton
+          label="Cancel"
+          primary={true}
+          onClick={this.handleClose}
+        />,
+        <FlatButton
+          label="Submit"
+          primary={true}
+          keyboardFocused={true}
+          onClick={(e) => this.addItem(e)}
+        />,
+      ];
+    //if statement to control if there is enough data to render a radar chart
+      let renderRadar = ''
+      if(this.state.datesAdded.length === 0){
+        renderRadar = <NotEnoughData />
+      }else{
+        renderRadar = <RadarChart datesArr={this.state.datesAdded} />
+      }
+
+      //getting today's date for welcome header(Wednesday, October 27, 2017 format)
+      let todayDate = new Date();
+      let dd = todayDate.getDate();
+      let yyyy = todayDate.getFullYear();
+       if(dd<10) {dd = '0'+dd}
+      var now = new Date();
+      var day = now.getDayName();
+      var month = now.getMonthName();
+
+      //today's to do List population logic
+      let todayArr = []
+      let weeklyArr = []
+      let everydayArr = []
+      let weekdayArr = []
+      let weekendArr = []
+        for(let i = 0; i < this.state.habitArray.length; i++){
+          if(this.state.habitArray[i].goal === 1){
+            weeklyArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 7){
+            everydayArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 5){
+            weekdayArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 2){
+            weekendArr.push(this.state.habitArray[i])
+          }
+        }
+        //TODO: need to handle weekly todos
+      if(day === "Saturday" || day === "Sunday"){
+        let newArr = weekendArr.concat(everydayArr)
+        todayArr = newArr
+      }else{
+        let newArr = weekdayArr.concat(everydayArr)
+        todayArr = newArr
+      }
+
+
     return(
-      <div>
+      <div style={styles.bg}>
         <Row>
-          <Col xs={1} />
-          <Col xs={10} >
-            <Card>
-              <ResponsiveLineChart data={theData} />
-            </Card>
+        <Col xs={12}>
+          <Row center="xs">
+            <Col xs={12}>
+              <h1> Hello, {this.state.user.name}! </h1>
+              <h6>Today is {day}, {month} {dd}, {yyyy} </h6>
+            </Col>
+          </Row>
+        </Col>
+        </Row>
+
+        {lineChart}
+
+        <Row>
+          <Col xs={12}>
+            <Row center="xs">
+              <Col xs={6}>
+              <Card style={styles.minHeight}>
+                <Subheader style={styles.center}>Todays to do list</Subheader>
+              <List>
+              {todayArr.map((habit, index) => {
+                return(
+                  <Row>
+                    <Col xs={10}>
+                      <ListItem
+                        leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
+                        primaryText={habit.name}
+                      />
+                    </Col>
+                  </Row>
+                )
+              })}
+              </List>
+              </Card>
+              </Col>
+              <Col xs={3}>
+                <Card style={styles.minHeight}>
+                  <h3>You have {this.state.points} points </h3>
+                  <h3> Your weekly goal is {this.state.weeklyGoal} points </h3>
+                </Card>
+              </Col>
+            </Row>
           </Col>
-          <Col xs={1}/>
         </Row>
         <Row>
         <Col xs={12}>
@@ -251,7 +387,6 @@ class HabitList extends Component {
                   <Row>
                     <Col xs={10}>
                       <ListItem
-                        leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
                         primaryText={habit.name}
                         rightIconButton={
                             <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
@@ -274,7 +409,7 @@ class HabitList extends Component {
                     <form>
                         <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
 
-                       <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="easy">
+                       <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="Easy">
                             <RadioButton
                                   value="easy"
                                   label="Easy"
@@ -292,13 +427,14 @@ class HabitList extends Component {
                      <SelectField
                          floatingLabelText="Frequency"
                          name="goal"
+                         default="Everyday"
                          value={this.state.value}
                          onChange={this.handleChange}
                       >
                          <MenuItem value={7} primaryText="Everyday" />
                          <MenuItem value={5} primaryText="Weekdays" />
                          <MenuItem value={2} primaryText="Weekends" />
-                         <MenuItem value={1} primaryText="Weekly" />
+                         <MenuItem value={1} primaryText="weekly" />
                     </SelectField> <br/>
                     </form>
                 </Dialog>
@@ -308,7 +444,7 @@ class HabitList extends Component {
 
             <Col xs={5}>
               <Card style={styles.minHeight}>
-                <RadarChart />
+                {renderRadar}
               </Card>
             </Col>
             </Row>

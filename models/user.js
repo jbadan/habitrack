@@ -8,7 +8,10 @@ var dateSchema = new mongoose.Schema({
 var habitSchema = new mongoose.Schema({
   name: String,
   difficulty: String,
-  goal: Number,
+  goal: {
+    type:Number,
+    default: 7
+  },
   dates: [dateSchema]
 });
 
@@ -39,6 +42,14 @@ var userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
     maxlength: 99
+  },
+  points: {
+    type: Number,
+    default: 0
+  },
+  weeklyGoal:{
+    type: Number,
+    default: 0
   },
   habits: [habitSchema],
   total: [totalSchema]
