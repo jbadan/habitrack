@@ -85,7 +85,7 @@ class Login extends Component {
     };
 
     return (
-      <div className="nav-button">
+      <div>
         <RaisedButton label="Login" onClick={this.handleOpen} />
         <Dialog
           title="Login"

@@ -19,6 +19,10 @@ img {
   border-radius: 50%;
 }
 
+.nav-buttons * {
+  display: inline-block;
+}
+
 .nav-button {
   margin: 1em;
 }
