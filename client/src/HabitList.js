@@ -55,6 +55,18 @@ const iconButtonElement = (
   </IconButton>
 );
 
+//date prototype functions to get date for welcome message
+(function() {
+   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    Date.prototype.getMonthName = function() {
+      return months[ this.getMonth() ];
+    };
+    Date.prototype.getDayName = function() {
+      return days[ this.getDay() ];
+    };
+})();
+
 
 class HabitList extends Component {
   constructor(props) {
@@ -62,7 +74,6 @@ class HabitList extends Component {
     this.state = {
       habitArray: [],
       newItem: '',
-      editHabit: '',
       user: this.props.user,
       redirect: false,
       difficulty: 'easy',
@@ -75,7 +86,7 @@ class HabitList extends Component {
       dateAndCount: []
     }
   }
-  //WORKING
+  //populates habitArray, datesAdded, dateAndCount from database on load
   componentDidMount(){
     axios.post('/habit', {
       user:this.state.user
@@ -85,20 +96,20 @@ class HabitList extends Component {
       newArray.push(result.data.habits)
       let flattened = newArray.reduce((a, b) => a.concat(b), [])
       //fetches all dates and total times users completed a habit
-      let dateAndCount = this.state.dateAndCount
+      let dateAndCountNew = this.state.dateAndCount
       //this is controlling for empty data so we don't end up with a null object pushed to array
       if(result.data.total.length === 0){
         //do nothing
       }else{
-        dateAndCount.push(result.data.total)
+        dateAndCountNew.push(result.data.total)
       }
-      //removing counts from data
+      //removing counts from data for use in radar chart
       let dateOnly = []
-      if(dateAndCount.length === 0){
+      if(dateAndCountNew.length === 0){
         //do nothing
       }else{
-        for(let i=0; i<dateAndCount.length; i++){
-          dateOnly.push({"date": dateAndCount[i].date})
+        for(let i=0; i<dateAndCountNew.length; i++){
+          dateOnly.push({"date": dateAndCountNew[i].date})
         }
         if(dateOnly.length === 0){
           this.setState({
@@ -107,20 +118,22 @@ class HabitList extends Component {
         }else{
           this.setState({
             habitArray: flattened,
-            datesAdded: dateOnly
+            datesAdded: dateOnly,
+            dateAndCount: dateAndCountNew
           })
         }
-
       }
   })
   }
 
+  //change handler for new habit name
   newItemChange = (e) => {
     this.setState({
       newItem: e.target.value
     })
   }
 
+  //change handler for radio buttons (difficulty)
   handleOptionChange = (e) =>{
     const target = e.target;
     const value = target.value;
@@ -130,7 +143,15 @@ class HabitList extends Component {
     });
   }
 
-//WORKING
+  //handlers for opening/closing add more dialog button
+   handleOpen = () => {
+      this.setState({open: true});
+   };
+   handleClose = () => {
+     this.setState({open: false});
+   };
+
+//add new habit to database and list
   addItem = (e) => {
     e.preventDefault()
     var updates = this.state.habitArray;
@@ -150,17 +171,15 @@ class HabitList extends Component {
     })
   }
 
-//menu with more and delete
+//sub menu with more and delete
   menuClicked = (event, value) => {
     this.setState({
        selectedItem: value
    }, () => {
-     console.log(this.state.selectedItem)
      //if selectedItem is number(ie index then delete has been selected)
      if(Number.isInteger(this.state.selectedItem)){
        let updates = this.state.habitArray;
        let index = this.state.selectedItem;
-       console.log(index)
        updates.splice(index, 1);
        this.setState({
          habitArray:  updates
@@ -178,8 +197,7 @@ class HabitList extends Component {
         user: this.props.user,
         name: habitName
        }).then(result => {
-        console.log(result.data)
-        this.props.liftHabit(result.data);
+         this.props.liftHabit(result.data);
        })
        this.setState({
          redirect: true
@@ -188,7 +206,6 @@ class HabitList extends Component {
    })
  }
    //adds today's date to database
-   //WORKING
    handleDate = (e) => {
      e.preventDefault()
      let habitName = e.target.getAttribute('value');
@@ -219,15 +236,8 @@ class HabitList extends Component {
        })
      })
    }
-
-
+   //change handler for goal setting
    handleChange = (event, index, value) => this.setState({value});
-   handleOpen = () => {
-    this.setState({open: true});
-  };
-  handleClose = () => {
-    this.setState({open: false});
-  };
 
   render() {
     //control for line chart data
@@ -275,11 +285,80 @@ class HabitList extends Component {
         renderRadar = <RadarChart datesArr={this.state.datesAdded} />
       }
 
+      //getting today's date for welcome header
+      let todayDate = new Date();
+      let dd = todayDate.getDate();
+      let yyyy = todayDate.getFullYear();
+       if(dd<10) {dd = '0'+dd}
+      var now = new Date();
+      var day = now.getDayName();
+      var month = now.getMonthName();
+
+      //today's to do List
+      let todayArr = []
+      let weeklyArr = []
+      let everydayArr = []
+      let weekdayArr = []
+      let weekendArr = []
+        for(let i = 0; i < this.state.habitArray.length; i++){
+          if(this.state.habitArray[i].goal === 1){
+            weeklyArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 7){
+            everydayArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 5){
+            weekdayArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 2){
+            weekendArr.push(this.state.habitArray[i])
+          }
+        }
+        //TODO: need to handle weekly todos
+      if(day === "Saturday" || day === "Sunday"){
+        let newArr = weekendArr.concat(everydayArr)
+        todayArr = newArr
+      }else{
+        let newArr = weekdayArr.concat(everydayArr)
+        todayArr = newArr
+      }
     return(
       <div>
-      
+      <Row>
+      <Col xs={12}>
+        <Row center="xs">
+          <Col xs={12}>
+            <h1> Hello, {this.state.user.name}! </h1>
+            <h6>Today is {day}, {month} {dd}, {yyyy} </h6>
+          </Col>
+        </Row>
+      </Col>
+      </Row>
+
         {lineChart}
 
+        <Row>
+          <Col xs={12}>
+            <Row center="xs">
+              <Col xs={6}>
+              <Card style={styles.minHeight}>
+                <Subheader style={styles.center}>Todays to do list</Subheader>
+              <List>
+              {todayArr.map((habit, index) => {
+                return(
+                  <Row>
+                    <Col xs={10}>
+                      <ListItem
+                        leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
+                        primaryText={habit.name}
+                      />
+                    </Col>
+                  </Row>
+                )
+              })}
+              </List>
+              </Card>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
         <Row>
         <Col xs={12}>
           <Row>

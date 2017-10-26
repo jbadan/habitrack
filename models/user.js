@@ -8,7 +8,10 @@ var dateSchema = new mongoose.Schema({
 var habitSchema = new mongoose.Schema({
   name: String,
   difficulty: String,
-  goal: Number,
+  goal: {
+    type:Number,
+    default: 7
+  },
   dates: [dateSchema]
 });
 
