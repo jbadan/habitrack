@@ -81,31 +81,34 @@ class Signup extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-        <Row>
-          <TextField
-               hintText="Name"
-               floatingLabelText="What is your first name?"
-               value={this.state.name}
-               onChange={this.handleNameChange}
-          />
-        </Row>
-        <Row>
-          <TextField
-               hintText="Email"
-               floatingLabelText="What is your email?"
-               value={this.state.email}
-               onChange={this.handleEmailChange}
-          />
-        </Row>
-        <Row>
-          <TextField
-               hintText="Password"
-               floatingLabelText="Choose a password"
-               type="password"
-               value={this.state.password}
-               onChange={this.handlePasswordChange}
-          />
-        </Row>
+          <div className='modal-content' >
+
+            <Row>
+              <TextField
+                   hintText="Name"
+                   floatingLabelText="What is your first name?"
+                   value={this.state.name}
+                   onChange={this.handleNameChange}
+              />
+            </Row>
+            <Row>
+              <TextField
+                   hintText="Email"
+                   floatingLabelText="What is your email?"
+                   value={this.state.email}
+                   onChange={this.handleEmailChange}
+              />
+            </Row>
+            <Row>
+              <TextField
+                   hintText="Password"
+                   floatingLabelText="Choose a password"
+                   type="password"
+                   value={this.state.password}
+                   onChange={this.handlePasswordChange}
+              />
+            </Row>
+          </div>
         </Dialog>
       </div>
     );
