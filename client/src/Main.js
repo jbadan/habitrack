@@ -32,7 +32,11 @@ class Main extends Component {
 
 				<div className="spacer"></div>
 
-				<div id="welcome"><h1>Enter your habits. See your Progress.</h1></div>
+				<div id="welcome">
+				<h1>Enter your habits. See your Progress.</h1>
+				<p>HabiTrack, </p>
+				</div>
+
 
 				<div className="spacer"></div>
 
