@@ -366,7 +366,7 @@ class HabitList extends Component {
               </Card>
               </Col>
               <Col xs={3}>
-                <Card {styles.minHeight}>
+                <Card style={styles.minHeight}>
                   <h3>You have {this.state.points} points </h3>
                   <h3> Your weekly goal is {this.state.weeklyGoal} points </h3>
                 </Card>
