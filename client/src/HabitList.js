@@ -31,6 +31,9 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dialog from 'material-ui/Dialog';
 import Drawer from 'material-ui/Drawer';
 
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 const styles = {
   bg: {
     backgroundColor: "lightBlack",
@@ -185,7 +188,8 @@ class HabitList extends Component {
       this.setState({
         habitArray: updates,
         open: false,
-        weeklyGoal: result.data.weeklyGoal
+        weeklyGoal: result.data.weeklyGoal,
+        open2: true
       })
     })
   }
@@ -397,17 +401,19 @@ class HabitList extends Component {
           <Col xs={12}>
             <Row center="xs">
               <Col xs={6}>
+              <FloatingActionButton
+                secondary={true}
+                onClick={this.handleOpen}
+              >
+                  <ContentAdd />
+              </FloatingActionButton>
               <Card style={styles.minHeight}>
                 <Subheader style={styles.center}>Today{`'`}s Habits</Subheader>
                 <RaisedButton
                       label="See all habits"
                       onClick={this.handleDrawerToggle}
                     />
-                <RaisedButton
-                      style={styles.center}
-                      label="Add new habit"
-                      onClick={this.handleOpen} 
-                      />
+
               <List>
               {todayArr.map((habit, index) => {
                 return(
