@@ -104,7 +104,6 @@ router.post('/date', function(req, res, next){
                  newPointTotal = totalPoints + 30
                  userVar.points = newPointTotal
                }
-               userVar.save();
              }
           };
       //handle count
