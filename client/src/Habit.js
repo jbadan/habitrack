@@ -21,14 +21,28 @@ const styles = {
 class Habit extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-    	user: this.props.user,
-    	habit: this.props.habit
+      dates: []
     }
   }
 
+  // componentDidMount() {
+  //   console.log(this.props.habit.name)
+  //   axios.post('/habit/dates', {
+  //     user: this.props.user,
+  //     name: this.props.habit.name
+  //   }).then(result => {
+  //     console.log(result)
+  //   })
+  // }
+
   render() {
+    axios.post('/habit/dates', {
+      user: this.props.user,
+      name: this.props.habit.name
+    }).then(result => {
+      console.log(result.data.dates[0])
+    })
     return(
       <div>
       	<Row>
@@ -38,6 +52,9 @@ class Habit extends Component {
 		      	<CardTitle title={this.props.habit.name} style={styles.center}/>
 		      	<CardText>Difficulty: {this.props.habit.difficulty}</CardText>
 		      	<CardText>My goal is {this.props.habit.goal} days per week!</CardText>
+            <CardText>
+            
+            </CardText>
 		      </Card>
 	      </Col>
 	      <Col xs={5}>

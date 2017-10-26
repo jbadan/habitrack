@@ -13,6 +13,22 @@ router.post('/', function(req,res,next){
   });
 })
 
+router.post('/dates', function(req,res,next){
+  var habit;
+  let habitName = req.body.name;
+  User.findOne({ "_id": req.body.user.id}).
+  populate('habits').
+  exec(function (err, user) {
+    if (err) return handleError(err);
+    for (var i = 0; i < user.habits.length; i++) {
+        if(user.habits[i].name === habitName){
+           habit = user.habits[i];
+        };
+    };
+    res.send(habit);
+  });
+})
+
 router.post('/details', function(req,res,next){
   let habitName = req.body.name;
   User.findOne({ "_id": req.body.user.id}).
