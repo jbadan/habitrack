@@ -20,14 +20,15 @@ const styles = {
 class Habit extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-    	user: this.props.user,
-    	habit: this.props.habit
+      dates: []
     }
   }
 
+
+
   render() {
+    console.log(this.props.habit);
     return(
       <div>
       	<Row>
@@ -37,6 +38,9 @@ class Habit extends Component {
 		      	<CardTitle title={this.props.habit.name} style={styles.center}/>
 		      	<CardText>Difficulty: {this.props.habit.difficulty}</CardText>
 		      	<CardText>My goal is {this.props.habit.goal} days per week!</CardText>
+            <CardText>
+            
+            </CardText>
 		      </Card>
 	      </Col>
 	      <Col xs={5}>
