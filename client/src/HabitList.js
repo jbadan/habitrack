@@ -83,7 +83,9 @@ class HabitList extends Component {
       open: false,
       //dates added is array of objects- new dates added after task completion
       datesAdded: [],
-      dateAndCount: []
+      //this is for the line graph
+      dateAndCount: [],
+      points: 0
     }
   }
   //populates habitArray, datesAdded, dateAndCount from database on load
@@ -205,7 +207,7 @@ class HabitList extends Component {
      }
    })
  }
-   //adds today's date to database
+   //adds today's date and points to database
    handleDate = (e) => {
      e.preventDefault()
      let habitName = e.target.getAttribute('value');
@@ -229,10 +231,12 @@ class HabitList extends Component {
        name: habitName
      }).then(result => {
        console.log(result.data)
-       let count = result.data
+       let newPointTotal = result.data.points
+       let count = result.data.total
        this.setState({
          datesAdded: dateArray,
-          dateAndCount: count
+          dateAndCount: count,
+          points: newPointTotal
        })
      })
    }
@@ -319,6 +323,8 @@ class HabitList extends Component {
         let newArr = weekdayArr.concat(everydayArr)
         todayArr = newArr
       }
+
+
     return(
       <div>
       <Row>
@@ -356,6 +362,11 @@ class HabitList extends Component {
               </List>
               </Card>
               </Col>
+              <Col xs={3}>
+                <Card>
+                  <h3>You have {this.state.points} points </h3>
+                </Card>
+              </Col>
             </Row>
           </Col>
         </Row>
@@ -372,7 +383,6 @@ class HabitList extends Component {
                   <Row>
                     <Col xs={10}>
                       <ListItem
-                        leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
                         primaryText={habit.name}
                         rightIconButton={
                             <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>

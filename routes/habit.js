@@ -74,12 +74,26 @@ router.post('/date', function(req, res, next){
   populate('habits total').
   exec(function(err, userVar){
     if(userVar){
+        let totalPoints = userVar.points
+        let newPointTotal = 0
+        //handle habit dates and points
         for (var i = 0; i < userVar.habits.length; i++) {
             if(userVar.habits[i].name === habitName){
                userVar.habits[i].dates.push(newDate);
+               if(userVar.habits[i].difficulty === "easy"){
+                 newPointTotal = totalPoints + 10
+                 userVar.points = newPointTotal
+               }else if(userVar.habits[i].difficulty === "medium"){
+                 newPointTotal = totalPoints + 20
+                 userVar.points = newPointTotal
+               }else if(userVar.habits[i].difficulty === "hard"){
+                 newPointTotal = totalPoints + 30
+                 userVar.points = newPointTotal
+               }
                userVar.save();
              }
           };
+      //handle count
       let newCount = '';
       if(userVar.total.length === 0){
         newCount = 1;
@@ -98,7 +112,7 @@ router.post('/date', function(req, res, next){
         }
       }
       userVar.save();
-      res.send(userVar.total)
+      res.send(userVar)
     }
   });
 })

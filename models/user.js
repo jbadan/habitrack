@@ -43,6 +43,10 @@ var userSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 99
   },
+  points: {
+    type: Number,
+    default: 0
+  },
   habits: [habitSchema],
   total: [totalSchema]
 });
