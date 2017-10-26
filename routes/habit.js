@@ -7,10 +7,10 @@ var User = require('../models/user');
 //WORKING
 router.post('/', function(req,res,next){
   User.findOne({ "_id": req.body.user.id}).
-  populate('habits').
+  populate('habits total').
   exec(function (err, user) {
     if (err) return handleError(err);
-    res.send(user.habits);
+    res.send({habits: user.habits, total: user.total});
   });
 })
 

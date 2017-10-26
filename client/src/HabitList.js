@@ -3,6 +3,7 @@ import Main from './Main';
 import axios from 'axios';
 import ResponsiveLineChart from './ResponsiveLineChart';
 import RadarChart from './RadarChart';
+import NotEnoughData from './NotEnoughData';
 import {
   BrowserRouter as Router,
   Redirect
@@ -34,6 +35,7 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    backgroundColor: "lightBlack",
   },
   minHeight: {
     minHeight: "500px",
@@ -66,7 +68,11 @@ class HabitList extends Component {
       difficulty: 'easy',
       value: 0,
       selectedItem: true,
-      open: false
+      //open controls dialog box for adding new habit
+      open: false,
+      //dates added is array of objects- new dates added after task completion
+      datesAdded: [],
+      dateAndCount: []
     }
   }
   //WORKING
@@ -74,13 +80,39 @@ class HabitList extends Component {
     axios.post('/habit', {
       user:this.state.user
     }).then(result => {
+      //fetches all habits from user
       let newArray = this.state.habitArray
-      newArray.push(result.data)
+      newArray.push(result.data.habits)
       let flattened = newArray.reduce((a, b) => a.concat(b), [])
-      this.setState({
-        habitArray: flattened
-      })
-    })
+      //fetches all dates and total times users completed a habit
+      let dateAndCount = this.state.dateAndCount
+      //this is controlling for empty data so we don't end up with a null object pushed to array
+      if(result.data.total.length === 0){
+        //do nothing
+      }else{
+        dateAndCount.push(result.data.total)
+      }
+      //removing counts from data
+      let dateOnly = []
+      if(dateAndCount.length === 0){
+        //do nothing
+      }else{
+        for(let i=0; i<dateAndCount.length; i++){
+          dateOnly.push({"date": dateAndCount[i].date})
+        }
+        if(dateOnly.length === 0){
+          this.setState({
+            habitArray: flattened
+          })
+        }else{
+          this.setState({
+            habitArray: flattened,
+            datesAdded: dateOnly
+          })
+        }
+
+      }
+  })
   }
 
   newItemChange = (e) => {
@@ -168,10 +200,20 @@ class HabitList extends Component {
       if(dd<10) {dd = '0'+dd}
       if(mm<10) {mm = '0'+mm}
       today = mm + '/' + dd + '/' + yyyy;
+      //making array of objects for radar chart weekday data
+        let newDateForArray = {
+          date: today
+        }
+        let dateArray = this.state.datesAdded
+        dateArray.push(newDateForArray)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
        name: habitName
+     })
+     //adds newly completed tasks to datesAdded for radar chart
+     this.setState({
+       datesAdded: dateArray
      })
    }
 
@@ -208,7 +250,7 @@ class HabitList extends Component {
       {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
       {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
     ];
-
+    //redirecting to more detail page after click
     const{redirect} = this.state;
     if(redirect){
       return <Redirect to ='/habit'/>
@@ -227,13 +269,21 @@ class HabitList extends Component {
         onClick={(e) => this.addItem(e)}
       />,
     ];
+    //if statement to control if there is enough data to render a radar chart
+    let renderRadar = ''
+    if(this.state.datesAdded.length === 0){
+      renderRadar = <NotEnoughData />
+    }else{
+      renderRadar = <RadarChart datesArr={this.state.datesAdded} />
+    }
+
     return(
       <div>
         <Row>
           <Col xs={1} />
           <Col xs={10} >
             <Card>
-              <ResponsiveLineChart data={theData} />
+
             </Card>
           </Col>
           <Col xs={1}/>
@@ -308,7 +358,7 @@ class HabitList extends Component {
 
             <Col xs={5}>
               <Card style={styles.minHeight}>
-                <RadarChart />
+                {renderRadar}
               </Card>
             </Col>
             </Row>

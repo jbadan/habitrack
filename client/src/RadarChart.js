@@ -11,32 +11,7 @@ class ResponsiveRadarChart extends Component {
     }
   }
   render() {
-
-    const datesArr = [
-    {date: "01/01/2017"},
-    {date: "01/02/2017"},
-    {date: "01/03/2017"},
-    {date: "01/23/2017"},
-    {date: "01/05/2017"},
-    {date: "01/24/2017"},
-    {date: "01/07/2017"},
-    {date: "01/26/2017"},
-    {date: "01/09/2017"},
-    {date: "01/10/2017"},
-    {date: "01/21/2017"},
-    {date: "01/12/2017"},
-    {date: "01/13/2017"},
-    {date: "02/16/2017"},
-    {date: "03/05/2017"},
-    {date: "04/14/2017"},
-    {date: "05/25/2017"},
-    {date: "06/08/2017"},
-    {date: "07/09/2017"},
-    {date: "08/23/2017"},
-    {date: "09/11/2017"},
-    {date: "10/12/2017"},
-    {date: "11/13/2017"}
-    ];
+      let datesArr = this.props.datesArr
 
     const dayArr = datesArr.map((day) => {
       var eachDay = day.date
