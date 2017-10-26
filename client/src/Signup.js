@@ -71,7 +71,7 @@ class Signup extends Component {
       />,
     ];
     return (
-      <div>
+      <div className='nav-button'>
         <RaisedButton label="Signup" onClick={this.handleOpen} />
         <Dialog
           title="Signup"

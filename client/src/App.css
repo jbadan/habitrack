@@ -18,3 +18,11 @@ body {
 img {
   border-radius: 50%;
 }
+
+.nav-button {
+  margin: 1em;
+}
+
+.modal-content {
+  margin: auto;
+}
