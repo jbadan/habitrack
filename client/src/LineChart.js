@@ -7,7 +7,6 @@ class LineChart extends Component {
 
   render() {
     let data = this.props.data;
-    console.log(data);
     // set the dimensions and margins of the graph
     let width = this.props.width - 50,
         height = width * 0.25;

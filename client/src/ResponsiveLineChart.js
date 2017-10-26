@@ -18,7 +18,6 @@ class ResponsiveLineChart extends Component {
     const className = classNames(
       (width < 600) && 'small-width-modifier'
     )
-    console.log(this.props.data);
 
     return (
       <Measure
