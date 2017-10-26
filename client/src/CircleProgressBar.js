@@ -3,6 +3,9 @@ import CircularProgress from 'material-ui/CircularProgress';
 import axios from 'axios';
 import moment from 'moment';
 
+
+import {grey400, grey500, darkBlack, lightBlack, pink} from 'material-ui/styles/colors';
+
 (function() {
    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     Date.prototype.getDayName = function() {
@@ -21,6 +24,21 @@ import moment from 'moment';
      function getSum(total, num) {
          return total + num;
      }
+
+     const styles = {
+       bg: {
+         backgroundColor: "#616161",
+         borderRadius:"100px",
+         marginBottom: "20px"
+       },
+       minHeight: {
+         minHeight: "500px",
+         marginTop: "50px",
+       },
+       center:{
+         textAlign: "center",
+       }
+     };
 
 class CircleProgressBar extends Component {
 
@@ -53,6 +71,7 @@ class CircleProgressBar extends Component {
             scoreArr.push(score)
         }
         let newTotal = scoreArr.reduce(getSum);
+        newTotal/2
         this.setState({
           completed: newTotal
         })
@@ -64,12 +83,12 @@ class CircleProgressBar extends Component {
 
     return (
       <div>
-        <p> Your weekly progress: </p>
         <CircularProgress
           mode="determinate"
           value={this.state.completed}
-          size={80}
-          thickness={5}
+          size={200}
+          thickness={30}
+          innerStyle = {styles.bg}
         />
       </div>
     );
