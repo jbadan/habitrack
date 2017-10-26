@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
 var dateSchema = new mongoose.Schema({
-  date:String
+  date:String,
+  week: Number
 })
 
 var habitSchema = new mongoose.Schema({
@@ -20,7 +21,8 @@ var totalSchema = new mongoose.Schema({
   count: {
     type: Number,
     default: 0
-  }
+  },
+  week: Number
 })
 
 var userSchema = new mongoose.Schema({
@@ -49,6 +51,10 @@ var userSchema = new mongoose.Schema({
   },
   weeklyGoal:{
     type: Number,
+    default: 0
+  },
+  weeklyPoints:{
+    type:Number,
     default: 0
   },
   habits: [habitSchema],

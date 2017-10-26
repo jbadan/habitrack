@@ -14,7 +14,7 @@ import Signup from './Signup';
 import Login from './Login';
 
 //Material ui
-import AppBar from 'material-ui/AppBar';
+import { AppBar, RaisedButton } from 'material-ui';
 
 class App extends Component {
   constructor(props) {
@@ -63,8 +63,21 @@ class App extends Component {
             <AppBar
               title="HabiTracker"
             >
-              <Signup lift={this.liftTokenToState} />
-              <Login lift={this.liftTokenToState} user={this.state.user} />
+            {this.state.user.id ?
+                <div className='nav-button'>
+                  <RaisedButton label="Habits" />
+                </div>
+              : (
+                <div className='nav-buttons'>
+                  <div className='nav-button'>
+                    <Signup lift={this.liftTokenToState} />
+                  </div>
+                  <div className='nav-buttons'>
+                    <Login lift={this.liftTokenToState} user={this.state.user} />
+                  </div>
+                </div>
+              )
+            }
             </AppBar>
             {switchStatement}
           </div>

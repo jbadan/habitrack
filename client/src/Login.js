@@ -85,7 +85,7 @@ class Login extends Component {
     };
 
     return (
-      <div className="LoginBox">
+      <div>
         <RaisedButton label="Login" onClick={this.handleOpen} />
         <Dialog
           title="Login"
@@ -93,28 +93,27 @@ class Login extends Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+
         >
-          <Col sm={4}></Col>
-          <Col sm={4}>
-              <Row>
-                  <TextField
-                       hintText="Email"
-                       floatingLabelText="Enter your email"
-                       value={this.state.email}
-                       onChange={this.handleEmailChange}
-                  />
-              </Row>
-              <Row>
-                  <TextField
-                       hintText="Password"
-                       floatingLabelText="Enter your password"
-                       type="password"
-                       value={this.state.password}
-                       onChange={this.handlePasswordChange}
-                  />
-              </Row>
-          </Col>
-          <Col sm={4}></Col>
+          <div className='modal-content' >
+            <Row>
+              <TextField
+                   hintText="Email"
+                   floatingLabelText="Enter your email"
+                   value={this.state.email}
+                   onChange={this.handleEmailChange}
+              />
+            </Row>
+            <Row>
+              <TextField
+                   hintText="Password"
+                   floatingLabelText="Enter your password"
+                   type="password"
+                   value={this.state.password}
+                   onChange={this.handlePasswordChange}
+              />
+            </Row>
+          </div>
         </Dialog>
       </div>
     );
