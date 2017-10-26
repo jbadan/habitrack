@@ -29,17 +29,29 @@ import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dialog from 'material-ui/Dialog';
+import Drawer from 'material-ui/Drawer';
 
 const styles = {
   bg: {
     backgroundColor: "lightBlack",
   },
   minHeight: {
-    minHeight: "500px",
+    Height: "500px",
     marginTop: "50px",
   },
   center:{
     textAlign: "center",
+    color: "#00ACC1",
+    fontSize: "1.2em"
+  },
+  header:{
+    color: "#D81B60",
+    fontSize: "2em"
+  },
+  subHeader:{
+    color: "#FAFAFA",
+    fontSize: "1.2em"
+
   }
 };
 const iconButtonElement = (
@@ -79,12 +91,14 @@ class HabitList extends Component {
       selectedItem: true,
       //open controls dialog box for adding new habit
       open: false,
+      //controls drawer of all habits
+      open2: false,
       //dates added is array of objects- new dates added after task completion
       datesAdded: [],
       //this is for the line graph
       dateAndCount: [],
       points: 0,
-      weeklyGoal: '',
+      weeklyGoal: 0,
       weeklyPoints: 0
     }
   }
@@ -250,6 +264,10 @@ class HabitList extends Component {
    //change handler for goal setting
    handleChange = (event, index, value) => this.setState({value});
 
+  handleDrawerToggle = () => this.setState({open2: !this.state.open2});
+
+  handleDrawerClose = () => this.setState({open2: false});
+
   render() {
     //control for line chart data
       let theData = this.state.dateAndCount
@@ -334,12 +352,40 @@ class HabitList extends Component {
 
     return(
       <div style={styles.bg}>
+          <Drawer
+            docked={false}
+            width={200}
+            open={this.state.open2}
+            onRequestChange={(open2) => this.setState({open2})}
+          >
+              <h1 style={styles.center}>My Habits</h1>
+            <List>
+            {this.state.habitArray.map((habit, index) => {
+              return(
+                    <ListItem
+                      primaryText={habit.name}
+                      rightIconButton={
+                          <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
+                            <MenuItem value={habit.name}>More Information</MenuItem>
+                            <MenuItem value={index}>Delete</MenuItem>
+                          </IconMenu>
+                      }
+                    />
+
+              )
+            })}
+            </List>
+            </Drawer>
+
+
+
+
         <Row>
         <Col xs={12}>
           <Row center="xs">
             <Col xs={12}>
-              <h1> Hello, {this.state.user.name}! </h1>
-              <h6>Today is {day}, {month} {dd}, {yyyy} </h6>
+              <h1 style={styles.header}> Hello, {this.state.user.name}! </h1>
+              <h6 style={styles.subHeader}>Today is {day}, {month} {dd}, {yyyy} </h6>
             </Col>
           </Row>
         </Col>
@@ -352,17 +398,28 @@ class HabitList extends Component {
             <Row center="xs">
               <Col xs={6}>
               <Card style={styles.minHeight}>
-                <Subheader style={styles.center}>Todays to do list</Subheader>
+                <Subheader style={styles.center}>Today{`'`}s Habits</Subheader>
+                <RaisedButton
+                      label="See all habits"
+                      onClick={this.handleDrawerToggle}
+                    />
+                <RaisedButton
+                      style={styles.center}
+                      label="Add new habit"
+                      onClick={this.handleOpen} 
+                      />
               <List>
               {todayArr.map((habit, index) => {
                 return(
                   <Row>
-                    <Col xs={10}>
+                    <Col xs={2}/>
+                    <Col xs={8}>
                       <ListItem
                         leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
                         primaryText={habit.name}
                       />
                     </Col>
+                    <Col xs={2}/>
                   </Row>
                 )
               })}
@@ -371,80 +428,88 @@ class HabitList extends Component {
               </Col>
               <Col xs={3}>
                 <Card style={styles.minHeight}>
-                  <h3>Total points: {this.state.points} </h3>
-                  <h3> Weekly points: {this.state.weeklyPoints} </h3>
-                  <h3> Your weekly goal is {this.state.weeklyGoal} points </h3>
-                  <CircleProgressBar user={this.props.user} weeklyGoal={this.state.weeklyGoal} />
+                  <Row center="xs">
+                    <Col xs={12}>
+                      <h2>Total Points </h2>
+                    </Col>
+                  </Row>
+                  <Row center="xs">
+                    <Col xs={12}>
+                      <h3>{this.state.points}</h3>
+                      <Divider/>
+                    </Col>
+                  </Row>
+                  <Row center="xs">
+                    <Col xs={12}>
+                      <h2>Weekly Goal </h2>
+                    </Col>
+                  </Row>
+                  <Row center="xs">
+                    <Col xs={12}>
+                      <h3>{this.state.weeklyGoal}</h3>
+                      <Divider />
+                    </Col>
+                  </Row>
+                  <Row center="xs">
+                    <Col xs={12}>
+                      <h2>Weekly Progress </h2>
+                    </Col>
+                  </Row>
+                  <Row center="xs">
+                    <Col xs={12}>
+                      <CircleProgressBar user={this.props.user} weeklyGoal={this.state.weeklyGoal} />
+                    </Col>
+                  </Row>
                 </Card>
               </Col>
             </Row>
           </Col>
         </Row>
         <Row>
-        <Col xs={12}>
-          <Row>
-            <Col xs={1} />
-            <Col xs={5}>
-              <Card style={styles.minHeight}>
-                <Subheader style={styles.center}>My Habits</Subheader>
-              <List>
-              {this.state.habitArray.map((habit, index) => {
-                return(
-                  <Row>
-                    <Col xs={10}>
-                      <ListItem
-                        primaryText={habit.name}
-                        rightIconButton={
-                            <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
-                              <MenuItem value={habit.name}>More Information</MenuItem>
-                              <MenuItem value={index}>Delete</MenuItem>
-                            </IconMenu>
-                        }
-                      />
-                    </Col>
-                  </Row>
-                )
-              })}
-              </List>
-              <RaisedButton style={styles.center} label="Add new habit" onClick={this.handleOpen} />
-              <Dialog
-                open={this.state.open}
-                onRequestClose = {this.handleClose}
-                actions={actions}
-                >
-                    <form>
-                        <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
+          <Col xs={12}>
+              <Row>
+                  <Col xs={1} />
+                  <Col xs={5}>
+                    <Card>
 
-                       <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="Easy">
-                            <RadioButton
-                                  value="easy"
-                                  label="Easy"
-                                />
-                                <RadioButton
-                                  value="medium"
-                                  label="Medium"
-                                />
-                                <RadioButton
-                                  value="hard"
-                                  label="Hard"
-                                />
-                      </RadioButtonGroup>
+                      <Dialog
+                        open={this.state.open}
+                        onRequestClose = {this.handleClose}
+                        actions={actions}
+                        >
+                            <form>
+                                <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
 
-                     <SelectField
-                         floatingLabelText="Frequency"
-                         name="goal"
-                         default="Everyday"
-                         value={this.state.value}
-                         onChange={this.handleChange}
-                      >
-                         <MenuItem value={7} primaryText="Everyday" />
-                         <MenuItem value={5} primaryText="Weekdays" />
-                         <MenuItem value={2} primaryText="Weekends" />
-                         <MenuItem value={1} primaryText="weekly" />
-                    </SelectField> <br/>
-                    </form>
-                </Dialog>
-              </Card>
+                               <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="Easy">
+                                    <RadioButton
+                                          value="easy"
+                                          label="Easy"
+                                        />
+                                        <RadioButton
+                                          value="medium"
+                                          label="Medium"
+                                        />
+                                        <RadioButton
+                                          value="hard"
+                                          label="Hard"
+                                        />
+                              </RadioButtonGroup>
+
+                             <SelectField
+                                 floatingLabelText="Frequency"
+                                 name="goal"
+                                 default="Everyday"
+                                 value={this.state.value}
+                                 onChange={this.handleChange}
+                              >
+                                 <MenuItem value={7} primaryText="Everyday" />
+                                 <MenuItem value={5} primaryText="Weekdays" />
+                                 <MenuItem value={2} primaryText="Weekends" />
+                                 <MenuItem value={1} primaryText="weekly" />
+                            </SelectField> <br/>
+                            </form>
+                        </Dialog>
+                  </Card>
             </Col>
 
 
