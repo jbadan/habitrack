@@ -10,11 +10,9 @@ import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
-import Signup from './Signup';
-import Login from './Login';
+import Navbar from './Navbar';
 
 //Material ui
-import { AppBar, RaisedButton } from 'material-ui';
 
 class App extends Component {
   constructor(props) {
@@ -60,25 +58,7 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <AppBar
-              title="HabiTracker"
-            >
-            {this.state.user.id ?
-                <div className='nav-button'>
-                  <RaisedButton label="Habits" />
-                </div>
-              : (
-                <div className='nav-buttons'>
-                  <div className='nav-button'>
-                    <Signup lift={this.liftTokenToState} />
-                  </div>
-                  <div className='nav-buttons'>
-                    <Login lift={this.liftTokenToState} user={this.state.user} />
-                  </div>
-                </div>
-              )
-            }
-            </AppBar>
+            <Navbar user={this.state.user} lift={this.liftTokenToState} />
             {switchStatement}
           </div>
         </Router>
