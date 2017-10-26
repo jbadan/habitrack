@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Main from './Main';
 import axios from 'axios';
+import moment from 'moment';
 import ResponsiveLineChart from './ResponsiveLineChart';
 import RadarChart from './RadarChart';
 import NotEnoughData from './NotEnoughData';
@@ -83,7 +84,8 @@ class HabitList extends Component {
       //this is for the line graph
       dateAndCount: [],
       points: 0,
-      weeklyGoal: ''
+      weeklyGoal: '',
+      weeklyPoints: 0
     }
   }
   //populates habitArray, datesAdded, dateAndCount from database on load
@@ -220,18 +222,20 @@ class HabitList extends Component {
       if(dd<10) {dd = '0'+dd}
       if(mm<10) {mm = '0'+mm}
       today = mm + '/' + dd + '/' + yyyy;
+      var weekNumber = moment(today, "MMDDYYYY").isoWeek();
       //making array of objects for radar chart weekday data
         let newDateForArray = {
-          date: today
+          date: today,
+          week: weekNumber
         }
         let dateArray = this.state.datesAdded
         dateArray.push(newDateForArray)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
-       name: habitName
+       name: habitName,
+       week: weekNumber
      }).then(result => {
-       console.log(result.data)
        let newPointTotal = result.data.points
        let count = result.data.total
        let newWeekGoal = result.data.weeklyGoal
@@ -367,8 +371,10 @@ class HabitList extends Component {
               </Col>
               <Col xs={3}>
                 <Card style={styles.minHeight}>
-                  <h3>You have {this.state.points} points </h3>
+                  <h3>Total points: {this.state.points} </h3>
+                  <h3> Weekly points: {this.state.weeklyPoints} </h3>
                   <h3> Your weekly goal is {this.state.weeklyGoal} points </h3>
+                  <CircleProgressBar user={this.props.user} weeklyGoal={this.state.weeklyGoal} />
                 </Card>
               </Col>
             </Row>
