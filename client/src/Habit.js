@@ -26,10 +26,23 @@ class Habit extends Component {
     }
   }
 
-
+  // componentDidMount() {
+  //   console.log(this.props.habit.name)
+  //   axios.post('/habit/dates', {
+  //     user: this.props.user,
+  //     name: this.props.habit.name
+  //   }).then(result => {
+  //     console.log(result)
+  //   })
+  // }
 
   render() {
-    console.log(this.props.habit);
+    axios.post('/habit/dates', {
+      user: this.props.user,
+      name: this.props.habit.name
+    }).then(result => {
+      console.log(result.data.dates[0])
+    })
     return(
       <div>
       	<Row>
