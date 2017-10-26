@@ -36,6 +36,7 @@ class Signup extends Component {
     }).then(result => {
       localStorage.setItem('mernToken', result.data.token)
       this.props.lift(result.data)
+      this.handleClose();
     })
   }
 
@@ -71,7 +72,7 @@ class Signup extends Component {
       />,
     ];
     return (
-      <div className='nav-button'>
+      <div>
         <RaisedButton label="Signup" onClick={this.handleOpen} />
         <Dialog
           title="Signup"
