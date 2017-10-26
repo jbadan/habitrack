@@ -218,7 +218,6 @@ class HabitList extends Component {
           dateAndCount: count
        })
      })
-     //adds newly completed tasks to datesAdded for radar chart
    }
 
 
@@ -237,7 +236,17 @@ class HabitList extends Component {
       if(theData.length === 0){
         lineChart = <NotEnoughData />
       }else{
-        lineChart = <ResponsiveLineChart data={theData} />
+        lineChart =
+            <Row>
+              <Col xs={1} />
+              <Col xs={10} >
+                <Card>
+                  <ResponsiveLineChart data={theData} />
+                </Card>
+              </Col>
+              <Col xs={1}/>
+            </Row>
+
       }
     //redirecting to more detail page after click
       const{redirect} = this.state;
@@ -268,15 +277,9 @@ class HabitList extends Component {
 
     return(
       <div>
-        <Row>
-          <Col xs={1} />
-          <Col xs={10} >
-            <Card>
-              {lineChart}
-            </Card>
-          </Col>
-          <Col xs={1}/>
-        </Row>
+      
+        {lineChart}
+
         <Row>
         <Col xs={12}>
           <Row>
