@@ -154,7 +154,11 @@ class HabitList extends Component {
       this.setState({open: true});
    };
    handleClose = () => {
-     this.setState({open: false});
+     this.setState({
+       open: false,
+       newItem: '',
+       difficulty: 'easy',
+     });
    };
 
 //add new habit to database and list
