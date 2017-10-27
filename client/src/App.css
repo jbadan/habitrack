@@ -6,6 +6,11 @@ body {
   font-size: 16px;
 }
 
+h2 {
+  vertical-align: middle;
+  top: 40%;
+}
+
 .devPhotos {
   border-radius: 50%;
 }
@@ -17,29 +22,17 @@ body {
   font-size: 1em;
 }
 
-h2 {
-  vertical-align: middle;
-  top: 40%;
-}
-
 .spacer {
-  height: 20px;
+  height: 60px;
   width: 100%;
-  margin: 10px auto;
+  margin: 0 auto;
   text-align: center;
   background-color: #212121;
-  line-height: 50px;
+  font-size: 1.25em;
 }
 
-#mainPage {
-  color: white;
-  font-family: 'Lato', serif;
-}
-
-#welcome {
-  font-family: 'Roboto', sans-serif;
-  font-weight:100;
-  text-align: center;
+.sectionHeaders {
+  height: 150px;
 }
 
 .nav-buttons * {
@@ -52,4 +45,23 @@ h2 {
 
 .modal-content {
   margin: auto;
+}
+
+.paperText {
+  font-family: 'Lato', serif;
+  line-height: 24px;
+}
+
+#mainPage {
+  color: white;
+  font-family: 'Lato', serif;
+}
+
+#welcome {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 1.25em;
 }
