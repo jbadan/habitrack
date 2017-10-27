@@ -79,7 +79,7 @@ class Habit extends Component {
             open={this.state.open2}
             onRequestChange={(open2) => this.setState({open2})}
           >
-            <h1 style={styles.center}>All Dates</h1>
+            <h3 style={styles.center}>Task completed on these days:</h3>
             <List>
               {this.state.dates.map((date, index) => {
                 return(
@@ -90,31 +90,31 @@ class Habit extends Component {
           </Drawer>
 
       	<Row>
-      	<Col xs={1} />
-      	<Col xs={5}>
+      	<Col sm={1} />
+      	<Col xs={12} sm={5}>
 		      <Card style={styles.minHeight}>
 		      	<CardTitle title={this.props.habit.name} style={styles.center}/>
-		      	<CardText>Difficulty: {this.props.habit.difficulty}</CardText>
-		      	<CardText>My goal is {this.props.habit.goal} days per week!</CardText>
+		      	<CardTitle>Difficulty: {this.props.habit.difficulty}</CardTitle>
+		      	<CardTitle>My goal is {this.props.habit.goal} days per week!</CardTitle>
 		      </Card>
 	      </Col>
-	      <Col xs={5}>
+	      <Col xs={12} sm={5}>
 	      	<Card style={styles.minHeight}>
 	      		{renderRadar}
 	      	</Card>
 	      </Col>
-	      <Col xs={1} />
+	      <Col sm={1} />
 	      </Row>
 
         <Row>
-          <Col xs={1} />
-          <Col xs={5} style={styles.center}>
+          <Col sm={1} />
+          <Col xs={12} sm={5} style={styles.center}>
             <RaisedButton label="See Dates" primary={true} onClick={this.handleDrawerToggle}/>
           </Col>
-          <Col xs={5} style={styles.center}>
+          <Col xs={12} sm={5} style={styles.center}>
             <RaisedButton label="Dashboard" primary={true} onClick={this.handleRedirect}/>
           </Col>
-          <Col xs={1} />
+          <Col sm={1} />
         </Row>
       </div>
     )
