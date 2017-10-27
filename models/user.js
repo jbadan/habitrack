@@ -9,6 +9,10 @@ var dateSchema = new mongoose.Schema({
 var habitSchema = new mongoose.Schema({
   name: String,
   difficulty: String,
+  completed:{
+    type:Boolean,
+    default: false
+  },
   goal: {
     type:Number,
     default: 7
@@ -88,7 +92,7 @@ userSchema.pre('save', function(next) {
   var user = this;
   // only hash the password if it has been modified (or is new)
   if (!user.isModified('password')) return next();
-  
+
   var hash = bcrypt.hashSync(this.password, 10);
   // store the hash as the user's password
   this.password = hash;

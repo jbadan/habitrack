@@ -37,6 +37,14 @@ import {grey400, grey500, darkBlack, lightBlack, pink} from 'material-ui/styles/
        },
        center:{
          textAlign: "center",
+       },
+       point:{
+         position: "absolute",
+         top: "50px",
+         left: "100px"
+       },
+       parent:{
+         position: "relative"
        }
      };
 
@@ -47,18 +55,20 @@ class CircleProgressBar extends Component {
 
     this.state = {
       completed: 0,
-      weeklyGoal: this.props.weeklyGoal
+      weeklyGoal: 0,
+      points: 0
     };
   }
   componentWillReceiveProps(nextProps){
-    if(nextProps.weeklyGoal > this.state.weeklyGoal){
+    if(nextProps.weeklyGoal > this.state.weeklyGoal || nextProps.pointControl > this.state.points){
     axios.post('habit/weeklyGoal', {
       user: this.props.user,
-      weeklyGoal: this.state.weeklyGoal,
+      weeklyGoalNew: this.props.weeklyGoal,
       weekNumber: currentWeekNumber
     }).then(result => {
         let score = 0;
         let scoreArr = []
+        let newTotal = 0
         for(let i=0; i< result.data.length; i++){
           if(result.data[i].difficulty === 'easy'){
             score =  10;
@@ -70,19 +80,25 @@ class CircleProgressBar extends Component {
             score =  30;
             scoreArr.push(score)
         }
-        let newTotal = scoreArr.reduce(getSum);
-        newTotal/2
-        this.setState({
-          completed: newTotal
-        })
-    }})
+        newTotal = scoreArr.reduce(getSum);
+        //math to convert total to #/100
+
+    }
+    let circleInfo = ((newTotal/2)*100)/(this.props.weeklyGoal)
+    this.setState({
+      completed: circleInfo,
+      weeklyGoal: this.props.weeklyGoal,
+      points: newTotal
+    })
+
+  })
   }
 }
 
   render() {
 
     return (
-      <div>
+      <div style={styles.parent}>
         <CircularProgress
           mode="determinate"
           value={this.state.completed}
@@ -90,6 +106,7 @@ class CircleProgressBar extends Component {
           thickness={30}
           innerStyle = {styles.bg}
         />
+        <h1 style={styles.point}> {this.state.points} </h1>
       </div>
     );
   }
