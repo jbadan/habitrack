@@ -79,7 +79,7 @@ class App extends Component {
 
   render() {
     let switchStatement = '';
-    if (typeof this.state.user === 'object' && Object.keys(this.state.user).length === 0) {
+    if (Object.keys(this.state.user).length === 0) {
        switchStatement =
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
