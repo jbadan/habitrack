@@ -39,6 +39,12 @@ var userSchema = new mongoose.Schema({
   email: { // TODO: Need to add email validation
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(v)
+      },
+      message: "{VALUE} is not a valid email"
+    },
     unique: true,
     minlength: 5,
     maxlength: 99
@@ -46,8 +52,12 @@ var userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 8,
-    maxlength: 99
+    validate: {
+      validator(v) {
+        return /^\w{8,99}$/.test(v)
+      },
+      message: 'Your password must be be between 8 and 99 characters!'
+    }
   },
   points: {
     type: Number,
