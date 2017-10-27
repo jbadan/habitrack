@@ -8,6 +8,10 @@ import dash from './dash.png';
 import line from './line.png';
 import list from './list.png';
 import radar from './radar.png';
+import Jenna from './Jenna.jpeg';
+import Matt from './Matt.png';
+import Evan from './Evan.jpeg';
+import Lauren from './Lauren.jpeg';
 
 class Main extends Component {
 	constructor(props) {
@@ -16,15 +20,34 @@ class Main extends Component {
 
 	render() {
 
-			const style = {
-			  height: 200,
+			const style1 = {
+			  height: 150,
 			  width: 300,
-			  margin: 20,
 			  textAlign: 'center',
 			  display: 'inline-block',
 				color: '#FFFFFF',
-				padding: 20,
-				fontfamily: 'Lato'
+				padding: 15,
+
+			};
+
+			const style2 = {
+			  height: 200,
+			  width: 300,
+			  textAlign: 'center',
+			  display: 'inline-block',
+				color: '#FFFFFF',
+				padding: 15,
+				fontfamily: 'Lato',
+			};
+
+			const style3 = {
+			  height: 150,
+			  width: 300,
+			  textAlign: 'center',
+			  display: 'inline-block',
+				color: '#FFFFFF',
+				padding: 15,
+				fontfamily: 'Lato',
 			};
 
 		return (
@@ -33,18 +56,19 @@ class Main extends Component {
 				<div className="spacer"></div>
 
 				<div id="welcome">
-				<h1>Enter your habits. See your Progress.</h1>
-				<p>HabiTrack, </p>
+					<h1>Enter your habits. See your Progress.</h1>
+					<p>Mindfulness is about being in the moment. HabiTracker helps focus attention
+					 on the activities and behaviors you value the most.</p>
+					<h2>Get started today.</h2>
 				</div>
-
 
 				<div className="spacer"></div>
 
-				<Row>
+				<Row className="sectionHeaders">
 					<Col xs={12}>
 						<Row center="xs">
 							<Col xs={6}>
-							<h1>Custom Dashboard</h1>
+							<h1>Custom Dashboards</h1>
 							</Col>
 						</Row>
 					</Col>
@@ -55,9 +79,9 @@ class Main extends Component {
 						<Row center="xs">
 							<Row middle="xs">
 								<Col xs={5}>
-									<Paper style={style} zDepth={4}>
-										<p>From a personalized, interactive dashboard, HabiTrack allows
-										 user{`'`}s to track and visualize frequency data about their daily activities.</p>
+									<Paper style={style1} zDepth={4}>
+										<p className="paperText">From a personalized, interactive dashboard, HabiTrack allows
+										 users to track and visualize frequency data about their daily activities.</p>
 									</Paper>
 								</Col>
 							</Row>
@@ -74,6 +98,16 @@ class Main extends Component {
 				<div className="spacer"></div>
 
 				<Row>
+					<Col xs={12}>
+						<Row center="xs">
+							<Col xs={6}>
+								<p>Simply enter habits you want to track, log your daily activities, and watch your data grow!</p>
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+
+				<Row className="sectionHeaders">
 					<Col xs={12}>
 						<Row center="xs">
 							<Col xs={6}>
@@ -94,8 +128,9 @@ class Main extends Component {
 							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={5}>
-									<Paper style={style} zDepth={4}>
-										<p>The personalized charts are comprehensive, yet easy
+									<Paper style={style2} zDepth={4}>
+										<p className="paperText">Data is displayed in easy-to-analyze
+										graphics, offering accountability and awareness of behavior trends. The charts are comprehensive, yet easy
 										to read for comparing and understanding personal data.</p>
 									</Paper>
 								</Col>
@@ -107,6 +142,16 @@ class Main extends Component {
 				<div className="spacer"></div>
 
 				<Row>
+					<Col xs={12}>
+						<Row center="xs">
+							<Col xs={6}>
+								<p>Daily tracking provides a more thorough data snapshot.</p>
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+
+				<Row className="sectionHeaders">
 					<Col xs={12}>
 						<Row center="xs">
 							<Col xs={6}>
@@ -127,8 +172,8 @@ class Main extends Component {
 							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={3}>
-									<Paper style={style} zDepth={4}>
-										<p>Habit activity is logged using an easy check off list logging stystem.
+									<Paper style={style3} zDepth={4}>
+										<p className="paperText">Habit activity is logged using an easy check off list logging stystem.
 										 Daily and weekly activity cna be viewed on each habits individual page.</p>
 									</Paper>
 								</Col>
@@ -145,11 +190,21 @@ class Main extends Component {
 
 				<div className="spacer"></div>
 
+				<Row className="sectionHeaders">
+					<Col xs={12}>
+						<Row center="xs">
+							<Col xs={6}>
+							<h2>About Us</h2>
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+
 				<Row bottom="xs" className="about-section">
 					<Row around="xs" center="xs">
 						<Col xs={2}>
 							<h4>Jenna Badanowski</h4>
-							<img className="devPhotos" src="http://lorempixel.com/100/100/cats"/>
+							<img className="devPhotos" src={Jenna}/>
 							<p>Lorem ipsum dolor sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
@@ -157,7 +212,7 @@ class Main extends Component {
 						</Col>
 						<Col xs={2}>
 							<h4>Matthew Bell</h4>
-							<img className="devPhotos" src="http://lorempixel.com/100/100/cats"/>
+							<img className="devPhotos" src={Matt}/>
 							<p>Lorem ipsum dolor sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
@@ -165,7 +220,7 @@ class Main extends Component {
 						</Col>
 						<Col xs={2}>
 							<h4>Evan Haala</h4>
-							<img className="devPhotos" src="http://lorempixel.com/100/100/cats"/>
+							<img className="devPhotos" src={Evan}/>
 							<p>Lorem ipsum dolor sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
@@ -173,7 +228,7 @@ class Main extends Component {
 						</Col>
 						<Col xs={2}>
 							<h4>Lauren Perez</h4>
-							<img className="devPhotos" src="http://lorempixel.com/100/100/cats"/>
+							<img className="devPhotos" src={Lauren}/>
 							<p>Lorem ipsum dolor sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
