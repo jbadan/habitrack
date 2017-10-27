@@ -10,7 +10,8 @@ import {
   BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
-import { Row, Col } from 'react-flexbox-grid';
+import { Row, Col, Grid } from 'react-flexbox-grid';
+import Flash from './Flash';
 
 class Login extends Component {
   constructor(props) {
@@ -21,6 +22,8 @@ class Login extends Component {
       redirect: false,
       open: false,
       loading: false,
+      alert: {type: '', msg: ''},
+      showAlert: false,
     }
   }
 
@@ -38,15 +41,17 @@ class Login extends Component {
     axios.post('/auth/login', {
       email: this.state.email,
       password: this.state.password
-    }).then(result => {
-      localStorage.setItem('mernToken', result.data.token)
-      this.props.lift(result.data)
-      this.setState({
-        redirect: true,
-        open: false,
-        loading: false,
-      })
-    })
+    }).then((result) => {
+      localStorage.setItem('mernToken', result.data.token);
+      this.props.lift(result.data);
+      this.handleClose();
+    }).catch((error) => {
+      this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
+    });
+  }
+
+  clearAlert = () => {
+    this.setState({showAlert: false});
   }
 
   handleClose = () => {
@@ -79,11 +84,6 @@ class Login extends Component {
       />,
     ];
 
-    const {redirect} = this.state;
-    if(redirect){
-      return <Redirect to ='/display'/>
-    };
-
     return (
       <div>
         <RaisedButton label="Login" onClick={this.handleOpen} />
@@ -93,7 +93,6 @@ class Login extends Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-
         >
           <div className='modal-content' >
             <Row>
@@ -112,6 +111,9 @@ class Login extends Component {
                    value={this.state.password}
                    onChange={this.handlePasswordChange}
               />
+            </Row>
+            <Row>
+              <Flash alert={this.state.alert} show={this.state.showAlert} clearAlert={this.clearAlert}/>
             </Row>
           </div>
         </Dialog>
