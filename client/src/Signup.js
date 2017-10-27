@@ -87,7 +87,7 @@ class Signup extends Component {
     ];
     return (
       <div>
-        <RaisedButton label="Signup" onClick={this.handleOpen} />
+        <RaisedButton label="Signup" onClick={this.handleOpen} primary={this.props.primary}/>
         <Dialog
           title="Signup"
           actions={actions}
