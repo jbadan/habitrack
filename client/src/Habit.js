@@ -50,8 +50,6 @@ class Habit extends Component {
       name: this.props.habit.name
     }).then(result => {
       dates = result.data
-      console.log(dates);
-      console.log(dates[0].date);
       if (this.state.test === 'blah') {
         console.log('yoooo')
         this.setState({
