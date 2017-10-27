@@ -13,6 +13,22 @@ router.post('/', function(req,res,next){
   });
 })
 
+router.post('/dates', function(req,res,next){
+  var dates;
+  let habitName = req.body.name;
+  User.findOne({ "_id": req.body.user.id}).
+  populate('habits').
+  exec(function (err, user) {
+    if (err) return handleError(err);
+    for (var i = 0; i < user.habits.length; i++) {
+        if(user.habits[i].name === habitName){
+           dates = user.habits[i].dates;
+           res.send(dates);
+        };
+    };
+  });
+})
+
 router.post('/details', function(req,res,next){
   let habitName = req.body.name;
   User.findOne({ "_id": req.body.user.id}).
@@ -58,8 +74,12 @@ router.post('/new', function(req,res,next){
         newweeklyGoal = previousGoal + (30*req.body.goal);
         user.weeklyGoal = newweeklyGoal;
       }
+      let newHabitCompletedArray = []
+      for(let i=0; i <user.habits.length; i++){
+        newHabitCompletedArray.push(user.habits[i].completed)
+      }
       user.save();
-      res.send({weeklyGoal: user.weeklyGoal})
+      res.send({weeklyGoal: user.weeklyGoal,habitCompletedArray:newHabitCompletedArray})
     });
 });
 
@@ -90,9 +110,11 @@ router.post('/date', function(req, res, next){
     if(userVar){
         let totalPoints = userVar.points
         let newPointTotal = 0
-        //handle habit dates and points
+        let habitCompletedArray =[]
+        //handle habit dates, completed and points
         for (var i = 0; i < userVar.habits.length; i++) {
             if(userVar.habits[i].name === habitName){
+              userVar.habits[i].completed = true;
                userVar.habits[i].dates.push(newDate);
                if(userVar.habits[i].difficulty === "easy"){
                  newPointTotal = totalPoints + 10
@@ -104,9 +126,11 @@ router.post('/date', function(req, res, next){
                  newPointTotal = totalPoints + 30
                  userVar.points = newPointTotal
                }
-               userVar.save();
              }
           };
+          for(let m=0; m< userVar.habits.length; m++){
+            habitCompletedArray.push(userVar.habits[m].completed)
+          }
       //handle count
       let newCount = '';
       if(userVar.total.length === 0){
@@ -127,7 +151,7 @@ router.post('/date', function(req, res, next){
         }
       }
       userVar.save();
-      res.send({points: userVar.points, total: userVar.total, weeklyGoal: userVar.weeklyGoal});
+      res.send({points: userVar.points, total: userVar.total, weeklyGoal: userVar.weeklyGoal, habitCompletedArray: habitCompletedArray});
     }
   });
 })
@@ -146,13 +170,10 @@ router.post('/weeklyGoal', function(req,res,next){
             if(userVar.habits[i].dates[j].week === weekNumber){
               weeklyPoints.difficulty = userVar.habits[i].difficulty;
               weeklyPoints.goal = userVar.habits[i].goal;
-              console.log(userVar.habits[i].goal)
-              console.log(weeklyPoints.difficulty);
               weeklyArr.push(weeklyPoints);
             }
           }
         }
-        console.log("This is the weeklyArr log in habit.js"+weeklyArr);
         res.send(weeklyArr);
     }
   })

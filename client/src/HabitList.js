@@ -14,10 +14,11 @@ import {
 //material-ui
 import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
   TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
-  IconButton, Dialog, Drawer, Card, CardTitle, MenuItem, Paper } from 'material-ui';
+  IconButton, Dialog, Drawer, Card, CardTitle, MenuItem, Paper, FloatingActionButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const styles = {
   bg: {
@@ -40,6 +41,14 @@ const styles = {
     color: "#FAFAFA",
     fontSize: "1.2em"
 
+  },
+  style1:{
+    height: 570,
+    width: 300,
+    textAlign: 'center',
+    display: 'inline-block',
+    color: '#FFFFFF',
+    padding: 15,
   }
 };
 const iconButtonElement = (
@@ -87,7 +96,9 @@ class HabitList extends Component {
       dateAndCount: [],
       points: 0,
       weeklyGoal: 0,
-      weeklyPoints: 0
+      weeklyPoints: 0,
+      //handles disabling checkboxes for daily tasks
+      completeArrayDaily: []
     }
   }
   //populates habitArray, datesAdded, dateAndCount from database on load
@@ -96,6 +107,10 @@ class HabitList extends Component {
       user:this.state.user
     }).then(result => {
       let newweeklyGoal = result.data.weeklyGoal
+      let newCompleteArray = []
+      for(let j=0; j<result.data.habits; j++){
+        newCompleteArray.push(result.data.habits[j].completed)
+      }
       //fetches all habits from user
       let newArray = this.state.habitArray
       newArray.push(result.data.habits)
@@ -119,14 +134,16 @@ class HabitList extends Component {
         if(dateOnly.length === 0){
           this.setState({
             habitArray: flattened,
-            weeklyGoal: newweeklyGoal
+            weeklyGoal: newweeklyGoal,
+            completeArrayDaily: newCompleteArray
           })
         }else{
           this.setState({
             habitArray: flattened,
             datesAdded: dateOnly,
             dateAndCount: dateAndCountNew,
-            weeklyGoal: newweeklyGoal
+            weeklyGoal: newweeklyGoal,
+            completeArrayDaily: newCompleteArray
           })
         }
       }
@@ -170,10 +187,13 @@ class HabitList extends Component {
       difficulty: this.state.difficulty,
       goal: this.state.value
     }).then(result => {
+      let newCompleteArray = result.data.habitCompletedArray
       this.setState({
         habitArray: updates,
         open: false,
-        weeklyGoal: result.data.weeklyGoal
+        weeklyGoal: result.data.weeklyGoal,
+        open2: true,
+        completeArrayDaily: newCompleteArray
       })
     })
   }
@@ -241,11 +261,13 @@ class HabitList extends Component {
        let newPointTotal = result.data.points
        let count = result.data.total
        let newWeekGoal = result.data.weeklyGoal
+       let habitCompleteArray = result.data.habitCompletedArray
        this.setState({
          datesAdded: dateArray,
           dateAndCount: count,
           points: newPointTotal,
-          weeklyGoal: newWeekGoal
+          weeklyGoal: newWeekGoal,
+          completeArrayDaily: habitCompleteArray
        })
      })
    }
@@ -313,14 +335,11 @@ class HabitList extends Component {
 
       //today's to do List population logic
       let todayArr = []
-      let weeklyArr = []
       let everydayArr = []
       let weekdayArr = []
       let weekendArr = []
         for(let i = 0; i < this.state.habitArray.length; i++){
-          if(this.state.habitArray[i].goal === 1){
-            weeklyArr.push(this.state.habitArray[i])
-          }else if(this.state.habitArray[i].goal === 7){
+          if(this.state.habitArray[i].goal === 7){
             everydayArr.push(this.state.habitArray[i])
           }else if(this.state.habitArray[i].goal === 5){
             weekdayArr.push(this.state.habitArray[i])
@@ -383,37 +402,47 @@ class HabitList extends Component {
           <Col xs={12}>
             <Row center="xs">
               <Col xs={6}>
+              <FloatingActionButton
+                secondary={true}
+                onClick={this.handleOpen}
+                style={{marginTop: '50px'}}
+              >
+                  <ContentAdd />
+              </FloatingActionButton>
               <Card style={styles.minHeight}>
-                <Subheader style={styles.center}>Today{`'`}s Habits</Subheader>
+              <Row>
                 <RaisedButton
                       label="See all habits"
                       onClick={this.handleDrawerToggle}
                     />
-                <RaisedButton
-                      style={styles.center}
-                      label="Add new habit"
-                      onClick={this.handleOpen}
-                      />
-              <List>
-              {todayArr.map((habit, index) => {
-                return(
-                  <Row>
-                    <Col xs={2}/>
-                    <Col xs={8}>
-                      <ListItem
-                        leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)} value={habit.name}/>}
-                        primaryText={habit.name}
-                      />
-                    </Col>
-                    <Col xs={2}/>
-                  </Row>
-                )
-              })}
-              </List>
+              </Row>
+              <Row>
+                <Col xs={12}>
+                  <List>
+                    <Subheader>Today{`'`}s Habits</Subheader>
+                  {todayArr.map((habit, index) => {
+                    return(
+                      <Row>
+                        <Col xs={12}>
+                          <ListItem
+                            leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)}
+                                                    disabled={this.state.completeArrayDaily[index]}
+                                                    value={habit.name}
+                                                    />}
+                            primaryText={habit.name}
+                          />
+                        </Col>
+                      </Row>
+                    )
+                  })}
+                  </List>
+                </Col>
+              </Row>
               </Card>
               </Col>
+
               <Col xs={3}>
-                <Card style={styles.minHeight}>
+                <Paper style={styles.style1} zDepth={4}>
                   <Row center="xs">
                     <Col xs={12}>
                       <h2>Total Points </h2>
@@ -422,7 +451,7 @@ class HabitList extends Component {
                   <Row center="xs">
                     <Col xs={12}>
                       <h3>{this.state.points}</h3>
-                      <Divider/>
+                      <Divider />
                     </Col>
                   </Row>
                   <Row center="xs">
@@ -443,10 +472,10 @@ class HabitList extends Component {
                   </Row>
                   <Row center="xs">
                     <Col xs={12}>
-                      <CircleProgressBar user={this.props.user} weeklyGoal={this.state.weeklyGoal} />
+                      <CircleProgressBar user={this.props.user} weeklyGoal={this.state.weeklyGoal} points={this.state.weeklyPoints} pointControl={this.state.points} />
                     </Col>
                   </Row>
-                </Card>
+                </Paper>
               </Col>
             </Row>
           </Col>
@@ -491,7 +520,6 @@ class HabitList extends Component {
                                  <MenuItem value={7} primaryText="Everyday" />
                                  <MenuItem value={5} primaryText="Weekdays" />
                                  <MenuItem value={2} primaryText="Weekends" />
-                                 <MenuItem value={1} primaryText="weekly" />
                             </SelectField> <br/>
                             </form>
                         </Dialog>
