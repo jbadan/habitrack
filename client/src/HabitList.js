@@ -109,7 +109,9 @@ class HabitList extends Component {
       let newweeklyGoal = result.data.weeklyGoal
       let newCompleteArray = []
       for(let j=0; j<result.data.habits; j++){
-        newCompleteArray.push(result.data.habits[j].completed)
+        if(result.data.habits.goal != 2){
+          newCompleteArray.push(result.data.habits[j].completed)
+        }
       }
       //fetches all habits from user
       let newArray = this.state.habitArray
