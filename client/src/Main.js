@@ -8,11 +8,24 @@ import dash from './dash.png';
 import line from './line.png';
 import list from './list.png';
 import radar from './radar.png';
+import RaisedButton from 'material-ui/RaisedButton';
+import {
+  BrowserRouter as Router,
+  Redirect
+} from 'react-router-dom';
+
 
 class Main extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			redirect: false
+		}
 	}
+
+	handleRedirect = () => this.setState({redirect: true});
+
 
 	render() {
 
@@ -27,6 +40,15 @@ class Main extends Component {
 				fontfamily: 'Lato'
 			};
 
+			const center = {
+				textAlign: 'center'
+			}
+
+    const {redirect} = this.state;
+    if(redirect){
+      return <Redirect to ='/display'/>
+    };
+
 		return (
 			<div id="mainPage">
 
@@ -35,6 +57,14 @@ class Main extends Component {
 				<div id="welcome"><h1>Enter your habits. See your Progress.</h1></div>
 
 				<div className="spacer"></div>
+
+				<Row>
+					<Col xs={3} />
+					<Col xs={6} style={center}>
+						<RaisedButton label="Dashboard" primary={true} onClick={this.handleRedirect}/>
+					</Col>
+					<Col xs={3} />
+				</Row>
 
 				<Row>
 					<Col xs={12}>

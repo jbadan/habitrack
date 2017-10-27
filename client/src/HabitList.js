@@ -404,6 +404,7 @@ class HabitList extends Component {
               <FloatingActionButton
                 secondary={true}
                 onClick={this.handleOpen}
+                style={{marginTop: '50px'}}
               >
                   <ContentAdd />
               </FloatingActionButton>
