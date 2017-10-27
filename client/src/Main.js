@@ -3,24 +3,20 @@ import Signup from './Signup';
 import Login from './Login';
 import { Row, Col } from 'react-flexbox-grid';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { MuiThemeProvider, AppBar, IconButton, Paper } from 'material-ui';
+import { MuiThemeProvider, AppBar, IconButton, Paper, RaisedButton } from 'material-ui';
 import dash from './dash.png';
 import line from './line.png';
 import list from './list.png';
 import radar from './radar.png';
-<<<<<<< HEAD
-import RaisedButton from 'material-ui/RaisedButton';
 import {
   BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
 
-=======
 import Jenna from './Jenna.jpeg';
 import Matt from './Matt.png';
 import Evan from './Evan.jpeg';
 import Lauren from './Lauren.jpeg';
->>>>>>> 24be6eafbd4a64d36c12d3465bfe5961edecf6a3
 
 class Main extends Component {
 	constructor(props) {
@@ -89,7 +85,6 @@ class Main extends Component {
 
 				<div className="spacer"></div>
 
-<<<<<<< HEAD
 				<Row>
 					<Col xs={3} />
 					<Col xs={6} style={center}>
@@ -97,11 +92,8 @@ class Main extends Component {
 					</Col>
 					<Col xs={3} />
 				</Row>
-
-				<Row>
-=======
+      
 				<Row className="sectionHeaders">
->>>>>>> 24be6eafbd4a64d36c12d3465bfe5961edecf6a3
 					<Col xs={12}>
 						<Row center="xs">
 							<Col xs={6}>
