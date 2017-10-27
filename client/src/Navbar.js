@@ -50,18 +50,12 @@ class Navbar extends Component {
     super(props)
     this.state = {
       user: props.user,
-      drawerOpen: false,
-      menuOpen: false,
     }
   }
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({user: nextProps.user})
   }
-
-  handleDrawerToggle = () => this.setState({drawerOpen: !this.state.drawerOpen});
-
-  handleMenuToggle = () => this.setState({menuOpen: !this.state.menuOpen});
 
   render() {
 
@@ -85,11 +79,6 @@ class Navbar extends Component {
 
           )}
         />
-        <Drawer open={this.state.drawerOpen}>
-            <IconButton><NavigationClose onClick={this.handleDrawerToggle}/></IconButton>
-            <MenuItem>Login</MenuItem>
-            <MenuItem>Signup</MenuItem>
-        </Drawer>
       </div>
     );
   }
