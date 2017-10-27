@@ -50,36 +50,34 @@ router.post('/new', function(req,res,next){
     difficulty: req.body.difficulty,
     goal: req.body.goal
   }
+  let newweeklyGoal = 0
+  let previousGoal = req.body.weeklyGoal
+
+  if(req.body.difficulty === "easy"){
+    newweeklyGoal = previousGoal + (10*req.body.goal);
+  }else if(req.body.difficulty === "medium"){
+    newweeklyGoal = previousGoal + (20*req.body.goal);
+  }
+  else if(req.body.difficulty === "hard"){
+    newweeklyGoal = previousGoal + (30*req.body.goal);
+  }
+  console.log(newweeklyGoal)
+  update = {
+    $push: {habits: habit},
+    $set:{weeklyGoal: newweeklyGoal}
+  },
 
   User.findOneAndUpdate(
-    { "_id": req.body.user.id},
-    {
-        $push: {
-            habits: habit
-        }
-    }, {new:true},
+    { "_id": req.body.user.id},update,{new:true},
     function(err,user) {
-      //adds to weekly goal amount
-      let newweeklyGoal = 0
-      let previousGoal = user.weeklyGoal
-
-      if(req.body.difficulty === "easy"){
-        newweeklyGoal = previousGoal + (10*req.body.goal);
-        user.weeklyGoal = newweeklyGoal;
-      }else if(req.body.difficulty === "medium"){
-        newweeklyGoal = previousGoal + (20*req.body.goal);
-        user.weeklyGoal = newweeklyGoal;
-      }
-      else if(req.body.difficulty === "hard"){
-        newweeklyGoal = previousGoal + (30*req.body.goal);
-        user.weeklyGoal = newweeklyGoal;
-      }
       let newHabitCompletedArray = []
       for(let i=0; i <user.habits.length; i++){
-        newHabitCompletedArray.push(user.habits[i].completed)
+        if(user.habits[i].goal !=2){
+          newHabitCompletedArray.push(user.habits[i].completed)
+        }
       }
       user.save();
-      res.send({weeklyGoal: user.weeklyGoal,habitCompletedArray:newHabitCompletedArray})
+      res.send({weeklyGoal: newweeklyGoal,habitCompletedArray:newHabitCompletedArray})
     });
 });
 
@@ -128,11 +126,18 @@ router.post('/date', function(req, res, next){
                }
              }
           };
+          userVar.save();
           for(let m=0; m< userVar.habits.length; m++){
-            habitCompletedArray.push(userVar.habits[m].completed)
+            if(userVar.habits[m].goal ===2){
+              //do nothing
+            }else{
+              habitCompletedArray.push(userVar.habits[m].completed)
+            }
+            console.log("This is the habitcompleted array")
+            console.log(habitCompletedArray)
           }
       //handle count
-      let newCount = '';
+      let newCount = 0;
       if(userVar.total.length === 0){
         newCount = 1;
         let totalDate = {
@@ -151,7 +156,7 @@ router.post('/date', function(req, res, next){
         }
       }
       userVar.save();
-      res.send({points: userVar.points, total: userVar.total, weeklyGoal: userVar.weeklyGoal, habitCompletedArray: habitCompletedArray});
+      res.send({points: userVar.points, total: userVar.total, habitCompletedArray: habitCompletedArray});
     }
   });
 })

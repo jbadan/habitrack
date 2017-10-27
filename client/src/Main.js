@@ -128,7 +128,7 @@ class Main extends Component {
 							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={5}>
-									<img src={dash} width={600} height={350}/>
+									<img src={dash} width={700} height={550}/>
 								</Col>
 							</Row>
 						</Row>

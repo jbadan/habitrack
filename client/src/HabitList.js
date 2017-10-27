@@ -102,15 +102,16 @@ class HabitList extends Component {
     }
   }
 
-  //populates habitArray, datesAdded, dateAndCount from database on load
-  componentDidMount = () => {
+  componentDidMount(){
     axios.post('/habit', {
       user:this.state.user
     }).then(result => {
       let newweeklyGoal = result.data.weeklyGoal
       let newCompleteArray = []
       for(let j=0; j<result.data.habits; j++){
-        newCompleteArray.push(result.data.habits[j].completed)
+        if(result.data.habits.goal != 2){
+          newCompleteArray.push(result.data.habits[j].completed)
+        }
       }
       //fetches all habits from user
       let newArray = this.state.habitArray
@@ -155,7 +156,11 @@ class HabitList extends Component {
       this.setState({open: true});
    };
    handleClose = () => {
-     this.setState({open: false});
+     this.setState({
+       open: false,
+       newItem: '',
+       difficulty: 'easy',
+     });
    };
 
 //add new habit to database and list
@@ -168,7 +173,8 @@ class HabitList extends Component {
       user: this.props.user,
       name: this.state.newItem,
       difficulty: this.state.difficulty,
-      goal: this.state.value
+      goal: this.state.value,
+      weeklyGoal: this.state.weeklyGoal
     }).then(result => {
       let newCompleteArray = result.data.habitCompletedArray
       this.setState({
@@ -233,23 +239,22 @@ class HabitList extends Component {
           date: today,
           week: weekNumber
         }
-        let dateArray = this.state.datesAdded
-        dateArray.push(newDateForArray)
+    console.log("this is today's date")
+    console.log(today)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
        name: habitName,
        week: weekNumber
      }).then(result => {
+       console.log("this is the result")
+       console.log(result.data)
        let newPointTotal = result.data.points
        let count = result.data.total
-       let newWeekGoal = result.data.weeklyGoal
        let habitCompleteArray = result.data.habitCompletedArray
        this.setState({
-         datesAdded: dateArray,
           dateAndCount: count,
           points: newPointTotal,
-          weeklyGoal: newWeekGoal,
           completeArrayDaily: habitCompleteArray
        })
      })

@@ -46,11 +46,15 @@ class Login extends Component {
   }
 
   clearAlert = () => {
-    this.setState({showAlert: false});
+    this.setState({showAlert: false,});
   }
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({
+      open: false,
+      email: '',
+      password: ''
+    });
   }
 
   handleOpen = () => {

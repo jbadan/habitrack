@@ -54,7 +54,12 @@ class Signup extends Component {
   };
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({
+      open: false,
+      name: '',
+      email: '',
+      password: '',
+    });
   };
 
   render() {
