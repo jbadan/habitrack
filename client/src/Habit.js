@@ -28,15 +28,10 @@ class Habit extends Component {
     super(props)
     this.state = {
       redirect: false,
-      dates: 'blah'
+      test: 'blah',
+      dates: [{date: ''}]
     }
   }
-
-  componentDidMount() {
-    console.log(this.props.habit.name)
-  }
-
-  //setDates = (dates) => this.setState({dates: dates})
 
   handleRedirect = () => this.setState({redirect: true});
 
@@ -50,9 +45,11 @@ class Habit extends Component {
       dates = result.data
       console.log(dates);
       console.log(dates[0].date);
-      if (this.state.dates === 'blah') {
+      if (this.state.test === 'blah') {
+        console.log('yoooo')
         this.setState({
-          dates: dates[0].date
+          test: 'foo',
+          dates: dates
         })
       }
     })
@@ -69,12 +66,13 @@ class Habit extends Component {
       	<Col xs={5}>
 		      <Card style={styles.minHeight}>
 		      	<CardTitle title={this.props.habit.name} style={styles.center}/>
-            <CardText>{this.state.dates}</CardText>
 		      	<CardText>Difficulty: {this.props.habit.difficulty}</CardText>
 		      	<CardText>My goal is {this.props.habit.goal} days per week!</CardText>
-            <CardText>
-            
-            </CardText>
+            {this.state.dates.map((date, index) => {
+              return (
+                <CardText>{date.date}</CardText>
+              )
+            })}
 		      </Card>
 	      </Col>
 	      <Col xs={5}>
