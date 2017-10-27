@@ -72,7 +72,9 @@ router.post('/new', function(req,res,next){
     function(err,user) {
       let newHabitCompletedArray = []
       for(let i=0; i <user.habits.length; i++){
-        newHabitCompletedArray.push(user.habits[i].completed)
+        if(user.habits[i].goal !=2){
+          newHabitCompletedArray.push(user.habits[i].completed)
+        }
       }
       user.save();
       res.send({weeklyGoal: newweeklyGoal,habitCompletedArray:newHabitCompletedArray})
@@ -126,7 +128,13 @@ router.post('/date', function(req, res, next){
           };
           userVar.save();
           for(let m=0; m< userVar.habits.length; m++){
-            habitCompletedArray.push(userVar.habits[m].completed)
+            if(userVar.habits[m].goal ===2){
+              //do nothing
+            }else{
+              habitCompletedArray.push(userVar.habits[m].completed)
+            }
+            console.log("This is the habitcompleted array")
+            console.log(habitCompletedArray)
           }
       //handle count
       let newCount = 0;
