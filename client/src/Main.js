@@ -3,20 +3,33 @@ import Signup from './Signup';
 import Login from './Login';
 import { Row, Col } from 'react-flexbox-grid';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { MuiThemeProvider, AppBar, IconButton, Paper } from 'material-ui';
+import { MuiThemeProvider, AppBar, IconButton, Paper, RaisedButton } from 'material-ui';
 import dash from './dash.png';
 import line from './line.png';
 import list from './list.png';
 import radar from './radar.png';
+import {
+  BrowserRouter as Router,
+  Redirect
+} from 'react-router-dom';
+
 import Jenna from './Jenna.jpeg';
 import Matt from './Matt.png';
 import Evan from './Evan.jpeg';
 import Lauren from './Lauren.jpeg';
 
+
 class Main extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			redirect: false
+		}
 	}
+
+	handleRedirect = () => this.setState({redirect: true});
+
 
 	render() {
 
@@ -50,6 +63,15 @@ class Main extends Component {
 				fontfamily: 'Lato',
 			};
 
+			const center = {
+				textAlign: 'center'
+			}
+
+    const {redirect} = this.state;
+    if(redirect){
+      return <Redirect to ='/display'/>
+    };
+
 		return (
 			<div id="mainPage">
 
@@ -64,6 +86,14 @@ class Main extends Component {
 
 				<div className="spacer"></div>
 
+				<Row>
+					<Col xs={3} />
+					<Col xs={6} style={center}>
+						<RaisedButton label="Dashboard" primary={true} onClick={this.handleRedirect}/>
+					</Col>
+					<Col xs={3} />
+				</Row>
+      
 				<Row className="sectionHeaders">
 					<Col xs={12}>
 						<Row center="xs">

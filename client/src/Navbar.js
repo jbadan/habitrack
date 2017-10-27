@@ -48,9 +48,8 @@ class Navbar extends Component {
     return (
       <div>
         <AppBar
-          title="Title"
           title="HabiTracker"
-          titleStyle={{textAlign: 'center'}}
+          //titleStyle={{textAlign: 'center'}}
           onLeftIconButtonTouchTap={this.handleDrawerToggle}
           iconElementRight={this.state.user.id ? <Logged /> : (
             <div className='nav-buttons'>
