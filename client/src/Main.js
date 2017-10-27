@@ -18,7 +18,6 @@ import Matt from './img/Matt.png';
 import Evan from './img/Evan.jpeg';
 import Lauren from './img/Lauren.jpeg';
 
-
 class Main extends Component {
 	constructor(props) {
 		super(props);
