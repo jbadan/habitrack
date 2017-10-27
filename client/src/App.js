@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
 import './App.css';
 import HabitList from './HabitList';
@@ -38,6 +39,13 @@ class App extends Component {
       dates: result.dates
     })
   }
+  signOut= (data) => {
+    this.setState({
+      token: {},
+      user: {}
+    })
+    return <Redirect to ='/'/>
+  }
 
   render() {
     let switchStatement = '';
@@ -60,7 +68,7 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <Navbar user={this.state.user} lift={this.liftTokenToState} />
+            <Navbar user={this.state.user} lift={this.liftTokenToState} signOut={this.signOut} />
             {switchStatement}
           </div>
         </Router>

@@ -78,7 +78,7 @@ class Main extends Component {
 
 				<div id="welcome">
 					<h1>Enter your habits. See your Progress.</h1>
-					<p>Mindfulness is about being in the moment. HabiTracker helps focus attention
+					<p>Mindfulness is about being in the moment. HabiTrack helps focus attention
 					 on the activities and behaviors you value the most.</p>
 					<h2>Get started today.</h2>
 				</div>
