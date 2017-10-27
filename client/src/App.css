@@ -11,6 +11,11 @@ h2 {
   top: 40%;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .devPhotos {
   border-radius: 50%;
 }

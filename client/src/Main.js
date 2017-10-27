@@ -4,19 +4,19 @@ import Login from './Login';
 import { Row, Col } from 'react-flexbox-grid';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { MuiThemeProvider, AppBar, IconButton, Paper, RaisedButton } from 'material-ui';
-import dash from './dash.png';
-import line from './line.png';
-import list from './list.png';
-import radar from './radar.png';
+import dash from './img/dash.png';
+import line from './img/line.png';
+import list from './img/list.png';
+import radar from './img/radar.png';
 import {
   BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
 
-import Jenna from './Jenna.jpeg';
-import Matt from './Matt.png';
-import Evan from './Evan.jpeg';
-import Lauren from './Lauren.jpeg';
+import Jenna from './img/Jenna.jpeg';
+import Matt from './img/Matt.png';
+import Evan from './img/Evan.jpeg';
+import Lauren from './img/Lauren.jpeg';
 
 
 class Main extends Component {
@@ -89,11 +89,13 @@ class Main extends Component {
 				<Row>
 					<Col xs={3} />
 					<Col xs={6} style={center}>
-						<RaisedButton label="Dashboard" primary={true} onClick={this.handleRedirect}/>
+						<RaisedButton label={'Go to My Dashboard  ' + String.fromCharCode(8594)} primary={true} onClick={this.handleRedirect}/>
 					</Col>
 					<Col xs={3} />
 				</Row>
-      
+
+        <div className="spacer"></div>
+
 				<Row className="sectionHeaders">
 					<Col xs={12}>
 						<Row center="xs">
@@ -235,7 +237,10 @@ class Main extends Component {
 						<Col xs={2}>
 							<h4>Jenna Badanowski</h4>
 							<img className="devPhotos" src={Jenna}/>
-							<p>Lorem ipsum dolor sit amet et delectus
+              <p>
+              <a href="http://github.com/jbadan">View My Github</a>
+              </p>
+							<p> sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
 							</p>
@@ -243,7 +248,10 @@ class Main extends Component {
 						<Col xs={2}>
 							<h4>Matthew Bell</h4>
 							<img className="devPhotos" src={Matt}/>
-							<p>Lorem ipsum dolor sit amet et delectus
+              <p>
+              <a href="https://github.com/Foozie3Moons">View My Github</a>
+              </p>
+							<p> sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
 							</p>
@@ -251,7 +259,10 @@ class Main extends Component {
 						<Col xs={2}>
 							<h4>Evan Haala</h4>
 							<img className="devPhotos" src={Evan}/>
-							<p>Lorem ipsum dolor sit amet et delectus
+              <p>
+              <a href="https://github.com/ehaala">View My Github</a>
+              </p>
+							<p> sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
 							</p>
@@ -259,7 +270,10 @@ class Main extends Component {
 						<Col xs={2}>
 							<h4>Lauren Perez</h4>
 							<img className="devPhotos" src={Lauren}/>
-							<p>Lorem ipsum dolor sit amet et delectus
+              <p>
+              <a href="https://github.com/laurenperez">View My Github</a>
+              </p>
+							<p> sit amet et delectus
 							 accommodare his consul copiosae legendos
 								at vix ad putent delectus delicata usu.
 							</p>
