@@ -12,24 +12,12 @@ import {
 } from 'react-router-dom';
 
 //material-ui
-import {Card, CardTitle} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
+  TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
+  IconButton, Dialog, Drawer, Card, CardTitle, MenuItem, Paper } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
-import IconMenu from 'material-ui/IconMenu';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
-import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Dialog from 'material-ui/Dialog';
-import Drawer from 'material-ui/Drawer';
 
 const styles = {
   bg: {
@@ -376,16 +364,14 @@ class HabitList extends Component {
             })}
             </List>
             </Drawer>
-
-
-
-
         <Row>
         <Col xs={12}>
           <Row center="xs">
-            <Col xs={12}>
-              <h1 style={styles.header}> Hello, {this.state.user.name}! </h1>
-              <h6 style={styles.subHeader}>Today is {day}, {month} {dd}, {yyyy} </h6>
+            <Col xs={6}>
+              <Paper>
+                <h1 style={styles.header}> Hello, {this.state.user.name}! </h1>
+                <h6 style={styles.subHeader}>Today is {day}, {month} {dd}, {yyyy} </h6>
+              </Paper>
             </Col>
           </Row>
         </Col>
@@ -406,7 +392,7 @@ class HabitList extends Component {
                 <RaisedButton
                       style={styles.center}
                       label="Add new habit"
-                      onClick={this.handleOpen} 
+                      onClick={this.handleOpen}
                       />
               <List>
               {todayArr.map((habit, index) => {
