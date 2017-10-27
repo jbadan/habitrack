@@ -4,21 +4,40 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Signup from './Signup';
 import Login from './Login';
+import { grey900, grey800, grey400 } from 'material-ui/styles/colors';
+import Avatar from 'material-ui/Avatar';
 
-const Logged = (props) => (
-  <IconMenu
-    {...props}
-    iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
-    }
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-  >
-    <MenuItem primaryText="Refresh" />
-    <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
-  </IconMenu>
-);
+
+const Logged = (props) => {
+  let userName = props.user.name;
+  let letter = userName.toUpperCase().charAt(0);
+  const style = {margin: 5};
+  return (
+    <div style={{color: 'black'}}>
+      <Avatar
+        color={grey900}
+        backgroundColor={grey400}
+        size={40}
+        style={style}
+      >
+      {letter}
+      </Avatar>
+      {props.user.name}
+      <IconMenu
+        {...props}
+        iconButtonElement={
+          <IconButton><MoreVertIcon /></IconButton>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem primaryText="Refresh" />
+        <MenuItem primaryText="Help" />
+        <MenuItem primaryText="Sign out" />
+      </IconMenu>
+    </div>
+  )
+};
 
 Logged.muiName = 'IconMenu';
 
@@ -45,13 +64,16 @@ class Navbar extends Component {
   handleMenuToggle = () => this.setState({menuOpen: !this.state.menuOpen});
 
   render() {
+
+    console.log(this.state.user.name);
+
     return (
       <div>
         <AppBar
           title="HabiTracker"
           //titleStyle={{textAlign: 'center'}}
           onLeftIconButtonTouchTap={this.handleDrawerToggle}
-          iconElementRight={this.state.user.id ? <Logged /> : (
+          iconElementRight={this.state.user.id ? <Logged user={this.state.user}/> : (
             <div className='nav-buttons'>
               <div className='nav-button'>
                 <Signup lift={this.props.lift}/>
@@ -60,6 +82,7 @@ class Navbar extends Component {
                 <Login lift={this.props.lift}/>
               </div>
             </div>
+
           )}
         />
         <Drawer open={this.state.drawerOpen}>
