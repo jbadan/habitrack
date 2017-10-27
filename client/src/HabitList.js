@@ -101,7 +101,7 @@ class HabitList extends Component {
       completeArrayDaily: []
     }
   }
-  //populates habitArray, datesAdded, dateAndCount from database on load
+  //populates habitArray, dateAndCount from database on load
   componentDidMount(){
     axios.post('/habit', {
       user:this.state.user
@@ -232,8 +232,6 @@ class HabitList extends Component {
           date: today,
           week: weekNumber
         }
-        let dateArray = this.state.datesAdded
-        dateArray.push(newDateForArray)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
@@ -245,7 +243,6 @@ class HabitList extends Component {
        let newWeekGoal = result.data.weeklyGoal
        let habitCompleteArray = result.data.habitCompletedArray
        this.setState({
-         datesAdded: dateArray,
           dateAndCount: count,
           points: newPointTotal,
           weeklyGoal: newWeekGoal,
