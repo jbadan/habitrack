@@ -48,6 +48,10 @@ a {
   margin: .4em 1em 0em 0em;
 }
 
+.avatarName {
+  margin-left: 15px;
+}
+
 .modal-content {
   margin: auto;
 }

@@ -12,26 +12,12 @@ import {
 } from 'react-router-dom';
 
 //material-ui
-import {Card, CardTitle} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
+  TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
+  IconButton, Dialog, Drawer, Card, CardTitle, MenuItem, Paper, FloatingActionButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
-import IconMenu from 'material-ui/IconMenu';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
-import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Dialog from 'material-ui/Dialog';
-import Drawer from 'material-ui/Drawer';
-import Paper from 'material-ui/Paper';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const styles = {

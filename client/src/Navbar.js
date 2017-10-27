@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { AppBar, Drawer, IconMenu, MenuItem, RaisedButton, IconButton, Toggle } from 'material-ui';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import {
+  BrowserRouter as Router,
+  Redirect
+} from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
 import { grey900, grey800, grey400 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
+import cube from './img/cube.png';
+
 
 
 const Logged = (props) => {
@@ -14,26 +20,27 @@ const Logged = (props) => {
   const style = {margin: 5};
   return (
     <div style={{color: 'black'}}>
-      <Avatar
-        color={grey900}
-        backgroundColor={grey400}
-        size={40}
-        style={style}
-      >
-      {letter}
-      </Avatar>
-      {props.user.name}
+
       <IconMenu
         {...props}
         iconButtonElement={
-          <IconButton><MoreVertIcon /></IconButton>
+          <div>
+          <IconButton>
+          <Avatar
+            color={grey900}
+            backgroundColor={grey400}
+            size={40}
+            style={style}
+          >
+          {letter}
+          </Avatar>
+          </IconButton>
+          </div>
         }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText="Refresh" />
-        <MenuItem primaryText="Help" />
-        <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText="Sign out" onClick={props.signOut}/>
       </IconMenu>
     </div>
   )
@@ -41,7 +48,7 @@ const Logged = (props) => {
 
 Logged.muiName = 'IconMenu';
 
-/**
+/*
  * This example is taking advantage of the composability of the `AppBar`
  * to render different components depending on the application state.
  */
@@ -50,24 +57,23 @@ class Navbar extends Component {
     super(props)
     this.state = {
       user: props.user,
+      token: props.lift,
     }
   }
-
   componentWillReceiveProps = (nextProps) => {
     this.setState({user: nextProps.user})
   }
 
-  render() {
 
-    console.log(this.state.user.name);
+  render() {
 
     return (
       <div>
         <AppBar
-          title="HabiTracker"
+          title={'HabiTrack'}
           //titleStyle={{textAlign: 'center'}}
-          onLeftIconButtonTouchTap={this.handleDrawerToggle}
-          iconElementRight={this.state.user.id ? <Logged user={this.state.user}/> : (
+          showMenuIconButton={false}
+          iconElementRight={this.state.user.id ? <Logged user={this.state.user} signOut={this.props.signOut}/> : (
             <div className='nav-buttons'>
               <div className='nav-button'>
                 <Signup lift={this.props.lift}/>
@@ -85,3 +91,6 @@ class Navbar extends Component {
 }
 
 export default Navbar;
+
+
+// <span className="avatarName">{props.user.name}</span>

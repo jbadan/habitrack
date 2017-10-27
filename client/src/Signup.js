@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import { Col, Row } from 'react-flexbox-grid';
+import Flash from './Flash';
 
 class Signup extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ class Signup extends Component {
       email: '',
       password: '',
       open: false,
+      alert: {type: '', msg: ''},
+      showAlert: false,
     }
   }
 
@@ -34,10 +37,16 @@ class Signup extends Component {
       email: this.state.email,
       password: this.state.password
     }).then(result => {
-      localStorage.setItem('mernToken', result.data.token)
-      this.props.lift(result.data)
+      localStorage.setItem('mernToken', result.data.token);
+      this.props.lift(result.data);
       this.handleClose();
+    }).catch(error => {
+      this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
     })
+  }
+
+  clearAlert = () => {
+    this.setState({showAlert: false});
   }
 
   handleOpen = () => {
@@ -107,6 +116,9 @@ class Signup extends Component {
                    value={this.state.password}
                    onChange={this.handlePasswordChange}
               />
+            </Row>
+            <Row>
+              <Flash alert={this.state.alert} show={this.state.showAlert} clearAlert={this.clearAlert}/>
             </Row>
           </div>
         </Dialog>

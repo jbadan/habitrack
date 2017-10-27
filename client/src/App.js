@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
 import './App.css';
 import HabitList from './HabitList';
@@ -20,7 +21,8 @@ class App extends Component {
     this.state = {
       token: {},
       user: {},
-      habit: {}
+      habit: {},
+      dates: []
     }
   }
 
@@ -33,8 +35,16 @@ class App extends Component {
 
   liftHabitToState = (result) => {
     this.setState({
-      habit: result
+      habit: result,
+      dates: result.dates
     })
+  }
+  signOut= (data) => {
+    this.setState({
+      token: {},
+      user: {}
+    })
+    return <Redirect to ='/'/>
   }
 
   render() {
@@ -51,14 +61,14 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={() => <HabitList user={this.state.user} liftHabit={this.liftHabitToState}/>}/>
-          <Route path="/habit" render={() => <Habit user={this.state.user} habit={this.state.habit}/>} />
+          <Route path="/habit" render={() => <Habit user={this.state.user} habit={this.state.habit} dates={this.state.dates}/>} />
         </Switch>
     }
     return (
       <div>
         <Router>
           <div>
-            <Navbar user={this.state.user} lift={this.liftTokenToState} />
+            <Navbar user={this.state.user} lift={this.liftTokenToState} signOut={this.signOut} />
             {switchStatement}
           </div>
         </Router>
