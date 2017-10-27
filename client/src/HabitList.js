@@ -167,7 +167,8 @@ class HabitList extends Component {
       user: this.props.user,
       name: this.state.newItem,
       difficulty: this.state.difficulty,
-      goal: this.state.value
+      goal: this.state.value,
+      weeklyGoal: this.state.weeklyGoal
     }).then(result => {
       let newCompleteArray = result.data.habitCompletedArray
       this.setState({
@@ -232,20 +233,22 @@ class HabitList extends Component {
           date: today,
           week: weekNumber
         }
+    console.log("this is today's date")
+    console.log(today)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
        name: habitName,
        week: weekNumber
      }).then(result => {
+       console.log("this is the result")
+       console.log(result.data)
        let newPointTotal = result.data.points
        let count = result.data.total
-       let newWeekGoal = result.data.weeklyGoal
        let habitCompleteArray = result.data.habitCompletedArray
        this.setState({
           dateAndCount: count,
           points: newPointTotal,
-          weeklyGoal: newWeekGoal,
           completeArrayDaily: habitCompleteArray
        })
      })
