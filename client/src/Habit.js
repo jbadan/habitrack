@@ -28,30 +28,33 @@ class Habit extends Component {
     super(props)
     this.state = {
       redirect: false,
-      dates: []
+      dates: 'blah'
     }
   }
 
+  componentDidMount() {
+    console.log(this.props.habit.name)
+  }
+
+  //setDates = (dates) => this.setState({dates: dates})
+
   handleRedirect = () => this.setState({redirect: true});
 
-
-  // componentDidMount() {
-  //   console.log(this.props.habit.name)
-  //   axios.post('/habit/dates', {
-  //     user: this.props.user,
-  //     name: this.props.habit.name
-  //   }).then(result => {
-  //     console.log(result)
-  //   })
-  // }
-
   render() {
+
     let dates;
     axios.post('/habit/dates', {
       user: this.props.user,
       name: this.props.habit.name
     }).then(result => {
-      //
+      dates = result.data
+      console.log(dates);
+      console.log(dates[0].date);
+      if (this.state.dates === 'blah') {
+        this.setState({
+          dates: dates[0].date
+        })
+      }
     })
 
     const {redirect} = this.state;
@@ -66,6 +69,7 @@ class Habit extends Component {
       	<Col xs={5}>
 		      <Card style={styles.minHeight}>
 		      	<CardTitle title={this.props.habit.name} style={styles.center}/>
+            <CardText>{this.state.dates}</CardText>
 		      	<CardText>Difficulty: {this.props.habit.difficulty}</CardText>
 		      	<CardText>My goal is {this.props.habit.goal} days per week!</CardText>
             <CardText>
