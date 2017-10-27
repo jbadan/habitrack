@@ -74,3 +74,13 @@ a {
   font-weight: 100;
   font-size: 1.25em;
 }
+
+.not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-items {
+  text-align: center;
+}

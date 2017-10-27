@@ -76,7 +76,7 @@ class Navbar extends Component {
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} signOut={this.props.signOut}/> : (
             <div className='nav-buttons'>
               <div className='nav-button'>
-                <Signup lift={this.props.lift}/>
+                <Signup lift={this.props.lift} primary={false}/>
               </div>
               <div className='nav-button'>
                 <Login lift={this.props.lift}/>

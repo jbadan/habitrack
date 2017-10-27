@@ -8,12 +8,7 @@ var bcrypt = require('bcrypt');
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
-var secret = 'Th#is is q*uite a ma$ssive cra@zy sec(ret';
-
-// GET /auth/login route
-router.get('/login', function(req, res, next) {
-  res.send('GET /auth/login route hit');
-});
+var secret = process.env.JWT_SECRET;
 
 // POST /auth/login route - returns a JWT
 router.post('/login', function(req, res, next) {
@@ -27,12 +22,11 @@ router.post('/login', function(req, res, next) {
       // compare passwords
       passwordMatch = bcrypt.compareSync(req.body.password, hashedPass);
       if (passwordMatch) {
-        console.log("passwords match");
         // Make a token and return it as JSON
         var token = jwt.sign(user.toObject(), secret, {
           expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
-        res.send({user: user, token: token});
+        res.json({user: user, token: token});
       } else {
         // Return an error
         res.status(401).json({
@@ -72,44 +66,38 @@ router.post('/signup', function(req, res, next) {
           var token = jwt.sign(user.toObject(), secret, {
             expiresIn: 60 * 60 * 24 // expires in 24 hours
           });
-          res.send({user: user, token: token});
+          res.json({user: user, token: token});
         }
       });
     }
   });
 });
 
-router.get('/logout', function(req, res, next) {
-  // TODO: will need to invalidate the token here
-  req.logout();
-  res.redirect('/');
-});
-
 // This is checked on a browser refresh
-// router.post('/me/from/token', function(req, res, next) {
-//   // check header or url parameters or post parameters for token
-//   var token = req.body.token || req.query.token;
-//   if (!token) {
-//     return res.status(401).json({message: ‘Must pass token’});
-//   }
-//   // get current user from token
-//   jwt.verify(token, secret, function(err, user) {
-//     if (err) throw err;
-//     //return user using the id from w/in JWTToken
-//     User.findById({
-//       '_id': user._id
-//     }, function(err, user) {
-//       if (err) throw err;
-//       //Note: you can renew token by creating new token(i.e.
-//       //refresh it)w/ new expiration time at this point, but I’m
-//       //passing the old token back.
-//       // var token = utils.generateToken(user);
-//       res.json({
-//         user: user,
-//         token: token
-//       });
-//     });
-//   });
-// });
+router.post('/me/from/token', function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token;
+  if (!token) {
+    return res.status(401).json({message: 'Must pass token'});
+  }
+  // get current user from token
+  jwt.verify(token, secret, function(err, user) {
+    if (err) throw err;
+    //return user using the id from w/in JWTToken
+    User.findById({
+      '_id': user._id
+  }, function(err, user) {
+    if (err) throw err;
+      //Note: you can renew token by creating new token(i.e.
+      //refresh it)w/ new expiration time at this point, but I’m
+      //passing the old token back.
+      // var token = utils.generateToken(user);
+      res.json({
+        user: user,
+        token: token
+      });
+    });
+  });
+});
 
 module.exports = router;

@@ -21,14 +21,12 @@ import Lauren from './img/Lauren.jpeg';
 class Main extends Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			redirect: false
 		}
 	}
 
 	handleRedirect = () => this.setState({redirect: true});
-
 
 	render() {
 
@@ -88,7 +86,18 @@ class Main extends Component {
 				<Row>
 					<Col xs={3} />
 					<Col xs={6} style={center}>
-						<RaisedButton label={'Go to My Dashboard  ' + String.fromCharCode(8594)} primary={true} onClick={this.handleRedirect}/>
+            {this.props.user.id ?
+              (
+                <RaisedButton
+                  label={`Go to My Dashboard ${String.fromCharCode(8594)}`}
+                  primary={true}
+                  onClick={this.handleRedirect}
+                />
+              ) : (
+                <Signup user={this.props.user} lift={this.props.lift} primary={true} />
+              )
+            }
+
 					</Col>
 					<Col xs={3} />
 				</Row>

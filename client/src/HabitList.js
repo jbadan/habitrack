@@ -101,8 +101,9 @@ class HabitList extends Component {
       completeArrayDaily: []
     }
   }
+
   //populates habitArray, datesAdded, dateAndCount from database on load
-  componentDidMount(){
+  componentDidMount = () => {
     axios.post('/habit', {
       user:this.state.user
     }).then(result => {
