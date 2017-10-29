@@ -9,6 +9,7 @@ router.post('/', function(req,res,next){
   populate('habits total').
   exec(function (err, user) {
     if (err) return handleError(err);
+    console.log(user.total);
     res.send({habits: user.habits, total: user.total, weeklyGoal:user.weeklyGoal, points: user.points});
   });
 })
