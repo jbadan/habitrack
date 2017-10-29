@@ -63,6 +63,9 @@ class Main extends Component {
 			const center = {
 				textAlign: 'center'
 			}
+      const padding = {
+        paddingRight: "10px"
+      }
 
     const {redirect} = this.state;
     if(redirect){
@@ -246,42 +249,41 @@ class Main extends Component {
 							<h4>Jenna Badanowski</h4>
 							<img className="devPhotos" src={Jenna}/>
               <p>
-              <a href="http://github.com/jbadan">View My Github</a>
+              <a style={padding}  href="http://github.com/jbadan"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/jennabadanowski/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
               </p>
-							<p> Jenna is the MVP of backend data manipulation. She fixes
-              route logic issues in her sleep. No really.
+							<p> Backend Development
 							</p>
 						</Col>
 						<Col xs={2}>
 							<h4>Matthew Bell</h4>
 							<img className="devPhotos" src={Matt}/>
               <p>
-              <a href="https://github.com/Foozie3Moons">View My Github</a>
+              <a style={padding}  href="https://github.com/Foozie3Moons"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/matthew-bell-290/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
               </p>
-							<p> Matt is the D3 chart wisperer and overall bug killer. His
-              efficient triage keeps us smooth operating.
+							<p>
 							</p>
 						</Col>
 						<Col xs={2}>
 							<h4>Evan Haala</h4>
 							<img className="devPhotos" src={Evan}/>
               <p>
-              <a href="https://github.com/ehaala">View My Github</a>
+              <a style={padding} href="https://github.com/ehaala"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/ejhaala/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
               </p>
-							<p>Evan gets the award for most versital coder,
-              fixing backend routes, passing state like a boss,
-              and making Material UI look easy.
+							<p>
 							</p>
 						</Col>
 						<Col xs={2}>
 							<h4>Lauren Perez</h4>
 							<img className="devPhotos" src={Lauren}/>
               <p>
-              <a href="https://github.com/laurenperez">View My Github</a>
+              <a style={padding} href="https://github.com/laurenperez"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/lauren-ashley-perez/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
               </p>
-							<p>Lauren nerds out over visual patterns, redering data in Recharts,
-              and working on user flow. She just leveled up in Material UI. 
-							</p>
+							<p>
+               Front End Development, Recharts
 						</Col>
 					</Row>
 				</Row>

@@ -28,7 +28,6 @@ class ResponsiveLineChart extends Component {
       >
       {({ measureRef }) =>
         <div ref={measureRef} className={className}>
-          <p>Width: {this.state.dimensions.width}</p>
           <LineChart width={this.state.dimensions.width} data={this.props.data}/>
         </div>
       }

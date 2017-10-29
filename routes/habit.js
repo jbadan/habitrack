@@ -9,7 +9,8 @@ router.post('/', function(req,res,next){
   populate('habits total').
   exec(function (err, user) {
     if (err) return handleError(err);
-    res.send({habits: user.habits, total: user.total, weeklyGoal:user.weeklyGoal});
+    console.log(user.total);
+    res.send({habits: user.habits, total: user.total, weeklyGoal:user.weeklyGoal, points: user.points});
   });
 })
 
@@ -61,7 +62,6 @@ router.post('/new', function(req,res,next){
   else if(req.body.difficulty === "hard"){
     newweeklyGoal = previousGoal + (30*req.body.goal);
   }
-  console.log(newweeklyGoal)
   update = {
     $push: {habits: habit},
     $set:{weeklyGoal: newweeklyGoal}
@@ -83,12 +83,15 @@ router.post('/new', function(req,res,next){
 
 //deletes habit from user db
 router.post('/delete', function(req, res, next){
-  let index = req.body.indexNumber;
-  User.findOne({"_id" : req.body.user.id}).
-  populate("habits").
-  exec(function(err, userVar){
-    userVar.habits[index].remove()
-    userVar.save();
+  let id = req.body.habitId;
+  User.findOne({"habits._id" : id}, function(err, result){
+    result.habits.id(id).remove();
+    result.save(function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+    res.send({habits: result.habits});
   })
 })
 
@@ -126,15 +129,12 @@ router.post('/date', function(req, res, next){
                }
              }
           };
-          userVar.save();
           for(let m=0; m< userVar.habits.length; m++){
             if(userVar.habits[m].goal ===2){
               //do nothing
             }else{
               habitCompletedArray.push(userVar.habits[m].completed)
             }
-            console.log("This is the habitcompleted array")
-            console.log(habitCompletedArray)
           }
       //handle count
       let newCount = 0;
