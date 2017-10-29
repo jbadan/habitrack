@@ -51,6 +51,9 @@ const styles = {
   },
   moveDown:{
     height: 30
+  },
+  dialog:{
+    maxWidth: 400 
   }
 };
 const iconButtonElement = (
@@ -476,6 +479,7 @@ class HabitList extends Component {
           open={this.state.open}
           onRequestClose = {this.handleClose}
           actions={actions}
+          contentStyle={styles.dialog}
           >
               <form>
                   <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>

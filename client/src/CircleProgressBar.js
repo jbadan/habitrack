@@ -40,8 +40,11 @@ import {grey400, grey500, darkBlack, lightBlack, pink} from 'material-ui/styles/
        },
        point:{
          position: "absolute",
-         top: "60px",
-         left: "105px"
+         height:70,
+         width:70,
+         right:"50%",
+         top:"50%",
+         margin:"-35px -35px 0 0"
        },
        parent:{
          position: "relative"
@@ -106,7 +109,9 @@ class CircleProgressBar extends Component {
           thickness={30}
           innerStyle = {styles.bg}
         />
-        <h1 style={styles.point}> {this.state.points} </h1>
+        <div style={styles.point}>
+          <h1> {this.state.points} </h1>
+        </div>
       </div>
     );
   }
