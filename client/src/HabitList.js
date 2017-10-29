@@ -454,18 +454,13 @@ class HabitList extends Component {
         </Row>
         <Row style={styles.moveDown}></Row>
         <Row>
-            <Col xs={1} />
-            <Col xs={7}>
+            <Col xs={2} />
+            <Col xs={8}>
               <Card style={styles.minHeight}>
                 {renderRadar}
               </Card>
             </Col>
-            <Col xs={3}>
-              <Paper style={styles.minHeight} zDepth={3}>
-                <h1> blah blah blah something needs to go here </h1>
-              </Paper>
-            </Col>
-            <Col xs={1} />
+            <Col xs={2} />
         </Row>
 
 
