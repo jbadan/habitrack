@@ -122,6 +122,10 @@ class HabitList extends Component {
       let flattened = newArray.reduce((a, b) => a.concat(b), [])
       //fetches all dates and total times users completed a habit
       let dateAndCountNew = result.data.total
+      dateAndCountNew.forEach(d => {
+        d.date = Date.parse(d.date);
+        d.count = +d.count;
+    })
     this.setState({
       habitArray: flattened,
       dateAndCount: dateAndCountNew,
@@ -243,6 +247,10 @@ class HabitList extends Component {
      }).then(result => {
        let newPointTotal = result.data.points
        let count = result.data.total
+       count.forEach(d => {
+         d.date = Date.parse(d.date);
+         d.count = +d.count;
+     })
        let habitCompleteArray = result.data.habitCompletedArray
        this.setState({
           dateAndCount: count,
@@ -446,18 +454,13 @@ class HabitList extends Component {
         </Row>
         <Row style={styles.moveDown}></Row>
         <Row>
-            <Col xs={1} />
-            <Col xs={7}>
+            <Col xs={2} />
+            <Col xs={8}>
               <Card style={styles.minHeight}>
                 {renderRadar}
               </Card>
             </Col>
-            <Col xs={3}>
-              <Paper style={styles.minHeight} zDepth={3}>
-                <h1> blah blah blah something needs to go here </h1>
-              </Paper>
-            </Col>
-            <Col xs={1} />
+            <Col xs={2} />
         </Row>
 
 

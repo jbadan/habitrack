@@ -161,7 +161,7 @@ router.get('/', function(req,res,next){
   }
 
   User.findOneAndUpdate(
-    { "name": "Michelle"},update,{new:true},
+    { "name": "testData7"},update,{new:true},
     function(err,user) {
       user.save();
     })
