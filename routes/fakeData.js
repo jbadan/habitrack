@@ -28,6 +28,30 @@ router.get('/', function(req,res,next){
       {
       date: "10/24/2017",
       week: 43
+      },
+      {
+      date: "10/23/2017",
+      week: 43
+      },
+      {
+      date: "10/22/2017",
+      week: 42
+      },
+      {
+      date: "10/21/2017",
+      week: 42
+      },
+      {
+      date: "10/19/2017",
+      week: 42
+      },
+      {
+      date: "10/17/2017",
+      week: 42
+      },
+      {
+      date: "10/16/2017",
+      week: 42
       }
     ],
     goal: 7,
@@ -45,6 +69,26 @@ router.get('/', function(req,res,next){
       {
       date: "10/26/2017",
       week: 43
+      },
+      {
+      date: "10/23/2017",
+      week: 43
+      },
+      {
+      date: "10/22/2017",
+      week: 42
+      },
+      {
+      date: "10/21/2017",
+      week: 42
+      },
+      {
+      date: "10/19/2017",
+      week: 42
+      },
+      {
+      date: "10/16/2017",
+      week: 42
       }
     ],
     goal: 7,
@@ -72,21 +116,52 @@ router.get('/', function(req,res,next){
     date: "10/26/2017",
     week: 43,
     count: 2
-  },{
+  },
+  {
     date: "10/24/2017",
     week: 43,
     count: 1
+  },
+  {
+    date: "10/23/2017",
+    week: 43,
+    count: 2
+  },
+  {
+    date: "10/22/2017",
+    week: 42,
+    count: 2
+  },
+  {
+    date: "10/21/2017",
+    week: 42,
+    count: 2
+  },
+  {
+    date: "10/19/2017",
+    week: 42,
+    count: 2
+  },
+  {
+    date: "10/17/2017",
+    week: 42,
+    count: 1
+  },
+  {
+    date: "10/16/2017",
+    week: 42,
+    count: 2
   }
 ]
   var newweeklyGoal = 210
-  var newPoints = 90
+  var newPoints = 270
 
   var update = {
     $set:{weeklyGoal: newweeklyGoal, habits: habit, total:newTotal, points:newPoints}
   }
 
   User.findOneAndUpdate(
-    { "name": "testData4"},update,{new:true},
+    { "name": "testData6"},update,{new:true},
     function(err,user) {
       user.save();
     })
