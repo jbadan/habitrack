@@ -270,7 +270,6 @@ class HabitList extends Component {
 
     //control for line chart/radar data
       let data = this.state.dateAndCount
-      console.log(data);
       let lineChart = ''
       let renderRadar = ''
       if(data.length === 0){

@@ -4,15 +4,18 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import {
   BrowserRouter as Router,
-  Redirect
+  Redirect, Link
 } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
-import { grey900, grey800, grey400 } from 'material-ui/styles/colors';
+import {cyanA400, grey900, grey800, grey400 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
 import cube from './img/cube.png';
+import {FlatButton } from 'material-ui';
 
-
+const buttonStyle= {
+  verticalAlign: 'middle'
+}
 
 const Logged = (props) => {
   let userName = props.user.name;
@@ -57,7 +60,7 @@ class Navbar extends Component {
     super(props)
     this.state = {
       user: props.user,
-      token: props.lift,
+      token: props.lift
     }
   }
   componentWillReceiveProps = (nextProps) => {
@@ -70,7 +73,15 @@ class Navbar extends Component {
     return (
       <div>
         <AppBar
-          title={'HabiTrack'}
+          title={<FlatButton
+                containerElement={<Link to="/" />}
+                linkButton={true}
+                label={"Habitrack"}
+                labelStyle={{ fontSize: '1em'}}
+                className={"logoStyle"}
+                style={buttonStyle}
+                hoverColor={cyanA400}
+                />}
           //titleStyle={{textAlign: 'center'}}
           showMenuIconButton={false}
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} signOut={this.props.signOut}/> : (
