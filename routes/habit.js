@@ -61,7 +61,6 @@ router.post('/new', function(req,res,next){
   else if(req.body.difficulty === "hard"){
     newweeklyGoal = previousGoal + (30*req.body.goal);
   }
-  console.log(newweeklyGoal)
   update = {
     $push: {habits: habit},
     $set:{weeklyGoal: newweeklyGoal}
