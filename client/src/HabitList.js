@@ -434,7 +434,7 @@ class HabitList extends Component {
             </Row>
           </Col>
         </Row>
-
+        <Row style={styles.moveDown}></Row>
         <Row>
           <Col xs={1} />
           <Col xs={10}>
@@ -444,8 +444,7 @@ class HabitList extends Component {
           </Col>
           <Col xs={1}/>
         </Row>
-        <Row style={styles.moveDown}>
-        </Row>
+        <Row style={styles.moveDown}></Row>
         <Row>
             <Col xs={1} />
             <Col xs={7}>
