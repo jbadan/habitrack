@@ -122,12 +122,6 @@ class HabitList extends Component {
       let flattened = newArray.reduce((a, b) => a.concat(b), [])
       //fetches all dates and total times users completed a habit
       let dateAndCountNew = result.data.total
-      //this is controlling for empty data so we don't end up with a null object pushed to array
-      if(result.data.total.length === 0){
-        //do nothing
-      }else{
-        dateAndCountNew.push(result.data.total)
-      }
     this.setState({
       habitArray: flattened,
       dateAndCount: dateAndCountNew,

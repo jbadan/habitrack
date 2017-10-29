@@ -8,6 +8,7 @@ import Habit from './Habit';
 import Restricted from './Restricted';
 import Navbar from './Navbar';
 import NotFound from './NotFound';
+import Test from './Test';
 import axios from 'axios';
 
 class App extends Component {
@@ -93,6 +94,7 @@ class App extends Component {
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={() => <HabitList user={this.state.user} isLoggedIn={this.isLoggedIn} liftHabit={this.liftHabitToState}/>}/>
           <Route path="/habit" render={() => <Habit user={this.state.user} isLoggedIn={this.isLoggedIn} habit={this.state.habit} dates={this.state.dates}/>} />
+          <Route path="/fakeData" component={Test}/>
           <Route path="*" render={NotFound} status={404} />
         </Switch>
     }
