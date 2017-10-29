@@ -40,8 +40,8 @@ import {grey400, grey500, darkBlack, lightBlack, pink} from 'material-ui/styles/
        },
        point:{
          position: "absolute",
-         top: "30%",
-         left: "44%"
+         top: "60px",
+         left: "105px"
        },
        parent:{
          position: "relative"
