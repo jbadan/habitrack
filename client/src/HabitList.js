@@ -51,6 +51,9 @@ const styles = {
   },
   moveDown:{
     height: 30
+  },
+  dialog:{
+    maxWidth: 400
   }
 };
 const iconButtonElement = (
@@ -129,7 +132,8 @@ class HabitList extends Component {
       habitArray: flattened,
       dateAndCount: dateAndCountNew,
       weeklyGoal: newweeklyGoal,
-      completeArrayDaily: newCompleteArray
+      completeArrayDaily: newCompleteArray,
+      points: result.data.points
     })
   })
   }
@@ -193,18 +197,16 @@ class HabitList extends Component {
        selectedItem: value
    }, () => {
      //if selectedItem is number(ie index then delete has been selected)
-     if(Number.isInteger(this.state.selectedItem)){
+     if(this.state.selectedItem.length === 24){
        let updates = this.state.habitArray;
-       let index = this.state.selectedItem;
-       updates.splice(index, 1);
-       this.setState({
-         habitArray:  updates
-       })
+       let id = this.state.selectedItem;
        axios.post('/habit/delete', {
          user: this.props.user,
-         indexNumber: index
+         habitId: id
        }).then(result => {
-         //nothing yet
+         this.setState({
+           habitArray:result.data.habits
+         })
        })
        //this means more info has been selected - redirect to habit info page
      }else if(typeof this.state.selectedItem === "string"){
@@ -239,16 +241,12 @@ class HabitList extends Component {
           date: today,
           week: weekNumber
         }
-    console.log("this is today's date")
-    console.log(today)
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,
        name: habitName,
        week: weekNumber
      }).then(result => {
-       console.log("this is the result")
-       console.log(result.data)
        let newPointTotal = result.data.points
        let count = result.data.total
        let habitCompleteArray = result.data.habitCompletedArray
@@ -474,6 +472,7 @@ class HabitList extends Component {
           open={this.state.open}
           onRequestClose = {this.handleClose}
           actions={actions}
+          contentStyle={styles.dialog}
           >
               <form>
                   <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
@@ -523,7 +522,7 @@ class HabitList extends Component {
                       rightIconButton={
                           <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
                             <MenuItem value={habit.name}>More Information</MenuItem>
-                            <MenuItem value={index}>Delete</MenuItem>
+                            <MenuItem value={habit._id}>Delete</MenuItem>
                           </IconMenu>
                       }
                     />
