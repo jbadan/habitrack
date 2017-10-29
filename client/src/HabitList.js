@@ -269,15 +269,16 @@ class HabitList extends Component {
   render() {
 
     //control for line chart/radar data
-      let theData = this.state.dateAndCount
+      let data = this.state.dateAndCount
+      console.log(data);
       let lineChart = ''
       let renderRadar = ''
-      if(theData.length === 0){
+      if(data.length === 0){
         lineChart = <NotEnoughData />
         renderRadar = <NotEnoughData />
       }else{
-        lineChart =<ResponsiveLineChart data={theData} />
-        renderRadar = <RadarChart datesArr={theData} />
+        lineChart =<ResponsiveLineChart data={data} />
+        renderRadar = <RadarChart datesArr={data} />
 
 
       }
