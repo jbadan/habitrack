@@ -106,6 +106,7 @@ class HabitList extends Component {
     axios.post('/habit', {
       user:this.state.user
     }).then(result => {
+      console.log(result)
       let newweeklyGoal = result.data.weeklyGoal
       let newCompleteArray = []
       for(let j=0; j<result.data.habits; j++){
@@ -129,7 +130,8 @@ class HabitList extends Component {
       habitArray: flattened,
       dateAndCount: dateAndCountNew,
       weeklyGoal: newweeklyGoal,
-      completeArrayDaily: newCompleteArray
+      completeArrayDaily: newCompleteArray,
+      points: result.data.points
     })
   })
   }
