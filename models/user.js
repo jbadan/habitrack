@@ -36,7 +36,7 @@ var userSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 99
   },
-  email: { 
+  email: {
     type: String,
     required: true,
     validate: {
@@ -51,13 +51,13 @@ var userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        return /^\w{8,99}$/.test(v)
-      },
-      message: 'Your password must be be between 8 and 99 characters!'
-    }
+    required: true
+    // validate: {
+    //   validator(v) {
+    //     return /^\w{8,99}$/.test(v)
+    //   },
+    //   message: 'Your password must be be between 8 and 99 characters!'
+    // }
   },
   points: {
     type: Number,
