@@ -97,7 +97,6 @@ class HabitList extends Component {
       open2: false,
       //this is for the line graph
       dateAndCount: [],
-      dateAndCountNumbers: [],
       points: 0,
       weeklyGoal: 0,
       weeklyPoints: 0,
@@ -123,8 +122,7 @@ class HabitList extends Component {
       let flattened = newArray.reduce((a, b) => a.concat(b), [])
       //fetches all dates and total times users completed a habit
       let dateAndCountNew = result.data.total
-      let dateAndCountWithNumbersNew = result.data.total
-      dateAndCountWithNumbersNew.forEach(d => {
+      dateAndCountNew.forEach(d => {
         d.date = Date.parse(d.date);
         d.count = +d.count;
     })
@@ -133,8 +131,7 @@ class HabitList extends Component {
       dateAndCount: dateAndCountNew,
       weeklyGoal: newweeklyGoal,
       completeArrayDaily: newCompleteArray,
-      points: result.data.points,
-      dateAndCountNumbers: dateAndCountWithNumbersNew
+      points: result.data.points
     })
   })
   }
