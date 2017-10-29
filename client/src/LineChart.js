@@ -33,10 +33,10 @@ class LineChart extends Component {
         {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
       ]
       : data = this.props.data;
-    data.forEach(d => {
-      d.date = Date.parse(d.date);
-      d.count = +d.count;
-    })
+    // data.forEach(d => {
+    //   d.date = Date.parse(d.date);
+    //   d.count = +d.count;
+    // })
     // set the dimensions and margins of the graph
     let width = this.props.width - 50,
         height = width * 0.25;
