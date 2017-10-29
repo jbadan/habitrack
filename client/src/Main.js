@@ -213,8 +213,8 @@ class Main extends Component {
 							<Row middle="xs">
 								<Col xs={3}>
 									<Paper style={style3} zDepth={4}>
-										<p className="paperText">Habit activity is logged using an easy check off list logging stystem.
-										 Daily and weekly activity cna be viewed on each habits individual page.</p>
+										<p className="paperText">Habit activity is logged using an easy check-off list logging stystem.
+										 Daily and weekly activity can be viewed on each habits individual page.</p>
 									</Paper>
 								</Col>
 							</Row>
@@ -248,9 +248,8 @@ class Main extends Component {
               <p>
               <a href="http://github.com/jbadan">View My Github</a>
               </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
+							<p> Jenna is the MVP of backend data manipulation. She fixes
+              route logic issues in her sleep. No really.
 							</p>
 						</Col>
 						<Col xs={2}>
@@ -259,9 +258,8 @@ class Main extends Component {
               <p>
               <a href="https://github.com/Foozie3Moons">View My Github</a>
               </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
+							<p> Matt is the D3 chart wisperer and overall bug killer. His
+              efficient triage keeps us smooth operating.
 							</p>
 						</Col>
 						<Col xs={2}>
@@ -270,9 +268,9 @@ class Main extends Component {
               <p>
               <a href="https://github.com/ehaala">View My Github</a>
               </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
+							<p>Evan gets the award for most versital coder,
+              fixing backend routes, passing state like a boss,
+              and making Material UI look easy.
 							</p>
 						</Col>
 						<Col xs={2}>
@@ -281,9 +279,8 @@ class Main extends Component {
               <p>
               <a href="https://github.com/laurenperez">View My Github</a>
               </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
+							<p>Lauren nerds out over visual patterns, redering data in Recharts,
+              and working on user flow. She just leveled up in Material UI. 
 							</p>
 						</Col>
 					</Row>
