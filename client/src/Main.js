@@ -243,7 +243,7 @@ class Main extends Component {
 					</Col>
 				</Row>
 				<Row around="xs" center="xs" className="about-section">
-					<Col xs={3}>
+					<Col xs={6} sm={3}>
 						<h4>Jenna Badanowski</h4>
 						<img className="devPhotos" src={Jenna}/>
             <p>
@@ -253,7 +253,7 @@ class Main extends Component {
 						<p> Back-End Development
 						</p>
 					</Col>
-					<Col xs={3}>
+					<Col xs={6} sm={3}>
 						<h4>Matthew Bell</h4>
 						<img className="devPhotos" src={Matt}/>
             <p>
@@ -264,7 +264,7 @@ class Main extends Component {
             Front/Back-End Development, Charts
 						</p>
 					</Col>
-					<Col xs={3}>
+					<Col xs={6} sm={3}>
 						<h4>Evan Haala</h4>
 						<img className="devPhotos" src={Evan}/>
             <p>
@@ -275,7 +275,7 @@ class Main extends Component {
             Front/Back-End Development
 						</p>
 					</Col>
-					<Col xs={3}>
+					<Col xs={6} sm={3}>
 						<h4>Lauren Perez</h4>
 						<img className="devPhotos" src={Lauren}/>
             <p>
