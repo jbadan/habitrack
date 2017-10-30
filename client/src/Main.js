@@ -165,7 +165,7 @@ class Main extends Component {
 						<Row center="xs">
 							<Row middle="xs">
 								<Col xs={5}>
-									<img src={line} width={600} height={300}/>
+									<img src={line} width={700} height={300}/>
 								</Col>
 							</Row>
 							<Col xs={1}></Col>
@@ -216,8 +216,8 @@ class Main extends Component {
 							<Row middle="xs">
 								<Col xs={3}>
 									<Paper style={style3} zDepth={4}>
-										<p className="paperText">Habit activity is logged using an easy check off list logging stystem.
-										 Daily and weekly activity cna be viewed on each habits individual page.</p>
+										<p className="paperText">Habit activity is logged using an easy checklist logging stystem.
+										 Daily and weekly activity can be viewed on each habit{`'`}s individual page.</p>
 									</Paper>
 								</Col>
 							</Row>
@@ -243,55 +243,50 @@ class Main extends Component {
 					</Col>
 				</Row>
 
-				<Row bottom="xs" className="about-section">
-					<Row around="xs" center="xs">
-						<Col xs={2}>
-							<h4>Jenna Badanowski</h4>
-							<img className="devPhotos" src={Jenna}/>
-              <p>
-              <a style={padding}  href="http://github.com/jbadan"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/jennabadanowski/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
-              </p>
-							<p> Backend Development
-							</p>
-						</Col>
-						<Col xs={2}>
-							<h4>Matthew Bell</h4>
-							<img className="devPhotos" src={Matt}/>
-              <p>
-              <a style={padding}  href="https://github.com/Foozie3Moons"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/matthew-bell-290/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
-              </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
-							</p>
-						</Col>
-						<Col xs={2}>
-							<h4>Evan Haala</h4>
-							<img className="devPhotos" src={Evan}/>
-              <p>
-              <a style={padding} href="https://github.com/ehaala"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/ejhaala/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
-              </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
-							</p>
-						</Col>
-						<Col xs={2}>
-							<h4>Lauren Perez</h4>
-							<img className="devPhotos" src={Lauren}/>
-              <p>
-              <a style={padding} href="https://github.com/laurenperez"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/lauren-ashley-perez/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
-              </p>
-							<p> sit amet et delectus
-							 accommodare his consul copiosae legendos
-								at vix ad putent delectus delicata usu.
-							</p>
-						</Col>
-					</Row>
+				<Row around="xs" center="xs" className="about-section">
+					<Col xs={3}>
+						<h4>Jenna Badanowski</h4>
+						<img className="devPhotos" src={Jenna}/>
+            <p>
+            <a style={padding}  href="http://github.com/jbadan"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/jennabadanowski/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+            </p>
+						<p> Back-End Development
+						</p>
+					</Col>
+					<Col xs={3}>
+						<h4>Matthew Bell</h4>
+						<img className="devPhotos" src={Matt}/>
+            <p>
+            <a style={padding}  href="https://github.com/Foozie3Moons"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/matthew-bell-290/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+            </p>
+						<p>
+            Front-End Development, Charts
+						</p>
+					</Col>
+					<Col xs={3}>
+						<h4>Evan Haala</h4>
+						<img className="devPhotos" src={Evan}/>
+            <p>
+            <a style={padding} href="https://github.com/ehaala"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/ejhaala/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+            </p>
+						<p>
+            Front/Back-End Development
+						</p>
+					</Col>
+					<Col xs={3}>
+						<h4>Lauren Perez</h4>
+						<img className="devPhotos" src={Lauren}/>
+            <p>
+            <a style={padding} href="https://github.com/laurenperez"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/lauren-ashley-perez/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+            </p>
+						<p>
+             Front-End Development, Charts
+             </p>
+					</Col>
 				</Row>
 			</div>
 		)
@@ -299,3 +294,6 @@ class Main extends Component {
 }
 
 export default Main;
+
+// <Row bottom="xs" >
+// </Row>
