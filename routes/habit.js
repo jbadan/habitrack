@@ -3,13 +3,20 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
 
-//gets all habits for signed in user
+//gets all habits for signed in user, resets completed habits to false
 router.post('/', function(req,res,next){
   User.findOne({ "_id": req.body.user.id}).
   populate('habits total').
   exec(function (err, user) {
+    for(let i=0; i < user.habits.length; i++){
+      for(let j=0; j < user.habits[i].dates.length; j++){
+        if(req.body.date != user.habits[i].dates[j].date){
+          user.habits[i].completed = false
+        }
+      }
+    }
+    user.save();
     if (err) return handleError(err);
-    console.log(user.total);
     res.send({habits: user.habits, total: user.total, weeklyGoal:user.weeklyGoal, points: user.points});
   });
 })
