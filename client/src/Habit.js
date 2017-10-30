@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import HabitList from './HabitList';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { Row, Col } from 'react-flexbox-grid';
-import Subheader from 'material-ui/Subheader';
-import RaisedButton from 'material-ui/RaisedButton';
 import RadarChart from './RadarChart';
 import NotEnoughData from './NotEnoughData';
-import Drawer from 'material-ui/Drawer';
-import {List, ListItem} from 'material-ui/List';
+
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText, 
+  Subheader, RaisedButton, Drawer, List, ListItem} from 'material-ui';
+
 import {
   BrowserRouter as Router,
   Redirect
@@ -32,31 +31,35 @@ class Habit extends Component {
     super(props)
     this.state = {
       redirect: false,
-      test: 'blah',
+      ready: false,
       dates: [{date: ''}],
       open2: false,
     }
   }
 
-  handleRedirect = () => this.setState({redirect: true});
+  handleRedirect = () => this.setState({
+    redirect: true
+  });
 
   handleDrawerToggle = () => this.setState({open2: !this.state.open2});
 
   render() {
 
-    let dates;
-    axios.post('/habit/dates', {
-      user: this.props.user,
-      name: this.props.habit.name
-    }).then(result => {
-      dates = result.data
-      if (this.state.test === 'blah') {
-        this.setState({
-          test: 'foo',
-          dates: dates
-        })
-      }
-    })
+    setTimeout(function() {
+      let dates;
+      axios.post('/habit/dates', {
+        user: this.props.user,
+        name: this.props.habit.name
+      }).then(result => {
+        dates = result.data
+        if (this.state.ready === false) {
+          this.setState({
+            dates: dates,
+            ready: true
+          })
+        }
+      })
+    }.bind(this), 100);
 
     let renderRadar = ''
     if(this.state.dates.length === 0){
@@ -90,14 +93,14 @@ class Habit extends Component {
 
       	<Row>
       	<Col sm={1} />
-      	<Col xs={12} sm={5}>
+      	<Col xs={12} sm={4}>
 		      <Card style={styles.minHeight}>
 		      	<CardTitle title={this.props.habit.name} style={styles.center}/>
 		      	<CardTitle>Difficulty: {this.props.habit.difficulty}</CardTitle>
 		      	<CardTitle>My goal is {this.props.habit.goal} days per week!</CardTitle>
 		      </Card>
 	      </Col>
-	      <Col xs={12} sm={5}>
+	      <Col xs={12} sm={6}>
 	      	<Card style={styles.minHeight}>
 	      		{renderRadar}
 	      	</Card>
@@ -107,10 +110,10 @@ class Habit extends Component {
 
         <Row>
           <Col sm={1} />
-          <Col xs={12} sm={5} style={styles.center}>
+          <Col xs={12} sm={4} style={styles.center}>
             <RaisedButton label="See Dates" primary={true} onClick={this.handleDrawerToggle}/>
           </Col>
-          <Col xs={12} sm={5} style={styles.center}>
+          <Col xs={12} sm={6} style={styles.center}>
             <RaisedButton label="Dashboard" primary={true} onClick={this.handleRedirect}/>
           </Col>
           <Col sm={1} />

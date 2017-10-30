@@ -15,7 +15,7 @@ router.post('/', function(req,res,next){
 })
 
 router.post('/dates', function(req,res,next){
-  var dates;
+  let dates;
   let habitName = req.body.name;
   User.findOne({ "_id": req.body.user.id}).
   populate('habits').
@@ -25,6 +25,7 @@ router.post('/dates', function(req,res,next){
         if(user.habits[i].name === habitName){
            dates = user.habits[i].dates;
            res.send(dates);
+           console.log(dates);
         };
     };
   });
