@@ -296,8 +296,6 @@ class HabitList extends Component {
       }else{
         lineChart =<ResponsiveLineChart data={data} />
         renderRadar = <RadarChart datesArr={data} />
-
-
       }
     //redirecting to more detail page after click
       const{redirect} = this.state;
