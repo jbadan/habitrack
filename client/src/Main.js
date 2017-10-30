@@ -242,7 +242,6 @@ class Main extends Component {
 						</Row>
 					</Col>
 				</Row>
-
 				<Row around="xs" center="xs" className="about-section">
 					<Col xs={3}>
 						<h4>Jenna Badanowski</h4>
@@ -262,7 +261,7 @@ class Main extends Component {
             <a href="https://www.linkedin.com/in/matthew-bell-290/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
             </p>
 						<p>
-            Front-End Development, Charts
+            Front/Back-End Development, Charts
 						</p>
 					</Col>
 					<Col xs={3}>

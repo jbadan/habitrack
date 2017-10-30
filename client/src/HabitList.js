@@ -380,7 +380,7 @@ class HabitList extends Component {
           <Col xs={12}>
             <Row>
               <Col xs={1} />
-              <Col xs={6}>
+              <Col xs={10} sm={6}>
               <Paper style={styles.minHeight} zDepth={3}>
               <Row start="xs">
                 <Col xs={6}>
@@ -418,7 +418,7 @@ class HabitList extends Component {
               </Paper>
               </Col>
 
-              <Col xs={4}>
+              <Col xs={12} sm={4}>
                 <Paper style={styles.style1} zDepth={4}>
                   <Row center="xs">
                     <Col xs={12}>
