@@ -115,21 +115,21 @@ https://wireframe.cc/qkAF5f
 
 ### Individual Contributors:
 
-* Jenna Badanowski - Front/Back-end development, Routes, Data storage management and manipulation
-- [View My GitHib](http://github.com/jbadan)
-- [View My Linkedin](https://www.linkedin.com/in/jennabadanowski/)
+* Jenna Badanowski - Front/Back-end development, Routes, Data storage management and manipulation  
+[View My GitHib](http://github.com/jbadan)  
+[View My Linkedin](https://www.linkedin.com/in/jennabadanowski/)  
 
-* Matthew Bell (Git Master) - Front-end development, Data visualization with D3 charts, Data manipulation
-- [View My GitHib](https://github.com/Foozie3Moons)
-- [View My Linkedin](https://www.linkedin.com/in/matthew-bell-290/)
+* Matthew Bell (Git Master) - Front-end development, Data visualization with D3 charts, Data manipulation  
+[View My GitHib](https://github.com/Foozie3Moons)  
+[View My Linkedin](https://www.linkedin.com/in/matthew-bell-290/)  
 
-* Evan Haala- Front/Back-end Development, Routes, Data manipulation, Responsive design
-- [View My GitHib](https://github.com/ehaala)
-- [View My Linkedin](https://www.linkedin.com/in/ejhaala/)
+* Evan Haala- Front/Back-end Development, Routes, Data manipulation, Responsive design  
+[View My GitHib](https://github.com/ehaala)  
+[View My Linkedin](https://www.linkedin.com/in/ejhaala/)  
 
-* Lauren Perez - Front-end Development, Routes, Data visualization with Recharts, Responsive design
-- [View My GitHib](https://github.com/laurenperez)
-- [View My Linkedin](https://www.linkedin.com/in/lauren-ashley-perez/)
+* Lauren Perez - Front-end Development, Routes, Data visualization with Recharts, Responsive design  
+[View My GitHib](https://github.com/laurenperez)  
+[View My Linkedin](https://www.linkedin.com/in/lauren-ashley-perez/)  
 
 
 
