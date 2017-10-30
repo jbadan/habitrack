@@ -1,7 +1,7 @@
 # HabiTrack
 
 
-##### Habitrack is a tool for tracking how often a person engages in desirable habits.
+##### Habitrack is an accountability tool for organizing and tracking desirable habits.
 
 
 ## About the App
@@ -33,7 +33,7 @@
 
 1. Michelle is a busy college student who wants an organization and tracking tool for keeping her daily stress relief habits consistent. She wants a tool that can go with her, so mobile viewing is important. Using Habitrack, she will be able to see how often she engages in mediation and which days she tends to forget.
 
-2. David is a retiree who wants to develop a new habit of reading for 1 hour each afternoon. He wants a tracking tool that enables him to see his day’s tasks in one place and log his activity with minimal navigation or button clicks. Using Habitrack, he can establish this goal and track his progress daily from one page with one button tap.
+2. David is a retiree who wants to develop a new habit of reading for one hour each afternoon. He wants a tracking tool that enables him to see his day’s tasks in one place and log his activity with minimal navigation or button clicks. Using Habitrack, he can establish this goal and track his progress daily from one page with one button tap.
 
 
 
@@ -59,35 +59,35 @@
 * Shared ideas, concerns, and thoughts on the usability of a habit tracker.
 * Developed two user stories.
 * Whiteboard sketched first wireframes.
-* Created get and post route for reading and adding user habits to the database.
-* Created forms for adding user data and tested routes.
-* Created graphic wireframes
+* Created forms for adding user data.
+* Created GET and POST routes for creating and reading user habits in the database.
+* Created graphic wireframes.
 
 #### Building  Phase
 
 * Set up React Router and links to pages.
-* Created post and delete routes for editing dates and deleting habits from user habit list.
+* Created UPDATE and DELETE routes for editing dates and deleting habits from user habit list.
 * Began initial layout styling of components with React Flexbox Grid.
-* Created first draft of line graph for mapping habit frequency
-* First draft of Radar chart created.
+* Created first draft of D3 line graph for mapping habit frequency.
+* Created first draft of radar graph in Recharts.
 * Material UI style components added to main profile page.
-* First build of front landing page.
+* Added skeleton build of front landing page.
 * Reworked user flow through the signup process.
 * Final draft of main line graph complete.
-* Radar chart completed and placed on dashboard.
+* Final draft of radar graph complete.
 * Points system implemented to add a motivational aspect to logging user data.
-* Added about us section.
+* Added "About Us" section.
 
 #### Testing and Debugging Phase
 
 * Clear forms when dialogs are closed.
 * Set up final error handling.
-* Create seed data.
+* Created seed data.
 * Final checks for chart functionality.
 
 #### Organization
 
-For project task management and feature planning we used a shared document in Google docs.
+For project task management and coordination, we used a shared document in Google docs.
 
 #### wireFrames:
 
@@ -99,7 +99,7 @@ https://wireframe.cc/y0uruu
 ![alt text](/client/src/img/homepage2.png "Home Page 2")
 https://wireframe.cc/pnzLDN
 
-##### Dashboard
+##### User Dashboard
 ![alt text](/client/src/img/dashboardpage.png "Dashboard Page")
 https://wireframe.cc/ydmerF
 
@@ -109,33 +109,34 @@ https://wireframe.cc/qkAF5f
 
 
 ### Routes
+
 ![alt text](/client/src/img/routes.png "Routes")
 
 
 ### Individual Contributors:
 
-* Jenna Badanowski - Front/Back-end development, routes, data storage management and manipulation
-[View My GitHib](http://github.com/jbadan)
-[View My Linkedin](https://www.linkedin.com/in/jennabadanowski/)
+* Jenna Badanowski - Front/Back-end development, Routes, Data storage management and manipulation
+- [View My GitHib](http://github.com/jbadan)
+- [View My Linkedin](https://www.linkedin.com/in/jennabadanowski/)
 
-* Matthew Bell (Git Master) - Front-end development, data visualization with D3 charts, data manipulation
-[View My GitHib](https://github.com/Foozie3Moons)
-[View My Linkedin](https://www.linkedin.com/in/matthew-bell-290/)
+* Matthew Bell (Git Master) - Front-end development, Data visualization with D3 charts, Data manipulation
+- [View My GitHib](https://github.com/Foozie3Moons)
+- [View My Linkedin](https://www.linkedin.com/in/matthew-bell-290/)
 
-* Evan Haala- Front/Back-end Development, routes, data manipulation, responsive design
-[View My GitHib](https://github.com/ehaala)
-[View My Linkedin](https://www.linkedin.com/in/ejhaala/)
+* Evan Haala- Front/Back-end Development, Routes, Data manipulation, Responsive design
+- [View My GitHib](https://github.com/ehaala)
+- [View My Linkedin](https://www.linkedin.com/in/ejhaala/)
 
-* Lauren Perez - Front-end Development, routes, data visualization with Recharts, responsive design
-[View My GitHib](https://github.com/laurenperez)
-[View My Linkedin](https://www.linkedin.com/in/lauren-ashley-perez/)
+* Lauren Perez - Front-end Development, Routes, Data visualization with Recharts, Responsive design
+- [View My GitHib](https://github.com/laurenperez)
+- [View My Linkedin](https://www.linkedin.com/in/lauren-ashley-perez/)
 
 
 
 ### Next Steps and Future Improvements
 
-Divide Habit Lists- Habits could be displayed in separate lists based on when those tasks will be performed by the user- such as separate lists for weekly vs. daily tasks.
+1. Divide Habit Lists- Habits could be displayed in separate lists based on when those tasks will be performed by the user- such as separate lists for weekly vs. daily tasks.
 
-Posting to Social Media - Users would be able to share their daily point achievements with their network on Twitter or Facebook.
+2. Posting to Social Media - Users would be able to share their daily point achievements with their network on Twitter or Facebook.
 
-Achievement Badges - Users could earn personal goal achievement badges that would display on their dashboard and could be shared via social media.
+3. Achievement Badges - Users could earn personal goal achievement badges that would display on their dashboard and could be shared via social media.
