@@ -54,6 +54,19 @@ const styles = {
   },
   dialog:{
     maxWidth: 400
+  },
+  paper: {
+    height: 300,
+    width: 300
+  },
+  paddingText: {
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  paddingTextTop: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20
   }
 };
 const iconButtonElement = (
@@ -290,12 +303,19 @@ class HabitList extends Component {
       let data = this.state.dateAndCount
       let lineChart = ''
       let renderRadar = ''
+      let text = ''
       if(data.length === 0){
         lineChart = <NotEnoughData />
         renderRadar = <NotEnoughData />
+        text = <NotEnoughData />
       }else{
-        lineChart =<ResponsiveLineChart data={data} />
+        lineChart = <ResponsiveLineChart data={data} />
         renderRadar =   <Card style={styles.minHeight}><RadarChart datesArr={data} /></Card>
+        text = <Paper zDepth={3} style={styles.paper}>
+          <h4 style={styles.paddingTextTop}>What am I looking at?</h4>
+          <p style={styles.paddingText}>This line graph is your total habit overview. The horizontal axis shows a linear progression by date and the vertical axis displays the number of habits you marked as complete that day. </p>
+          <p style={styles.paddingText}>The radar graph gives you the same information organized by day of the week. This makes it easier to see your trends by specific weekdays or just the weekend. </p>
+        </Paper>
       }
     //redirecting to more detail page after click
       const{redirect} = this.state;
@@ -469,13 +489,16 @@ class HabitList extends Component {
           <Col xs={1}/>
         </Row>
         <Row style={styles.moveDown}></Row>
-        <Row>
+      <Row middle="xs" center="xs">
             <Col xs={2} />
-            <Col xs={8}>
+            <Col xs={6}>
 
                 {renderRadar}
 
             </Col>
+          <Col xs={2}>
+                {text}
+          </Col>
             <Col xs={2} />
         </Row>
 
