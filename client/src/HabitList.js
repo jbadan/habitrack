@@ -491,12 +491,12 @@ class HabitList extends Component {
         <Row style={styles.moveDown}></Row>
       <Row middle="xs" center="xs">
             <Col xs={2} />
-            <Col xs={6}>
+            <Col xs={12} sm={6}>
 
                 {renderRadar}
 
             </Col>
-          <Col xs={2}>
+          <Col xs={12} sm={2}>
                 {text}
           </Col>
             <Col xs={2} />
