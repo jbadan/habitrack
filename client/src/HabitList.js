@@ -106,14 +106,32 @@ class HabitList extends Component {
   }
 
   componentDidMount(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10) {dd = '0'+dd}
+     if(mm<10) {mm = '0'+mm}
+     today = mm + '/' + dd + '/' + yyyy;
+     var weekend = new Date();
     axios.post('/habit', {
-      user:this.state.user
+      user:this.state.user,
+      date: today
     }).then(result => {
       let newweeklyGoal = result.data.weeklyGoal
       let newCompleteArray = []
-      for(let j=0; j<result.data.habits; j++){
-        if(result.data.habits.goal != 2){
-          newCompleteArray.push(result.data.habits[j].completed)
+      for(let j=0; j<result.data.habits.length; j++){
+          //controlling for weekend activities
+        if(weekend.getDay() === 6 || weekend.getDay() === 0){
+          if(result.data.habits.goal != 5){
+            newCompleteArray.push(result.data.habits[j].completed)
+          }else{
+            //do nothing
+          }
+        }else{
+          if(result.data.habits.goal != 2){
+            newCompleteArray.push(result.data.habits[j].completed)
+          }
         }
       }
       //fetches all habits from user
@@ -387,6 +405,7 @@ class HabitList extends Component {
                             leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)}
                                                     disabled={this.state.completeArrayDaily[index]}
                                                     value={habit.name}
+                                                    checked={this.state.completeArrayDaily[index]}
                                                     />}
                             primaryText={habit.name}
                           />
