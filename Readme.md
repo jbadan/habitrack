@@ -89,7 +89,7 @@
 
 For project task management and coordination, we used a shared document in Google docs.
 
-#### wireFrames:
+### Wire Frames
 
 ##### Home Page
 ![alt text](/client/src/img/homepage1.png "Home Page 1")
