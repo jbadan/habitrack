@@ -8,6 +8,7 @@ import dash from './img/dash.png';
 import line from './img/line.png';
 import list from './img/list.png';
 import radar from './img/radar.png';
+import points from './img/points.png';
 import {
   BrowserRouter as Router,
   Redirect
@@ -31,7 +32,7 @@ class Main extends Component {
 	render() {
 
 			const style1 = {
-			  height: 150,
+			  height: 200,
 			  width: 300,
 			  textAlign: 'center',
 			  display: 'inline-block',
@@ -41,7 +42,7 @@ class Main extends Component {
 			};
 
 			const style2 = {
-			  height: 200,
+			  height: 240,
 			  width: 300,
 			  textAlign: 'center',
 			  display: 'inline-block',
@@ -51,7 +52,7 @@ class Main extends Component {
 			};
 
 			const style3 = {
-			  height: 150,
+			  height: 180,
 			  width: 300,
 			  textAlign: 'center',
 			  display: 'inline-block',
@@ -231,13 +232,48 @@ class Main extends Component {
 					</Col>
 				</Row>
 
+        <div className="spacer"></div>
+
+        <Row className="sectionHeaders">
+					<Col xs={12}>
+						<Row center="xs">
+							<Col xs={6}>
+							<h1>Earn Motivation Points</h1>
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+
+        <div className="spacer"></div>
+
+        <Row>
+					<Col xs={12}>
+						<Row center="xs">
+							<Row middle="xs">
+								<Col xs={5}>
+									<Paper style={style1} zDepth={4}>
+										<p className="paperText">Boost your motivation with a fun, goal-oriented point
+                    earning system. The more difficult the habit, the more you are rewarded for completing it.</p>
+									</Paper>
+								</Col>
+							</Row>
+							<Col xs={1}></Col>
+							<Row middle="xs">
+								<Col xs={5}>
+									<img src={points} width={300} height={400}/>
+								</Col>
+							</Row>
+						</Row>
+					</Col>
+				</Row>
+
 				<div className="spacer"></div>
 
 				<Row className="sectionHeaders">
 					<Col xs={12}>
 						<Row center="xs">
 							<Col xs={6}>
-							<h2>About Us</h2>
+							<h1>About Us</h1>
 							</Col>
 						</Row>
 					</Col>
@@ -293,6 +329,3 @@ class Main extends Component {
 }
 
 export default Main;
-
-// <Row bottom="xs" >
-// </Row>

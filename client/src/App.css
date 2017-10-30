@@ -59,6 +59,7 @@ a {
 .paperText {
   font-family: 'Lato', serif;
   line-height: 24px;
+  font-size: 20px;
 }
 
 #mainPage {
