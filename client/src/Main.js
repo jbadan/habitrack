@@ -286,7 +286,7 @@ class Main extends Component {
             <a style={padding}  href="http://github.com/jbadan"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
             <a href="https://www.linkedin.com/in/jennabadanowski/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
             </p>
-						<p> Back-End Development
+						<p> Front/Back-End Development, Data Visualization
 						</p>
 					</Col>
 					<Col xs={6} sm={3}>
@@ -297,7 +297,7 @@ class Main extends Component {
             <a href="https://www.linkedin.com/in/matthew-bell-290/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
             </p>
 						<p>
-            Front/Back-End Development, Charts
+            Front/Back-End Development, Data Visualization
 						</p>
 					</Col>
 					<Col xs={6} sm={3}>
@@ -319,7 +319,7 @@ class Main extends Component {
             <a href="https://www.linkedin.com/in/lauren-ashley-perez/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
             </p>
 						<p>
-             Front-End Development, Charts
+             Front-End Development, Data Visualization 
              </p>
 					</Col>
 				</Row>
