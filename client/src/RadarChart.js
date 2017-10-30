@@ -12,31 +12,32 @@ class ResponsiveRadarChart extends Component {
   }
   render() {
     let datesArr;
-    this.props.datesArr.length < 10
-      ? datesArr = [
-        {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'25-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'28-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'23-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
-        {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
-      ]
-      : datesArr = this.props.datesArr;
+    // this.props.datesArr.length < 10
+    //   ? datesArr = [
+    //     {date:'21-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'20-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'19-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'18-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'17-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'16-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'25-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'14-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'13-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'12-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'11-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'28-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'23-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'8-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'7-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'6-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'10-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'4-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'3-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //     {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
+    //   ]
+    //   :
+      datesArr = this.props.datesArr;
 
     const dayArr = datesArr.map((day) => {
       var eachDay = day.date
