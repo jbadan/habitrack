@@ -295,7 +295,7 @@ class HabitList extends Component {
         renderRadar = <NotEnoughData />
       }else{
         lineChart =<ResponsiveLineChart data={data} />
-        renderRadar = <RadarChart datesArr={data} />
+        renderRadar =   <Card style={styles.minHeight}><RadarChart datesArr={data} /></Card>
       }
     //redirecting to more detail page after click
       const{redirect} = this.state;
@@ -472,9 +472,9 @@ class HabitList extends Component {
         <Row>
             <Col xs={2} />
             <Col xs={8}>
-              <Card style={styles.minHeight}>
+
                 {renderRadar}
-              </Card>
+
             </Col>
             <Col xs={2} />
         </Row>
