@@ -37,10 +37,12 @@ class Signup extends Component {
       email: this.state.email,
       password: this.state.password
     }).then(result => {
+      console.log(result)
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
       this.handleClose();
     }).catch(error => {
+      console.log(error)
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
     })
   }
