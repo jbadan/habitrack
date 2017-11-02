@@ -1,4 +1,5 @@
 var express = require('express');
+require ("dotenv").config();
 var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
@@ -7,6 +8,7 @@ var bcrypt = require('bcrypt');
 // Used for creating and sending tokens and protecting backend routes
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
+
 
 var secret = process.env.JWT_SECRET;
 
