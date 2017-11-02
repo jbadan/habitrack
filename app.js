@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 
 // Mongoose stuff
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/mern-local-auth');
+// mongoose.connect('mongodb://localhost/mern-local-auth');
+mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true});
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -28,13 +29,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/habit', habit);
 app.use('/fakeData', fakeData);
+
+
+app.get('*', function(req, res, next) {
+	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 
 // catch 404 and forward to error handler - commented out
 // app.use(function(req, res, next) {
