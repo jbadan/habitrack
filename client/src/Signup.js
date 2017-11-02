@@ -42,6 +42,7 @@ class Signup extends Component {
       this.props.lift(result.data);
       this.handleClose();
     }).catch(error => {
+      console.log(error)
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
     })
   }
