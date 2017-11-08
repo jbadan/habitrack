@@ -3,6 +3,7 @@
 
 ##### Habitrack is an accountability tool for organizing and tracking desirable habits.
 
+View the live site at https://habitrackapp.herokuapp.com/
 
 ## About the App
 
