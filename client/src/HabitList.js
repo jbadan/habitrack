@@ -10,7 +10,7 @@ import {
   BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
-
+import Navbar from './Navbar';
 //material-ui
 import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
   TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
@@ -373,6 +373,7 @@ class HabitList extends Component {
 
     return(
       <div style={styles.bg}>
+      <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
         <Row>
         <Col xs={12}>
           <Row>

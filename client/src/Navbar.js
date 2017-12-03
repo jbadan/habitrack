@@ -80,7 +80,7 @@ class Navbar extends Component {
         <AppBar
           title={<FlatButton
                 containerElement={<Link to="/" />}
-                linkbutton={"true"}
+                linkButton={true}
                 label={"Habitrack"}
                 labelStyle={{ fontSize: '1em'}}
                 className={"logoStyle"}

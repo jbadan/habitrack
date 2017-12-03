@@ -93,7 +93,7 @@ class App extends Component {
        switchStatement =
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
-          <Route path="/display" render={() => <HabitList user={this.state.user} isLoggedIn={this.isLoggedIn} liftHabit={this.liftHabitToState}/>}/>
+          <Route path="/display" render={() => <HabitList user={this.state.user} isLoggedIn={this.isLoggedIn} liftHabit={this.liftHabitToState} lift={this.liftTokenToState} signOut={this.signOut}/>}/>
           <Route path="/habit" render={() => <Habit user={this.state.user} isLoggedIn={this.isLoggedIn} habit={this.state.habit} dates={this.state.dates}/>} />
           <Route path="/fakeData" component={Test}/>
           <Route path="*" render={NotFound} status={404} />
