@@ -319,7 +319,7 @@ class Main extends Component {
             <a href="https://www.linkedin.com/in/lauren-ashley-perez/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
             </p>
 						<p>
-             Front-End Development, Data Visualization 
+             Front-End Development, Data Visualization
              </p>
 					</Col>
 				</Row>
