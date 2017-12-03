@@ -99,7 +99,7 @@ class Main extends Component {
                   onClick={this.handleRedirect}
                 />
               ) : (
-                <Signup user={this.props.user} lift={this.props.lift} primary={true} />
+                <Signup user={this.props.user} lift={this.props.lift} handleRedirect={this.handleRedirect} primary={true} />
               )
             }
 
