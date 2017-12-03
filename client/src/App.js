@@ -83,29 +83,29 @@ class App extends Component {
     let switchStatement = '';
     if (Object.keys(this.state.user).length === 0) {
        switchStatement =
+
         <Switch>
           <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
           <Route path="/display" render={Restricted} />
           <Route path="/habit" render={Restricted} />
           <Route path="*" render={NotFound} status={404} />
         </Switch>
+
     } else {
        switchStatement =
         <Switch>
-          <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState}/>} />
+          <Route exact path="/" render={() => <Main user={this.state.user} lift={this.liftTokenToState} signOut={this.signOut}/>} />
           <Route path="/display" render={() => <HabitList user={this.state.user} isLoggedIn={this.isLoggedIn} liftHabit={this.liftHabitToState} lift={this.liftTokenToState} signOut={this.signOut}/>}/>
-          <Route path="/habit" render={() => <Habit user={this.state.user} isLoggedIn={this.isLoggedIn} habit={this.state.habit} dates={this.state.dates}/>} />
+          <Route path="/habit" render={() => <Habit user={this.state.user} isLoggedIn={this.isLoggedIn} habit={this.state.habit} dates={this.state.dates} lift={this.liftTokenToState} signOut={this.signOut}/>} />
           <Route path="/fakeData" component={Test}/>
           <Route path="*" render={NotFound} status={404} />
         </Switch>
+
     }
     return (
       <div>
         <Router>
-          <div>
-            <Navbar user={this.state.user} lift={this.liftTokenToState} signOut={this.signOut} />
             {switchStatement}
-          </div>
         </Router>
       </div>
     );

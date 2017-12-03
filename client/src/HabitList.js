@@ -359,7 +359,7 @@ class HabitList extends Component {
 
     return(
       <div style={styles.bg}>
-      <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
+        <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
         <Row>
         <Col xs={12}>
           <Row>

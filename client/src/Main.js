@@ -3,6 +3,7 @@ import Signup from './Signup';
 import Login from './Login';
 import { Row, Col } from 'react-flexbox-grid';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import Navbar from './Navbar';
 import { MuiThemeProvider, AppBar, IconButton, Paper, RaisedButton } from 'material-ui';
 import dash from './img/dash.png';
 import line from './img/line.png';
@@ -75,7 +76,7 @@ class Main extends Component {
 
 		return (
 			<div id="mainPage">
-
+        <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
 				<div className="spacer"></div>
 
 				<div id="welcome">
