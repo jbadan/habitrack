@@ -349,27 +349,13 @@ class HabitList extends Component {
 
       //today's to do List population logic
       let todayArr = []
-      let everydayArr = []
-      let weekdayArr = []
-      let weekendArr = []
         for(let i = 0; i < this.state.habitArray.length; i++){
-          if(this.state.habitArray[i].goal === 7){
-            everydayArr.push(this.state.habitArray[i])
-          }else if(this.state.habitArray[i].goal === 5){
-            weekdayArr.push(this.state.habitArray[i])
-          }else if(this.state.habitArray[i].goal === 2){
-            weekendArr.push(this.state.habitArray[i])
+          if(this.state.habitArray[i].goal === 7 || (this.state.habitArray[i].goal === 5 && (day !== "Saturday" || day !== "Sunday"))){
+          todayArr.push(this.state.habitArray[i])
+          }else if(this.state.habitArray[i].goal === 7 || (this.state.habitArray[i].goal === 2 && (day === "Saturday" || day === "Sunday"))){
+            todayArr.push(this.state.habitArray[i])
           }
         }
-        //TODO: need to handle weekly todos
-      if(day === "Saturday" || day === "Sunday"){
-        let newArr = weekendArr.concat(everydayArr)
-        todayArr = newArr
-      }else{
-        let newArr = weekdayArr.concat(everydayArr)
-        todayArr = newArr
-      }
-
 
     return(
       <div style={styles.bg}>
@@ -421,6 +407,7 @@ class HabitList extends Component {
                       <Row>
                         <Col xs={12}>
                           <ListItem
+                            key={index}
                             leftCheckbox={<Checkbox onClick={(e) => this.handleDate(e)}
                                                     disabled={this.state.completeArrayDaily[index]}
                                                     value={habit.name}
