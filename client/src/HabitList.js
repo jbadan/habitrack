@@ -350,7 +350,7 @@ class HabitList extends Component {
       //today's to do List population logic
       let todayArr = []
         for(let i = 0; i < this.state.habitArray.length; i++){
-          if(this.state.habitArray[i].goal === 7 || (this.state.habitArray[i].goal === 5 && (day !== "Saturday" || day !== "Sunday"))){
+          if(this.state.habitArray[i].goal === 7 || (this.state.habitArray[i].goal === 5 && (day === "Monday" || day === "Tuesday"|| day === "Wednesday"|| day === "Thursday"|| day === "Friday"))){
           todayArr.push(this.state.habitArray[i])
           }else if(this.state.habitArray[i].goal === 7 || (this.state.habitArray[i].goal === 2 && (day === "Saturday" || day === "Sunday"))){
             todayArr.push(this.state.habitArray[i])
