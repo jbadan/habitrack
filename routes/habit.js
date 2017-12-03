@@ -83,11 +83,9 @@ router.post('/new', function(req,res,next){
       var day = weekday[now.getDay()];
 
       for(let m=0; m< user.habits.length; m++){
-        if(user.habits[m].goal ===2 && (day === 'Saturday' || day === 'Sunday')){
+        if((user.habits[m].goal ===2 && (day === 'Saturday' || day === 'Sunday')) || user.habits[m].goal === 7){
           newHabitCompletedArray.push(user.habits[m].completed)
-        }else if(user.habits[m].goal ===5 && (day === "Monday" || day === "Tuesday"|| day === "Wednesday"|| day === "Thursday"|| day === "Friday")){
-          newHabitCompletedArray.push(user.habits[m].completed)
-        }else if(user.habits[m].goal === 7){
+        }else if((user.habits[m].goal ===5 && (day === "Monday" || day === "Tuesday"|| day === "Wednesday"|| day === "Thursday"|| day === "Friday")) || user.habits[m].goal === 7){
           newHabitCompletedArray.push(user.habits[m].completed)
         }
       }
