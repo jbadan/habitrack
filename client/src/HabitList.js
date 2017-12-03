@@ -132,21 +132,20 @@ class HabitList extends Component {
       date: today
     }).then(result => {
       let newweeklyGoal = result.data.weeklyGoal
-      let newCompleteArray = []
+      let newCompleteArray = [];
+      var now = new Date();
+      var day = now.getDayName();
       for(let j=0; j<result.data.habits.length; j++){
           //controlling for weekend activities
-        if(weekend.getDay() === 6 || weekend.getDay() === 0){
-          if(result.data.habits.goal != 5){
+          console.log(day)
+          console.log(result.data.habits[j].goal);
+        if((day === 'Saturday' || day === 'Sunday') && (result.data.habits[j].goal === 7 || result.data.habits[j].goal === 2)){
             newCompleteArray.push(result.data.habits[j].completed)
-          }else{
-            //do nothing
-          }
-        }else{
-          if(result.data.habits.goal != 2){
+        }else if((result.data.habits[j].goal === 7 || result.data.habits[j].goal === 5) && (day === "Monday" || day === "Tuesday"|| day === "Wednesday"|| day === "Thursday"|| day === "Friday")){
             newCompleteArray.push(result.data.habits[j].completed)
           }
-        }
       }
+
       //fetches all habits from user
       let newArray = this.state.habitArray
       newArray.push(result.data.habits)
