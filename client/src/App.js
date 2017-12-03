@@ -18,14 +18,14 @@ class App extends Component {
       token: '',
       user: {},
       habit: {},
-      dates: []
+      dates: [],
     }
   }
 
   liftTokenToState = (data) => {
     this.setState({
       token: data.token,
-      user: data.user
+      user: data.user,
     })
   }
 
@@ -45,7 +45,7 @@ class App extends Component {
 
   isLoggedIn = () => {
     // If there is a token in localStorage
-    console.log('did something');
+    // console.log('did something');
     var token = localStorage.getItem('mernToken')
     if (token === 'undefined' || token === null || token === '' || token === undefined) {
       localStorage.removeItem('mernToken')
@@ -60,7 +60,7 @@ class App extends Component {
       }).then(response => {
         //   Store the token and user
         localStorage.setItem('mernToken', response.data.token)
-        console.log(localStorage.mernToken);
+        // console.log(localStorage.mernToken);
         this.setState({
           token: response.data.token,
           user: response.data.user
@@ -79,6 +79,7 @@ class App extends Component {
   }
 
   render() {
+
     let switchStatement = '';
     if (Object.keys(this.state.user).length === 0) {
        switchStatement =

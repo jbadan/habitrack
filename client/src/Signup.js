@@ -41,6 +41,7 @@ class Signup extends Component {
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
       this.handleClose();
+      this.props.handleRedirect();
     }).catch(error => {
       console.log(error)
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});

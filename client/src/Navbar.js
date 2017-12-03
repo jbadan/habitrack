@@ -60,22 +60,27 @@ class Navbar extends Component {
     super(props)
     this.state = {
       user: props.user,
-      token: props.lift
+      token: props.lift,
+      redirect: false,
     }
   }
   componentWillReceiveProps = (nextProps) => {
     this.setState({user: nextProps.user})
   }
+  handleRedirect = () => this.setState({redirect: true});
 
 
   render() {
-
+    const {redirect} = this.state;
+    if(redirect){
+      return <Redirect to ='/display'/>
+    };
     return (
       <div>
         <AppBar
           title={<FlatButton
                 containerElement={<Link to="/" />}
-                linkButton={true}
+                linkbutton={"true"}
                 label={"Habitrack"}
                 labelStyle={{ fontSize: '1em'}}
                 className={"logoStyle"}
@@ -87,10 +92,10 @@ class Navbar extends Component {
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} signOut={this.props.signOut}/> : (
             <div className='nav-buttons'>
               <div className='nav-button'>
-                <Signup lift={this.props.lift} primary={false}/>
+                <Signup lift={this.props.lift} handleRedirect={this.handleRedirect} primary={false}/>
               </div>
               <div className='nav-button'>
-                <Login lift={this.props.lift}/>
+                <Login handleRedirect={this.handleRedirect} lift={this.props.lift}/>
               </div>
             </div>
 

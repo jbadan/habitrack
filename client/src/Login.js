@@ -8,6 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import CircularProgress from 'material-ui/CircularProgress';
 import { Row, Col, Grid } from 'react-flexbox-grid';
 import Flash from './Flash';
+import { Redirect } from 'react-router'
 
 class Login extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Login extends Component {
       open: false,
       loading: false,
       alert: {type: '', msg: ''},
-      showAlert: false,
+      showAlert: false
     }
   }
 
@@ -40,6 +41,7 @@ class Login extends Component {
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
       this.handleClose();
+      this.props.handleRedirect();
     }).catch((error) => {
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
     });
@@ -62,12 +64,6 @@ class Login extends Component {
   };
 
   render() {
-    /**
-    * Dialog with action buttons. The actions are passed in as an array of React objects,
-    * in this example [FlatButtons](/#/components/flat-button).
-    *
-    * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
-    */
     const actions = [
       <FlatButton
         label="Cancel"
