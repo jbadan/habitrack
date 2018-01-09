@@ -11,9 +11,7 @@ import {BrowserRouter as Router,Redirect} from 'react-router-dom';
 import Navbar from '../Main/Navigation/Navbar';
 import '../../Styles/habitList.css';
 //material-ui
-import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
-  TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
-  IconButton, Dialog, Drawer, Card, MenuItem, Paper, FloatingActionButton } from 'material-ui';
+import {RaisedButton, List, ListItem, Subheader, Divider, Checkbox, Card, Paper} from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
 
@@ -150,10 +148,7 @@ class HabitList extends Component {
 
   handleDrawerToggle = () => this.setState({open2: !this.state.open2});
 
-  handleDrawerClose = () => this.setState({open2: false});
-
   render() {
-
     //control for line chart/radar data
       let data = this.state.dateAndCount
       let lineChart = ''
@@ -199,23 +194,22 @@ class HabitList extends Component {
 
     return(
       <div className="styles-bg">
-        <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
+        <Navbar user={this.props.user} lift={this.props.lift} signOut={this.props.signOut} />
         <Row>
-        <Col xs={12}>
-          <Row>
-            <Col xs={1} />
-            <Col xs={9}>
-              <h1 className="header"> Hello, {this.state.user.name}! </h1>
-              <h6 className="subHeader">Today is {day}, {month} {dd}, {yyyy} </h6>
-            </Col>
-            <Col xs={1}>
-              <AddNewHabit weeklyGoal={this.state.weeklyGoal} user={this.props.user} habitArray={this.state.habitArray} liftAfterAdd={this.liftAfterAdd} habitArray={this.state.habitArray}/>
-            </Col>
-            <Col xs={1}/>
-          </Row>
-        </Col>
+          <Col xs={12}>
+            <Row>
+              <Col xs={1} />
+              <Col xs={9}>
+                <h1 className="header"> Hello, {this.state.user.name}! </h1>
+                <h6 className="subHeader">Today is {day}, {month} {dd}, {yyyy} </h6>
+              </Col>
+              <Col xs={1}>
+                <AddNewHabit weeklyGoal={this.state.weeklyGoal} user={this.props.user} habitArray={this.state.habitArray} liftAfterAdd={this.liftAfterAdd}/>
+              </Col>
+              <Col xs={1}/>
+            </Row>
+          </Col>
         </Row>
-
 
         <Row>
           <Col xs={12}>
@@ -314,17 +308,14 @@ class HabitList extends Component {
       <Row middle="xs" center="xs">
             <Col xs={2} />
             <Col xs={12} sm={6}>
-
                 {renderRadar}
-
             </Col>
           <Col xs={12} sm={2}>
                 {text}
           </Col>
             <Col xs={2} />
         </Row>
-
-          <HabitDrawer user={this.props.user} habitArray={this.state.habitArray} liftHabit={this.props.liftHabit} liftDrawer={this.liftDrawer} liftHabitArray={this.liftHabitArray} open={this.state.open2}/>
+          <HabitDrawer user={this.props.user} habitArray={this.state.habitArray} liftHabit={this.props.liftHabit} liftDrawer={this.liftDrawer} liftHabitArray={this.liftHabitArray} open={this.state.open2} closeDrawer={this.handleDrawerToggle}/>
 
       </div>
     )

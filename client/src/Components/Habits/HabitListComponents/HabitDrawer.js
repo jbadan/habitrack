@@ -3,14 +3,11 @@ import axios from 'axios';
 import '../../../Styles/habitList.css';
 //material-ui
 import { List, ListItem, IconMenu, IconButton, Drawer, MenuItem } from 'material-ui';
-  import { grey400 } from 'material-ui/styles/colors';
-  import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { grey400 } from 'material-ui/styles/colors';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
   const iconButtonElement = (
-    <IconButton
-      touch={true}
-      tooltip="more"
-      tooltipPosition="bottom-left"
-    >
+    <IconButton touch={true}>
       <MoreVertIcon color={grey400} />
     </IconButton>
   );
@@ -19,7 +16,6 @@ class HabitDrawer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open2: this.props.open,
       selectedItem: true
     }
   }
@@ -30,7 +26,6 @@ class HabitDrawer extends Component {
      }, () => {
        //if selectedItem is number(ie index then delete has been selected)
        if(this.state.selectedItem.length === 24){
-         let updates = this.props.habitArray;
          let id = this.state.selectedItem;
          axios.post('/habit/delete', {
            user: this.props.user,
@@ -57,8 +52,8 @@ class HabitDrawer extends Component {
       <Drawer
         docked={false}
         width={200}
-        open={this.props.open2}
-        onRequestChange={(open2) => this.setState({open2})}
+        open={this.props.open}
+        onRequestChange={() => {this.props.closeDrawer()}}
       >
           <h1 className="center">My Habits</h1>
           <List>

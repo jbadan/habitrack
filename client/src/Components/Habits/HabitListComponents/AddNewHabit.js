@@ -3,9 +3,7 @@ import axios from 'axios';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import '../../../Styles/habitList.css';
 //material-ui
-import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
-  TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
-  IconButton, Dialog, Drawer, Card, MenuItem, Paper, FloatingActionButton } from 'material-ui';
+import {SelectField, RadioButton, RadioButtonGroup,TextField, FlatButton, Dialog, MenuItem, FloatingActionButton } from 'material-ui';
 
 class AddNewHabit extends Component {
   constructor(props) {
@@ -61,7 +59,6 @@ class AddNewHabit extends Component {
        goal: this.state.value,
        weeklyGoal: this.props.weeklyGoal
      }).then(result => {
-       let newCompleteArray = result.data.habitCompletedArray;
        this.props.liftAfterAdd({result: result.data, updates:updates});
        this.handleClose();
      })

@@ -71,7 +71,7 @@ class Habit extends Component {
 
     return(
       <div>
-        <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
+        <Navbar user={this.props.user} lift={this.props.lift} signOut={this.props.signOut} />
           <Drawer
             docked={false}
             width={200}
