@@ -25,16 +25,16 @@ const Logged = (props) => {
         {...props}
         iconButtonElement={
           <div>
-          <IconButton>
-          <Avatar
-            color={grey900}
-            backgroundColor={grey400}
-            size={40}
-            style={style}
-          >
-          {letter}
-          </Avatar>
-          </IconButton>
+            <IconButton>
+              <Avatar
+                color={grey900}
+                backgroundColor={grey400}
+                size={40}
+                style={style}
+              >
+              {letter}
+              </Avatar>
+            </IconButton>
           </div>
         }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -71,7 +71,6 @@ class Navbar extends Component {
         <AppBar
           title={<FlatButton
                 containerElement={<Link to="/" />}
-                linkButton={true}
                 label={"Habitrack"}
                 labelStyle={{ fontSize: '1em'}}
                 className={"logoStyle"}
