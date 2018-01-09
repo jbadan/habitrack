@@ -1,0 +1,47 @@
+.styles-bg {
+  background-color: "lightBlack";
+  }
+  .minHeight {
+    height: 570;
+  }
+  .center{
+    text-align: "center";
+    color: "#00ACC1";
+    font-size: "1.2em";
+  }
+  .header{
+    color: "#D81B60";
+    font-size: "2em";
+  }
+  .subHeader{
+    color: "#FAFAFA";
+    font-size: "1.2em";
+
+  }
+  .style1{
+    height: 570;
+    text-align: 'center';
+    color: '#FFFFFF';
+  },
+  .minRow{
+    height: 400;
+  }
+  .moveDown{
+    height: 30;
+  }
+  .dialog:{
+    max-width: 400;
+  }
+  .paper: {
+    height: 300;
+    width: 300;
+  }
+  .paddingText: {
+    padding-left: 20;
+    padding-right: 20;
+  }
+  .paddingTextTop {
+    padding-left: 20;
+    padding-right: 20;
+    padding-top: 20;
+  }

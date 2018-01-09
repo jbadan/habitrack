@@ -5,11 +5,9 @@ import ResponsiveLineChart from '../DataVis/ResponsiveLineChart';
 import RadarChart from '../DataVis/RadarChart';
 import NotEnoughData from '../Other/NotEnoughData';
 import CircleProgressBar from '../DataVis/CircleProgressBar';
-import {
-  BrowserRouter as Router,
-  Redirect
-} from 'react-router-dom';
+import {BrowserRouter as Router,Redirect} from 'react-router-dom';
 import Navbar from '../Main/Navigation/Navbar';
+import '../../Styles/habitList.css';
 //material-ui
 import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
   TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
@@ -19,55 +17,6 @@ import { grey400 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-const styles = {
-  bg: {
-    backgroundColor: "lightBlack",
-  },
-  minHeight: {
-    height: 570,
-  },
-  center:{
-    textAlign: "center",
-    color: "#00ACC1",
-    fontSize: "1.2em"
-  },
-  header:{
-    color: "#D81B60",
-    fontSize: "2em"
-  },
-  subHeader:{
-    color: "#FAFAFA",
-    fontSize: "1.2em"
-
-  },
-  style1:{
-    height: 570,
-    textAlign: 'center',
-    color: '#FFFFFF',
-  },
-  minRow:{
-    height: 400
-  },
-  moveDown:{
-    height: 30
-  },
-  dialog:{
-    maxWidth: 400
-  },
-  paper: {
-    height: 300,
-    width: 300
-  },
-  paddingText: {
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  paddingTextTop: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 20
-  }
-};
 const iconButtonElement = (
   <IconButton
     touch={true}
@@ -135,8 +84,6 @@ class HabitList extends Component {
       var day = now.getDayName();
       for(let j=0; j<result.data.habits.length; j++){
           //controlling for weekend activities
-          console.log(day)
-          console.log(result.data.habits[j].goal);
         if((day === 'Saturday' || day === 'Sunday') && (result.data.habits[j].goal === 7 || result.data.habits[j].goal === 2)){
             newCompleteArray.push(result.data.habits[j].completed)
         }else if((result.data.habits[j].goal === 7 || result.data.habits[j].goal === 5) && (day === "Monday" || day === "Tuesday"|| day === "Wednesday"|| day === "Thursday"|| day === "Friday")){
@@ -302,11 +249,11 @@ class HabitList extends Component {
         text = <NotEnoughData />
       }else{
         lineChart = <ResponsiveLineChart data={data} />
-        renderRadar =   <Card style={styles.minHeight}><RadarChart datesArr={data} /></Card>
-        text = <Paper zDepth={3} style={styles.paper}>
-          <h4 style={styles.paddingTextTop}>What am I looking at?</h4>
-          <p style={styles.paddingText}>This line graph is your total habit overview. The horizontal axis shows a linear progression by date and the vertical axis displays the number of habits you marked as complete that day. </p>
-          <p style={styles.paddingText}>The radar graph gives you the same information organized by day of the week. This makes it easier to see your trends by specific weekdays or just the weekend. </p>
+        renderRadar =   <Card className="minHeight"><RadarChart datesArr={data} /></Card>
+        text = <Paper zDepth={3} className="paper">
+          <h4 className="paddingTextTop">What am I looking at?</h4>
+          <p className="paddingText">This line graph is your total habit overview. The horizontal axis shows a linear progression by date and the vertical axis displays the number of habits you marked as complete that day. </p>
+          <p className="paddingText">The radar graph gives you the same information organized by day of the week. This makes it easier to see your trends by specific weekdays or just the weekend. </p>
         </Paper>
       }
     //redirecting to more detail page after click
@@ -350,15 +297,15 @@ class HabitList extends Component {
         }
 
     return(
-      <div style={styles.bg}>
+      <div className="styles-bg">
         <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
         <Row>
         <Col xs={12}>
           <Row>
             <Col xs={1} />
             <Col xs={9}>
-              <h1 style={styles.header}> Hello, {this.state.user.name}! </h1>
-              <h6 style={styles.subHeader}>Today is {day}, {month} {dd}, {yyyy} </h6>
+              <h1 className="header"> Hello, {this.state.user.name}! </h1>
+              <h6 className="subHeader">Today is {day}, {month} {dd}, {yyyy} </h6>
             </Col>
             <Col xs={1}>
               <FloatingActionButton
@@ -380,7 +327,7 @@ class HabitList extends Component {
             <Row>
               <Col xs={1} />
               <Col xs={10} sm={6}>
-              <Paper style={styles.minHeight} zDepth={3}>
+              <Paper className="minHeight" zDepth={3}>
               <Row start="xs">
                 <Col xs={6}>
                   <RaisedButton
@@ -393,7 +340,7 @@ class HabitList extends Component {
                 <Col xs={2}/>
                 <Col xs={8}>
                   <List>
-                    <Subheader style={styles.subHeader}>Today{`'`}s Habits</Subheader>
+                    <Subheader className="subHeader">Today{`'`}s Habits</Subheader>
                   {todayArr.map((habit, index) => {
                     return(
                       <Row>
@@ -419,7 +366,7 @@ class HabitList extends Component {
               </Col>
 
               <Col xs={12} sm={4}>
-                <Paper style={styles.style1} zDepth={4}>
+                <Paper className="style1" zDepth={4}>
                   <Row center="xs">
                     <Col xs={12}>
                       <h2>Total Points </h2>
@@ -458,7 +405,7 @@ class HabitList extends Component {
             </Row>
           </Col>
         </Row>
-        <Row style={styles.moveDown}></Row>
+        <Row className="moveDown"></Row>
         <Row>
           <Col xs={1} />
           <Col xs={10}>
@@ -468,7 +415,7 @@ class HabitList extends Component {
           </Col>
           <Col xs={1}/>
         </Row>
-        <Row style={styles.moveDown}></Row>
+        <Row className="moveDown"></Row>
       <Row middle="xs" center="xs">
             <Col xs={2} />
             <Col xs={12} sm={6}>
@@ -488,7 +435,7 @@ class HabitList extends Component {
           open={this.state.open}
           onRequestClose = {this.handleClose}
           actions={actions}
-          contentStyle={styles.dialog}
+          contentStyle={"maxWidth: 400px"}
           >
               <form>
                   <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
@@ -529,7 +476,7 @@ class HabitList extends Component {
             open={this.state.open2}
             onRequestChange={(open2) => this.setState({open2})}
           >
-              <h1 style={styles.center}>My Habits</h1>
+              <h1 className="center">My Habits</h1>
             <List>
             {this.state.habitArray.map((habit, index) => {
               return(
