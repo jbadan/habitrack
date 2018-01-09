@@ -8,7 +8,6 @@ import Dialog from 'material-ui/Dialog';
 import CircularProgress from 'material-ui/CircularProgress';
 import { Row, Col, Grid } from 'react-flexbox-grid';
 import Flash from './Flash';
-import { Redirect } from 'react-router'
 
 class Login extends Component {
   constructor(props) {
@@ -40,8 +39,9 @@ class Login extends Component {
     }).then((result) => {
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
-      this.handleClose();
+      console.log("step before handleRedirect")
       this.props.handleRedirect();
+      this.handleClose();
     }).catch((error) => {
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
     });
