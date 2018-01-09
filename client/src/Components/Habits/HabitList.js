@@ -5,6 +5,7 @@ import ResponsiveLineChart from '../DataVis/ResponsiveLineChart';
 import RadarChart from '../DataVis/RadarChart';
 import NotEnoughData from '../Other/NotEnoughData';
 import CircleProgressBar from '../DataVis/CircleProgressBar';
+import AddNewHabit from './HabitListComponents/AddNewHabit';
 import {BrowserRouter as Router,Redirect} from 'react-router-dom';
 import Navbar from '../Main/Navigation/Navbar';
 import '../../Styles/habitList.css';
@@ -15,7 +16,7 @@ import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
 import { Row, Col } from 'react-flexbox-grid';
 import { grey400 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+
 
 const iconButtonElement = (
   <IconButton
@@ -45,15 +46,9 @@ class HabitList extends Component {
     super(props);
     this.state = {
       habitArray: [],
-      newItem: '',
       user: this.props.user,
       redirect: false,
-      difficulty: 'easy',
-      //frequency value
-      value: 0,
       selectedItem: true,
-      //open controls dialog box for adding new habit
-      open: false,
       //controls drawer of all habits
       open2: false,
       //this is for the line graph
@@ -111,59 +106,6 @@ class HabitList extends Component {
   })
   }
 
-  //change handler for new habit name
-  newItemChange = (e) => {
-    this.setState({
-      newItem: e.target.value
-    })
-  }
-
-  //change handler for radio buttons (difficulty)
-  handleOptionChange = (e) =>{
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  //handlers for opening/closing add more dialog button
-   handleOpen = () => {
-      this.setState({open: true});
-   };
-   handleClose = () => {
-     this.setState({
-       open: false,
-       newItem: '',
-       difficulty: 'easy',
-     });
-   };
-
-//add new habit to database and list
-  addItem = (e) => {
-    e.preventDefault()
-    var updates = this.state.habitArray;
-    updates.push({name: this.state.newItem, difficulty: this.state.difficulty, goal: this.state.value});
-    //post new item to database
-    axios.post('/habit/new',{
-      user: this.props.user,
-      name: this.state.newItem,
-      difficulty: this.state.difficulty,
-      goal: this.state.value,
-      weeklyGoal: this.state.weeklyGoal
-    }).then(result => {
-      let newCompleteArray = result.data.habitCompletedArray
-      this.setState({
-        habitArray: updates,
-        open: false,
-        weeklyGoal: result.data.weeklyGoal,
-        open2: true,
-        completeArrayDaily: newCompleteArray
-      })
-    })
-  }
-
 //sub menu with more and delete
   menuClicked = (event, value) => {
     this.setState({
@@ -194,6 +136,14 @@ class HabitList extends Component {
          redirect: true
        })
      }
+   })
+ }
+ liftAfterAdd = (result, updates) => {
+   this.setState({
+     habitArray: result.updates,
+     weeklyGoal: result.result.weeklyGoal,
+     open2: true,
+     completeArrayDaily: result.result.habitCompletedArray
    })
  }
    //adds today's date and points to database
@@ -229,8 +179,6 @@ class HabitList extends Component {
        })
      })
    }
-   //change handler for goal setting
-   handleChange = (event, index, value) => this.setState({value});
 
   handleDrawerToggle = () => this.setState({open2: !this.state.open2});
 
@@ -261,21 +209,6 @@ class HabitList extends Component {
       if(redirect){
         return <Redirect to ='/habit'/>
       }
-    //add new item modal button controls
-      const actions = [
-        <FlatButton
-          label="Cancel"
-          primary={true}
-          onClick={this.handleClose}
-        />,
-        <FlatButton
-          label="Submit"
-          primary={true}
-          keyboardFocused={true}
-          onClick={(e) => this.addItem(e)}
-        />,
-      ];
-
 
       //getting today's date for welcome header(Wednesday, October 27, 2017 format)
       let todayDate = new Date();
@@ -308,13 +241,7 @@ class HabitList extends Component {
               <h6 className="subHeader">Today is {day}, {month} {dd}, {yyyy} </h6>
             </Col>
             <Col xs={1}>
-              <FloatingActionButton
-                secondary={true}
-                onClick={this.handleOpen}
-                style={{marginTop: '50px'}}
-              >
-                  <ContentAdd />
-              </FloatingActionButton>
+              <AddNewHabit weeklyGoal={this.state.weeklyGoal} user={this.props.user} habitArray={this.state.habitArray} liftAfterAdd={this.liftAfterAdd} habitArray={this.state.habitArray}/>
             </Col>
             <Col xs={1}/>
           </Row>
@@ -428,47 +355,6 @@ class HabitList extends Component {
           </Col>
             <Col xs={2} />
         </Row>
-
-
-
-        <Dialog
-          open={this.state.open}
-          onRequestClose = {this.handleClose}
-          actions={actions}
-          contentStyle={"maxWidth: 400px"}
-          >
-              <form>
-                  <TextField name="habit" onChange={(e) => this.newItemChange(e)} value={this.state.newItem} hintText="Type new habit here"/> <br/>
-
-                 <RadioButtonGroup onChange={this.handleOptionChange} name="difficulty" defaultSelected="Easy">
-                      <RadioButton
-                            value="easy"
-                            label="Easy"
-                          />
-                          <RadioButton
-                            value="medium"
-                            label="Medium"
-                          />
-                          <RadioButton
-                            value="hard"
-                            label="Hard"
-                          />
-                </RadioButtonGroup>
-
-               <SelectField
-                   floatingLabelText="Frequency"
-                   name="goal"
-                   default="Everyday"
-                   value={this.state.value}
-                   onChange={this.handleChange}
-                >
-                   <MenuItem value={7} primaryText="Everyday" />
-                   <MenuItem value={5} primaryText="Weekdays" />
-                   <MenuItem value={2} primaryText="Weekends" />
-              </SelectField> <br/>
-              </form>
-          </Dialog>
-
 
           <Drawer
             docked={false}
