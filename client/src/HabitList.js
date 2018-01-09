@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Main from './Main';
 import axios from 'axios';
 import moment from 'moment';
 import ResponsiveLineChart from './ResponsiveLineChart';
@@ -14,9 +13,9 @@ import Navbar from './Navbar';
 //material-ui
 import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
   TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
-  IconButton, Dialog, Drawer, Card, CardTitle, MenuItem, Paper, FloatingActionButton } from 'material-ui';
+  IconButton, Dialog, Drawer, Card, MenuItem, Paper, FloatingActionButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import { grey400 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -126,7 +125,6 @@ class HabitList extends Component {
      if(dd<10) {dd = '0'+dd}
      if(mm<10) {mm = '0'+mm}
      today = mm + '/' + dd + '/' + yyyy;
-     var weekend = new Date();
     axios.post('/habit', {
       user:this.state.user,
       date: today
@@ -264,11 +262,6 @@ class HabitList extends Component {
       if(mm<10) {mm = '0'+mm}
       today = mm + '/' + dd + '/' + yyyy;
       var weekNumber = moment(today, "MMDDYYYY").isoWeek();
-      //making array of objects for radar chart weekday data
-        let newDateForArray = {
-          date: today,
-          week: weekNumber
-        }
      axios.post('/habit/date', {
        user: this.props.user,
        date: today,

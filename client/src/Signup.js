@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
-import { Col, Row } from 'react-flexbox-grid';
+import { Row } from 'react-flexbox-grid';
 import Flash from './Flash';
 
 class Signup extends Component {

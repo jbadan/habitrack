@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './Line.css';
 import ReactFauxDOM from 'react-faux-dom';
 import {cyanA700, redA700} from 'material-ui/styles/colors'
@@ -32,7 +32,7 @@ class LineChart extends Component {
     //     {date:'2-Apr-2017',count:Math.floor(Math.random() * 11)},
     //     {date:'1-Apr-2017',count:Math.floor(Math.random() * 11)},
     //   ]
-      // : 
+      // :
       data = this.props.data;
     // data.forEach(d => {
     //   d.date = Date.parse(d.date);
@@ -74,8 +74,6 @@ class LineChart extends Component {
         .attr("width", width)
         .attr("height", height)
         .attr("class", 'line-chart');
-
-    let chartWrapper = svg.append("g")
 
     // Get the data and load it to the domain
     x.domain(d3.extent(data, function(d) { return d.date; }));

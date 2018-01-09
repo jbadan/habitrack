@@ -3,9 +3,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import axios from 'axios';
 import moment from 'moment';
 
-
-import {grey400, grey500, darkBlack, lightBlack, pink} from 'material-ui/styles/colors';
-
 (function() {
    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     Date.prototype.getDayName = function() {

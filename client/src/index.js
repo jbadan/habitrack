@@ -7,7 +7,6 @@ import registerServiceWorker from './registerServiceWorker';
 //MATERIAL UI THEME
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
 import customMuiTheme from './muiTheme';
 
 const Index = () => (

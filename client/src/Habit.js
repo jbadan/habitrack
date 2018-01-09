@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import HabitList from './HabitList';
 import { Row, Col } from 'react-flexbox-grid';
 import RadarChart from './RadarChart';
 import NotEnoughData from './NotEnoughData';
 import Navbar from './Navbar';
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText,
-  Subheader, RaisedButton, Drawer, List, ListItem} from 'material-ui';
+import {Card, CardTitle, RaisedButton, Drawer, List, ListItem} from 'material-ui';
 
 import {
   BrowserRouter as Router,

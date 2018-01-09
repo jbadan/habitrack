@@ -1,8 +1,5 @@
 import {
-  cyanA400, cyan700,
-  pinkA200,
-  grey100, grey300, grey400, grey500,
-  white, darkBlack, fullWhite,
+  cyanA400, cyan700, pinkA200, grey100, grey400, grey500, fullWhite,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
 import spacing from 'material-ui/styles/spacing';

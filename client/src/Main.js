@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Signup from './Signup';
-import Login from './Login';
 import { Row, Col } from 'react-flexbox-grid';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Navbar from './Navbar';
-import { MuiThemeProvider, AppBar, IconButton, Paper, RaisedButton } from 'material-ui';
+import { Paper, RaisedButton } from 'material-ui';
 import dash from './img/dash.png';
 import line from './img/line.png';
 import list from './img/list.png';
@@ -133,7 +131,7 @@ class Main extends Component {
 							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={5}>
-									<img src={dash} width={700} height={550}/>
+									<img src={dash} alt="dashboard" width={700} height={550}/>
 								</Col>
 							</Row>
 						</Row>
@@ -167,7 +165,7 @@ class Main extends Component {
 						<Row center="xs">
 							<Row middle="xs">
 								<Col xs={5}>
-									<img src={line} width={700} height={300}/>
+									<img src={line} alt="line chart" width={700} height={300}/>
 								</Col>
 							</Row>
 							<Col xs={1}></Col>
@@ -211,7 +209,7 @@ class Main extends Component {
 						<Row center="xs">
 							<Row middle="xs">
 								<Col xs={3}>
-									<img src={list} width={300} height={300}/>
+									<img src={list} alt="list view" width={300} height={300}/>
 								</Col>
 							</Row>
 							<Col xs={1}></Col>
@@ -226,7 +224,7 @@ class Main extends Component {
 							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={3}>
-									<img src={radar} wiradardth={300} height={300}/>
+									<img src={radar} alt="radar chart" wiradardth={300} height={300}/>
 								</Col>
 							</Row>
 						</Row>
@@ -261,7 +259,7 @@ class Main extends Component {
 							<Col xs={1}></Col>
 							<Row middle="xs">
 								<Col xs={5}>
-									<img src={points} width={300} height={400}/>
+									<img src={points} alt="point chart" width={300} height={400}/>
 								</Col>
 							</Row>
 						</Row>
@@ -282,7 +280,7 @@ class Main extends Component {
 				<Row around="xs" center="xs" className="about-section">
 					<Col xs={6} sm={3}>
 						<h4>Jenna Badanowski</h4>
-						<img className="devPhotos" src={Jenna}/>
+						<img className="devPhotos" alt="Jenna Badanowski" src={Jenna}/>
             <p>
             <a style={padding}  href="http://github.com/jbadan"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
             <a href="https://www.linkedin.com/in/jennabadanowski/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
@@ -292,7 +290,7 @@ class Main extends Component {
 					</Col>
 					<Col xs={6} sm={3}>
 						<h4>Matthew Bell</h4>
-						<img className="devPhotos" src={Matt}/>
+						<img className="devPhotos" alt="Matthew Bell" src={Matt}/>
             <p>
             <a style={padding}  href="https://github.com/Foozie3Moons"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
             <a href="https://www.linkedin.com/in/matthew-bell-290/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
@@ -303,7 +301,7 @@ class Main extends Component {
 					</Col>
 					<Col xs={6} sm={3}>
 						<h4>Evan Haala</h4>
-						<img className="devPhotos" src={Evan}/>
+						<img className="devPhotos" alt="Evan Haala" src={Evan}/>
             <p>
             <a style={padding} href="https://github.com/ehaala"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
             <a href="https://www.linkedin.com/in/ejhaala/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
@@ -314,7 +312,7 @@ class Main extends Component {
 					</Col>
 					<Col xs={6} sm={3}>
 						<h4>Lauren Perez</h4>
-						<img className="devPhotos" src={Lauren}/>
+						<img className="devPhotos" alt="Lauren Perez" src={Lauren}/>
             <p>
             <a style={padding} href="https://github.com/laurenperez"><i className="fa fa-github fa-2x" aria-hidden="true"></i></a>
             <a href="https://www.linkedin.com/in/lauren-ashley-perez/"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>

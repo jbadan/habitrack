@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { AppBar, Drawer, IconMenu, MenuItem, RaisedButton, IconButton, Toggle } from 'material-ui';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { AppBar, IconMenu, MenuItem, IconButton } from 'material-ui';
 import {
   BrowserRouter as Router,
   Redirect, Link
 } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
-import {cyanA400, grey900, grey800, grey400 } from 'material-ui/styles/colors';
+import {cyanA400, grey900, grey400 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
-import cube from './img/cube.png';
 import {FlatButton } from 'material-ui';
 
 const buttonStyle= {

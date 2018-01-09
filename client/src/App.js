@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link, Redirect
+import { BrowserRouter as Router, Route, Switch
   } from 'react-router-dom';
 import './App.css';
 import HabitList from './HabitList';
 import Main from './Main';
 import Habit from './Habit';
 import Restricted from './Restricted';
-import Navbar from './Navbar';
 import NotFound from './NotFound';
 import Test from './Test';
 import axios from 'axios';
