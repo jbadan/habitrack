@@ -6,6 +6,7 @@ import RadarChart from '../DataVis/RadarChart';
 import NotEnoughData from '../Other/NotEnoughData';
 import CircleProgressBar from '../DataVis/CircleProgressBar';
 import AddNewHabit from './HabitListComponents/AddNewHabit';
+import HabitDrawer from './HabitListComponents/HabitDrawer';
 import {BrowserRouter as Router,Redirect} from 'react-router-dom';
 import Navbar from '../Main/Navigation/Navbar';
 import '../../Styles/habitList.css';
@@ -14,19 +15,7 @@ import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
   TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,
   IconButton, Dialog, Drawer, Card, MenuItem, Paper, FloatingActionButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
-import { grey400 } from 'material-ui/styles/colors';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-
-const iconButtonElement = (
-  <IconButton
-    touch={true}
-    tooltip="more"
-    tooltipPosition="bottom-left"
-  >
-    <MoreVertIcon color={grey400} />
-  </IconButton>
-);
 
 //date prototype functions to get date for welcome message
 (function() {
@@ -106,44 +95,23 @@ class HabitList extends Component {
   })
   }
 
-//sub menu with more and delete
-  menuClicked = (event, value) => {
-    this.setState({
-       selectedItem: value
-   }, () => {
-     //if selectedItem is number(ie index then delete has been selected)
-     if(this.state.selectedItem.length === 24){
-       let updates = this.state.habitArray;
-       let id = this.state.selectedItem;
-       axios.post('/habit/delete', {
-         user: this.props.user,
-         habitId: id
-       }).then(result => {
-         this.setState({
-           habitArray:result.data.habits
-         })
-       })
-       //this means more info has been selected - redirect to habit info page
-     }else if(typeof this.state.selectedItem === "string"){
-       let habitName = this.state.selectedItem;
-       axios.post('/habit/details', {
-        user: this.props.user,
-        name: habitName
-       }).then(result => {
-         this.props.liftHabit(result.data);
-       })
-       this.setState({
-         redirect: true
-       })
-     }
-   })
- }
  liftAfterAdd = (result, updates) => {
    this.setState({
      habitArray: result.updates,
      weeklyGoal: result.result.weeklyGoal,
      open2: true,
      completeArrayDaily: result.result.habitCompletedArray
+   })
+ }
+
+ liftDrawer = () => {
+   this.setState({
+     redirect: true
+   })
+ }
+ liftHabitArray = (result) => {
+   this.setState({
+     habitArray: result.data.habits
    })
  }
    //adds today's date and points to database
@@ -356,30 +324,7 @@ class HabitList extends Component {
             <Col xs={2} />
         </Row>
 
-          <Drawer
-            docked={false}
-            width={200}
-            open={this.state.open2}
-            onRequestChange={(open2) => this.setState({open2})}
-          >
-              <h1 className="center">My Habits</h1>
-            <List>
-            {this.state.habitArray.map((habit, index) => {
-              return(
-                    <ListItem
-                      primaryText={habit.name}
-                      rightIconButton={
-                          <IconMenu iconButtonElement={iconButtonElement} value= { this.state.selectedItem } onChange={ this.menuClicked }>
-                            <MenuItem value={habit.name}>More Information</MenuItem>
-                            <MenuItem value={habit._id}>Delete</MenuItem>
-                          </IconMenu>
-                      }
-                    />
-
-              )
-            })}
-            </List>
-            </Drawer>
+          <HabitDrawer user={this.props.user} habitArray={this.state.habitArray} liftHabit={this.props.liftHabit} liftDrawer={this.liftDrawer} liftHabitArray={this.liftHabitArray} open={this.state.open2}/>
 
       </div>
     )
