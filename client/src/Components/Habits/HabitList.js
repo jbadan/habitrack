@@ -14,20 +14,6 @@ import '../../Styles/habitList.css';
 import {RaisedButton, List, ListItem, Subheader, Divider, Checkbox, Card, Paper} from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
 
-
-//date prototype functions to get date for welcome message
-(function() {
-   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    Date.prototype.getMonthName = function() {
-      return months[ this.getMonth() ];
-    };
-    Date.prototype.getDayName = function() {
-      return days[ this.getDay() ];
-    };
-})();
-
-
 class HabitList extends Component {
   constructor(props) {
     super(props);
@@ -174,13 +160,23 @@ class HabitList extends Component {
       }
 
       //getting today's date for welcome header(Wednesday, October 27, 2017 format)
+      //date prototype functions to get date for welcome message
+      (function() {
+         var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+         var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+          Date.prototype.getMonthName = function() {
+            return months[ this.getMonth() ];
+          };
+          Date.prototype.getDayName = function() {
+            return days[ this.getDay() ];
+          };
+      })();
       let todayDate = new Date();
       let dd = todayDate.getDate();
       let yyyy = todayDate.getFullYear();
        if(dd<10) {dd = '0'+dd}
-      var now = new Date();
-      var day = now.getDayName();
-      var month = now.getMonthName();
+      var day = todayDate.getDayName();
+      var month = todayDate.getMonthName();
 
       //today's to do List population logic
       let todayArr = []
