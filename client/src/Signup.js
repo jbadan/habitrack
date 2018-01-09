@@ -40,7 +40,7 @@ class Signup extends Component {
       console.log(result)
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
-      this.handleClose();
+      // this.handleClose();
       this.props.handleRedirect();
     }).catch(error => {
       console.log(error)
