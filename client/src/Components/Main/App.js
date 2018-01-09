@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch
   } from 'react-router-dom';
-import './App.css';
-import HabitList from './HabitList';
+import '../../Styles/App.css';
+import HabitList from '../Habits/HabitList';
 import Main from './Main';
-import Habit from './Habit';
-import Restricted from './Restricted';
-import NotFound from './NotFound';
-import Test from './Test';
+import Habit from '../Habits/Habit';
+import Restricted from '../Other/Restricted';
+import NotFound from '../Other/NotFound';
+import Test from '../../Test';
 import axios from 'axios';
 
 class App extends Component {

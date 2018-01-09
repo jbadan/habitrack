@@ -1,5 +1,5 @@
 import React  from 'react';
-import sleepingPuppies from './img/sleepingPuppies.gif';
+import sleepingPuppies from '../../img/sleepingPuppies.gif';
 import { RaisedButton } from 'material-ui';
 import { Link } from 'react-router-dom';
 

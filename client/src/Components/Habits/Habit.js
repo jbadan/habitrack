@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'react-flexbox-grid';
-import RadarChart from './RadarChart';
-import NotEnoughData from './NotEnoughData';
-import Navbar from './Navbar';
+import RadarChart from '../DataVis/RadarChart';
+import NotEnoughData from '../Other/NotEnoughData';
+import Navbar from '../Main/Navigation/Navbar';
 
 import {Card, CardTitle, RaisedButton, Drawer, List, ListItem} from 'material-ui';
 
-import {
-  BrowserRouter as Router,
-  Redirect
-} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect} from 'react-router-dom';
 
 
 const styles = {

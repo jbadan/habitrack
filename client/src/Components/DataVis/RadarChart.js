@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer} from 'recharts';
-import './RadarChart.css';
+import '../../Styles/RadarChart.css';
 
 class ResponsiveRadarChart extends Component {
   constructor(props) {

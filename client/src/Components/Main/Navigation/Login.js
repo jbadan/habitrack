@@ -1,117 +1,95 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import Dialog from 'material-ui/Dialog';
+import '../../../Styles/App.css';
+import {RaisedButton, FlatButton, TextField, Dialog } from 'material-ui';
 import { Row } from 'react-flexbox-grid';
-import Flash from './Flash';
+import Flash from '../../Other/Flash';
 
-class Signup extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
       email: '',
       password: '',
       open: false,
+      loading: false,
       alert: {type: '', msg: ''},
-      showAlert: false,
+      showAlert: false
     }
   }
 
-  handleNameChange = (e) => {
-    this.setState({name: e.target.value})
-  }
   handleEmailChange = (e) => {
     this.setState({email: e.target.value})
   }
-  handlePasswordChange = (e) => {
+
+  handlePasswordChange= (e) => {
     this.setState({password: e.target.value})
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/auth/signup', {
-      name: this.state.name,
+    this.setState({loading: true});
+    axios.post('/auth/login', {
       email: this.state.email,
       password: this.state.password
-    }).then(result => {
-      console.log(result)
+    }).then((result) => {
       localStorage.setItem('mernToken', result.data.token);
       this.props.lift(result.data);
-      // this.handleClose();
+      console.log("step before handleRedirect")
       this.props.handleRedirect();
-    }).catch(error => {
-      console.log(error)
+      this.handleClose();
+    }).catch((error) => {
       this.setState({alert: {type: 'error', msg: error.response.data.message}, showAlert: true});
-    })
+    });
   }
 
   clearAlert = () => {
-    this.setState({showAlert: false});
+    this.setState({showAlert: false,});
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false,
+      email: '',
+      password: ''
+    });
   }
 
   handleOpen = () => {
     this.setState({open: true});
   };
 
-  handleClose = () => {
-    this.setState({
-      open: false,
-      name: '',
-      email: '',
-      password: '',
-    });
-  };
-
   render() {
-    /**
-    * Dialog with action buttons. The actions are passed in as an array of React objects,
-    * in this example [FlatButtons](/#/components/flat-button).
-    *
-    * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
-    */
-
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={this.handleClose}
         style={{margin: '.25em'}}
+        onClick={this.handleClose}
       />,
       <RaisedButton
-        label="Submit"
+        label="Login"
         primary={true}
-        keyboardFocused={false}
-        onClick={this.handleSubmit}
         style={{margin: '.25em'}}
+        onClick={this.handleSubmit}
       />,
     ];
+
     return (
       <div>
-        <RaisedButton label="Signup" onClick={this.handleOpen} primary={this.props.primary}/>
+        <RaisedButton label="Login" onClick={this.handleOpen} />
         <Dialog
-          title="Signup"
+          title="Login"
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
           <div className='modal-content' >
-
-            <Row>
-              <TextField
-                   hintText="Name"
-                   floatingLabelText="What is your first name?"
-                   value={this.state.name}
-                   onChange={this.handleNameChange}
-              />
-            </Row>
             <Row>
               <TextField
                    hintText="Email"
-                   floatingLabelText="What is your email?"
+                   floatingLabelText="Enter your email"
                    value={this.state.email}
                    onChange={this.handleEmailChange}
               />
@@ -119,7 +97,7 @@ class Signup extends Component {
             <Row>
               <TextField
                    hintText="Password"
-                   floatingLabelText="Choose a password"
+                   floatingLabelText="Enter your password"
                    type="password"
                    value={this.state.password}
                    onChange={this.handlePasswordChange}
@@ -135,8 +113,9 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default Login;
 
-//Name: <input type='text' value={this.state.name} onChange={this.handleNameChange} /><br />
-//Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
+
+
+// Email: <input type='text' value={this.state.email} onChange={this.handleEmailChange} /><br />
 //Password: <input type='password' value={this.state.password} onChange={this.handlePasswordChange} /><br />

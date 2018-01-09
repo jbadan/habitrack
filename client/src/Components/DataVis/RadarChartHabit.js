@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Main from './Main';
+import Main from '../Main/Main';
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer} from 'recharts';
-import './RadarChart.css';
+import '../../Styles/RadarChart.css';
 
 class RadarChartHabit extends Component {
   constructor(props) {

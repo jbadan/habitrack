@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import Signup from './Signup';
+import Signup from './Navigation/Signup';
 import { Row, Col } from 'react-flexbox-grid';
-import Navbar from './Navbar';
+import Navbar from './Navigation/Navbar';
 import { Paper, RaisedButton } from 'material-ui';
-import dash from './img/dash.png';
-import line from './img/line.png';
-import list from './img/list.png';
-import radar from './img/radar.png';
-import points from './img/points.png';
+import dash from '../../img/dash.png';
+import line from '../../img/line.png';
+import list from '../../img/list.png';
+import radar from '../../img/radar.png';
+import points from '../../img/points.png';
 import {
   BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
 
-import Jenna from './img/Jenna.jpeg';
-import Matt from './img/Matt.png';
-import Evan from './img/Evan.jpeg';
-import Lauren from './img/Lauren.jpeg';
+import Jenna from '../../img/Jenna.jpeg';
+import Matt from '../../img/Matt.png';
+import Evan from '../../img/Evan.jpeg';
+import Lauren from '../../img/Lauren.jpeg';
 
 class Main extends Component {
 	constructor(props) {

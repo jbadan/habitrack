@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import ResponsiveLineChart from './ResponsiveLineChart';
-import RadarChart from './RadarChart';
-import NotEnoughData from './NotEnoughData';
-import CircleProgressBar from './CircleProgressBar';
+import ResponsiveLineChart from '../DataVis/ResponsiveLineChart';
+import RadarChart from '../DataVis/RadarChart';
+import NotEnoughData from '../Other/NotEnoughData';
+import CircleProgressBar from '../DataVis/CircleProgressBar';
 import {
   BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from '../Main/Navigation/Navbar';
 //material-ui
 import {RaisedButton, SelectField, RadioButton, RadioButtonGroup,
   TextField, FlatButton, List, ListItem, Subheader, Divider, Checkbox, IconMenu,

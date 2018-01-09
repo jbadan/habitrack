@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import './Line.css';
+import '../../Styles/Line.css';
 import ReactFauxDOM from 'react-faux-dom';
 import {cyanA700, redA700} from 'material-ui/styles/colors'
 import * as d3 from "d3";
