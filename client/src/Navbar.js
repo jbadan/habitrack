@@ -61,20 +61,14 @@ class Navbar extends Component {
     this.state = {
       user: props.user,
       token: props.lift,
-      redirect: false,
     }
   }
   componentWillReceiveProps = (nextProps) => {
     this.setState({user: nextProps.user})
   }
-  handleRedirect = () => this.setState({redirect: true});
 
 
   render() {
-    const {redirect} = this.state;
-    if(redirect){
-      return <Redirect to ='/display'/>
-    };
     return (
       <div>
         <AppBar
@@ -92,10 +86,10 @@ class Navbar extends Component {
           iconElementRight={this.state.user.id ? <Logged user={this.state.user} signOut={this.props.signOut}/> : (
             <div className='nav-buttons'>
               <div className='nav-button'>
-                <Signup lift={this.props.lift} handleRedirect={this.handleRedirect} primary={false}/>
+                <Signup lift={this.props.lift} handleRedirect={this.props.redirect} primary={false}/>
               </div>
               <div className='nav-button'>
-                <Login handleRedirect={this.handleRedirect} lift={this.props.lift}/>
+                <Login handleRedirect={this.props.redirect} lift={this.props.lift}/>
               </div>
             </div>
 

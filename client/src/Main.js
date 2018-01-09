@@ -76,7 +76,7 @@ class Main extends Component {
 
 		return (
 			<div id="mainPage">
-        <Navbar user={this.props.user} lift={this.props.liftTokenToState} signOut={this.props.signOut} />
+        <Navbar user={this.props.user} lift={this.props.liftTokenToState} redirect={this.handleRedirect} signOut={this.props.signOut} />
 				<div className="spacer"></div>
 
 				<div id="welcome">
