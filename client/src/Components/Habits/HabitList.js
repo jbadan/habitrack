@@ -188,6 +188,9 @@ class HabitList extends Component {
           }
         }
 
+        var divStyle = {
+          height: 60,
+        };
     return(
       <div className="styles-bg">
         <Navbar user={this.props.user} lift={this.props.lift} signOut={this.props.signOut} />
@@ -290,7 +293,7 @@ class HabitList extends Component {
             </Row>
           </Col>
         </Row>
-        <Row className="moveDown"></Row>
+        <Row style={divStyle}></Row>
         <Row>
           <Col xs={1} />
           <Col xs={10}>
@@ -300,7 +303,7 @@ class HabitList extends Component {
           </Col>
           <Col xs={1}/>
         </Row>
-        <Row className="moveDown"></Row>
+        <Row style={divStyle}></Row>
       <Row middle="xs" center="xs">
             <Col xs={2} />
             <Col xs={12} sm={6}>
