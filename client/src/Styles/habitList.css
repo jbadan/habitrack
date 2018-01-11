@@ -1,42 +1,42 @@
 .styles-bg {
-  background-color: "lightBlack";
+  background-color:  lightBlack ;
   }
   .minHeight {
     height: 570;
   }
   .center{
-    text-align: "center";
-    color: "#00ACC1";
-    font-size: "1.2em";
+    text-align:  center ;
+    color:  #00ACC1 ;
+    font-size:  1.2em ;
   }
   .header{
-    color: "#D81B60";
-    font-size: "2em";
+    color:  #D81B60 ;
+    font-size:  2em ;
   }
   .subHeader{
-    color: "#FAFAFA";
-    font-size: "1.2em";
+    color:  #FAFAFA ;
+    font-size:  1.2em ;
 
   }
   .style1{
     height: 570;
-    text-align: 'center';
-    color: '#FFFFFF';
+    text-align: center;
+    color:  #FFFFFF ;
   },
   .minRow{
     height: 400;
   }
   .moveDown{
-    height: 30;
+    height: 60px;
   }
-  .dialog:{
+  .dialog{
     max-width: 400;
   }
-  .paper: {
+  .paper {
     height: 300;
     width: 300;
   }
-  .paddingText: {
+  .paddingText {
     padding-left: 20;
     padding-right: 20;
   }
